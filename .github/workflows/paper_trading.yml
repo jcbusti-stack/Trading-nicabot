@@ -2,31 +2,31 @@ name: Paper Trading SOL
 
 on:
   schedule:
-    - cron: '0 14 * * *'
+    - cron: '0 */4 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  correr-bot:
+  run-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: Descargar el repositorio
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Preparar Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Instalar dependencias
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Correr el bot
+      - name: Run bot
         run: python bot_paper.py
 
-      - name: Guardar el resultado en el repositorio
+      - name: Commit result to repo
         run: |
           git config user.name "bot-trading"
           git config user.email "bot@trading.local"
