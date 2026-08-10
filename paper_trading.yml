@@ -1,4 +1,4 @@
-name: Paper Trading SOL
+github/workflows/paper_trading.ymlname: Paper Trading SOL
 
 on:
   schedule:
