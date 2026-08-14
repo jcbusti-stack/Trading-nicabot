@@ -44,6 +44,15 @@ def main():
     senal_entrada = trend_up and macd_bullish and rsi_ok and momentum_ok
     senal_salida = (ultima['MACD'] < ultima['MACD_signal']) or (ultima['RSI'] > 75)
 
+    print('--- DIAGNOSTICO INDICADORES (12h) ---')
+    print(f'Precio actual: {ultima["close"]:.2f}')
+    print(f'EMA_200: {ultima["EMA_200"]:.2f} | necesita precio > {ultima["EMA_200"] * 1.015:.2f} -> {"OK" if trend_up else "NO cumple"}')
+    print(f'EMA_9: {ultima["EMA_9"]:.2f} vs EMA_21: {ultima["EMA_21"]:.2f} -> {"OK" if momentum_ok else "NO cumple"}')
+    print(f'RSI: {ultima["RSI"]:.2f} (necesita <65) -> {"OK" if rsi_ok else "NO cumple"}')
+    print(f'MACD: {ultima["MACD"]:.4f} vs señal: {ultima["MACD_signal"]:.4f} -> {"OK" if macd_bullish else "NO cumple"}')
+    print(f'SEÑAL DE ENTRADA COMPLETA: {"SI" if senal_entrada else "NO"}')
+    print('--------------------------------------')
+
     if os.path.exists(RUTA_ESTADO):
         with open(RUTA_ESTADO) as f:
             estado = json.load(f)
