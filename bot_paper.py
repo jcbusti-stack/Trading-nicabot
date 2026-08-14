@@ -2,9 +2,16 @@ import ccxt
 import pandas as pd
 import json
 import os
+import re
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
 
 RUTA_ESTADO = 'estado.json'
 CAPITAL_INICIAL = 1000
+NOMBRE_SENAL = 'senal_sol.txt'
+GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
+FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
 
 exchange = ccxt.okx()
 
@@ -31,6 +38,37 @@ def indicadores(df):
     df['MACD'] = ema12 - ema26
     df['MACD_signal'] = df['MACD'].ewm(span=9, adjust=False).mean()
     return df.dropna()
+
+
+def subir_senal_a_drive(texto):
+    if not GCP_SA_KEY:
+        print('GCP_SA_KEY no configurado, no se sube a Drive.')
+        return
+    try:
+        match = re.search(r'\{.*\}', GCP_SA_KEY, re.DOTALL)
+        info = json.loads(match.group(0))
+        creds = Credentials.from_service_account_info(
+            info, scopes=['https://www.googleapis.com/auth/drive']
+        )
+        service = build('drive', 'v3', credentials=creds)
+
+        with open(NOMBRE_SENAL, 'w', encoding='utf-8') as f:
+            f.write(texto)
+
+        query = f"name = '{NOMBRE_SENAL}' and '{FOLDER_ID}' in parents and trashed = false"
+        results = service.files().list(q=query, fields='files(id)', pageSize=1).execute()
+        files = results.get('files', [])
+
+        media = MediaFileUpload(NOMBRE_SENAL, mimetype='text/plain')
+        if files:
+            service.files().update(fileId=files[0]['id'], media_body=media).execute()
+            print(f'{NOMBRE_SENAL} actualizado en Drive.')
+        else:
+            metadata = {'name': NOMBRE_SENAL, 'mimeType': 'text/plain', 'parents': [FOLDER_ID]}
+            service.files().create(body=metadata, media_body=media, fields='id').execute()
+            print(f'{NOMBRE_SENAL} creado en Drive.')
+    except Exception as e:
+        print('No se pudo subir la señal a Drive:', e)
 
 
 def main():
@@ -98,6 +136,20 @@ def main():
     print(mensaje)
     print('Capital simulado actual:', round(estado['cash'], 2))
     print('Operaciones cerradas hasta hoy:', len(estado['historial']))
+
+    resumen = (
+        f"Actualizado: {fecha_actual}\n"
+        f"Precio SOL: ${precio_actual:.2f}\n"
+        f"Estado: {mensaje}\n"
+        f"Tendencia (EMA200): {'OK' if trend_up else 'NO cumple'}\n"
+        f"Momentum (EMA9/21): {'OK' if momentum_ok else 'NO cumple'}\n"
+        f"RSI: {ultima['RSI']:.1f} ({'OK' if rsi_ok else 'NO cumple'})\n"
+        f"MACD: {'OK' if macd_bullish else 'NO cumple'}\n"
+        f"Señal de entrada completa: {'SI' if senal_entrada else 'NO'}\n"
+        f"Capital simulado: ${round(estado['cash'], 2)}\n"
+        f"Operaciones cerradas: {len(estado['historial'])}\n"
+    )
+    subir_senal_a_drive(resumen)
 
 
 if __name__ == '__main__':
