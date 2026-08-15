@@ -6,9 +6,20 @@ y genera un puntaje de sentimiento por cada uno.
 No requiere API key de pago: usa el feed RSS público de Google News.
 """
 
+import json
+import os
+import re
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
+
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
+
+NOMBRE_SENTIMIENTO = 'sentimiento_multi_activo.txt'
+GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
+FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
 
 # ----------------------------
 # 1. Activos a monitorear
@@ -138,20 +149,54 @@ def generar_reporte(resultados):
 
 
 # ----------------------------
-# 6. Punto de entrada
+# 6. Subir reporte a Google Drive (mismo patrón que bot_paper.py)
+# ----------------------------
+
+def subir_sentimiento_a_drive(texto):
+    if not GCP_SA_KEY:
+        print('GCP_SA_KEY no configurado, no se sube a Drive.')
+        return
+    try:
+        match = re.search(r'\{.*\}', GCP_SA_KEY, re.DOTALL)
+        info = json.loads(match.group(0))
+        creds = Credentials.from_service_account_info(
+            info, scopes=['https://www.googleapis.com/auth/drive']
+        )
+        service = build('drive', 'v3', credentials=creds)
+
+        with open(NOMBRE_SENTIMIENTO, 'w', encoding='utf-8') as f:
+            f.write(texto)
+
+        query = f"name = '{NOMBRE_SENTIMIENTO}' and '{FOLDER_ID}' in parents and trashed = false"
+        results = service.files().list(q=query, fields='files(id)', pageSize=1).execute()
+        files = results.get('files', [])
+
+        media = MediaFileUpload(NOMBRE_SENTIMIENTO, mimetype='text/plain')
+        if files:
+            service.files().update(fileId=files[0]['id'], media_body=media).execute()
+            print(f'{NOMBRE_SENTIMIENTO} actualizado en Drive.')
+        else:
+            metadata = {'name': NOMBRE_SENTIMIENTO, 'mimeType': 'text/plain', 'parents': [FOLDER_ID]}
+            service.files().create(body=metadata, media_body=media, fields='id').execute()
+            print(f'{NOMBRE_SENTIMIENTO} creado en Drive.')
+    except Exception as e:
+        print('No se pudo subir el sentimiento a Drive:', e)
+
+
+# ----------------------------
+# 7. Punto de entrada
 # ----------------------------
 
 def main():
     resultados = analizar_todos_los_activos()
     reporte = generar_reporte(resultados)
 
-    with open("sentimiento_multi_activo.txt", "w", encoding="utf-8") as f:
-        f.write(reporte)
-
     print("")
-    print("Listo. Reporte guardado en sentimiento_multi_activo.txt")
+    print("Listo. Subiendo reporte a Drive...")
     print("")
     print(reporte)
+
+    subir_sentimiento_a_drive(reporte)
 
 
 if __name__ == "__main__":
