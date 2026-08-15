@@ -1,0 +1,32 @@
+name: Sentimiento Diario Claude
+
+on:
+  schedule:
+    # Mexico (CDMX) no usa horario de verano desde 2022, se mantiene en UTC-6 todo el año.
+    # 6:00 AM CDMX = 12:00 UTC
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-sentimiento:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar agente de sentimiento con Claude
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python agente_sentimiento_claude.py
