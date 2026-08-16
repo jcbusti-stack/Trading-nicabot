@@ -40,6 +40,23 @@ def indicadores(df):
     return df.dropna()
 
 
+def confirmacion_diaria(par='SOL/USDT'):
+    """
+    Calcula la tendencia en velas DIARIAS (24h) como dato INFORMATIVO adicional.
+    IMPORTANTE: esto NO filtra ni cambia la señal de entrada/salida validada
+    con backtesting en 12h. Es solo un dato extra de contexto para Juan Carlos,
+    hasta que se valide con su propio backtesting si conviene usarlo como filtro.
+    """
+    try:
+        df_diario = indicadores(descargar_reciente(par, timeframe='1d', velas=250))
+        ultima_diaria = df_diario.iloc[-1]
+        tendencia_diaria_ok = ultima_diaria['close'] > ultima_diaria['EMA_200'] * 1.015
+        return tendencia_diaria_ok
+    except Exception as e:
+        print('No se pudo calcular la confirmacion diaria:', e)
+        return None
+
+
 def subir_senal_a_drive(texto):
     if not GCP_SA_KEY:
         print('GCP_SA_KEY no configurado, no se sube a Drive.')
@@ -79,8 +96,13 @@ def main():
     macd_bullish = ultima['MACD'] > ultima['MACD_signal']
     rsi_ok = ultima['RSI'] < 65
     momentum_ok = ultima['EMA_9'] > ultima['EMA_21']
+    # La señal de entrada/salida sigue siendo EXACTAMENTE la misma validada
+    # con backtesting (12h). La confirmacion diaria NO participa aqui todavia.
     senal_entrada = trend_up and macd_bullish and rsi_ok and momentum_ok
     senal_salida = (ultima['MACD'] < ultima['MACD_signal']) or (ultima['RSI'] > 75)
+
+    print('Calculando confirmacion diaria (informativa)...')
+    tendencia_diaria_ok = confirmacion_diaria('SOL/USDT')
 
     print('--- DIAGNOSTICO INDICADORES (12h) ---')
     print(f'Precio actual: {ultima["close"]:.2f}')
@@ -89,6 +111,8 @@ def main():
     print(f'RSI: {ultima["RSI"]:.2f} (necesita <65) -> {"OK" if rsi_ok else "NO cumple"}')
     print(f'MACD: {ultima["MACD"]:.4f} vs señal: {ultima["MACD_signal"]:.4f} -> {"OK" if macd_bullish else "NO cumple"}')
     print(f'SEÑAL DE ENTRADA COMPLETA: {"SI" if senal_entrada else "NO"}')
+    if tendencia_diaria_ok is not None:
+        print(f'Confirmacion diaria (informativa, NO filtra): {"OK" if tendencia_diaria_ok else "NO cumple"}')
     print('--------------------------------------')
 
     if os.path.exists(RUTA_ESTADO):
@@ -137,14 +161,22 @@ def main():
     print('Capital simulado actual:', round(estado['cash'], 2))
     print('Operaciones cerradas hasta hoy:', len(estado['historial']))
 
+    if tendencia_diaria_ok is None:
+        texto_diaria = "No disponible"
+    elif tendencia_diaria_ok:
+        texto_diaria = "OK (informativa, no filtra la señal todavia)"
+    else:
+        texto_diaria = "NO cumple (informativa, no filtra la señal todavia)"
+
     resumen = (
         f"Actualizado: {fecha_actual}\n"
         f"Precio SOL: ${precio_actual:.2f}\n"
         f"Estado: {mensaje}\n"
-        f"Tendencia (EMA200): {'OK' if trend_up else 'NO cumple'}\n"
+        f"Tendencia (EMA200, 12h): {'OK' if trend_up else 'NO cumple'}\n"
         f"Momentum (EMA9/21): {'OK' if momentum_ok else 'NO cumple'}\n"
         f"RSI: {ultima['RSI']:.1f} ({'OK' if rsi_ok else 'NO cumple'})\n"
         f"MACD: {'OK' if macd_bullish else 'NO cumple'}\n"
+        f"Confirmacion diaria (24h): {texto_diaria}\n"
         f"Señal de entrada completa: {'SI' if senal_entrada else 'NO'}\n"
         f"Capital simulado: ${round(estado['cash'], 2)}\n"
         f"Operaciones cerradas: {len(estado['historial'])}\n"
