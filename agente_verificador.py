@@ -1,14 +1,16 @@
 """
 Agente Verificador Final - Trading-nicabot
-Lee los reportes de los otros 3 agentes (senal tecnica, sentimiento,
-escaner de oportunidades) y les hace una revision cruzada con Claude,
-senalando coincidencias, contradicciones, y un veredicto final claro.
+Lee los reportes de los otros agentes (senal tecnica, sentimiento,
+escaner de oportunidades) MAS el portafolio real de Kraken, y le hace
+una revision cruzada con Claude, personalizada a las posiciones reales
+de Juan Carlos.
 
-Se ejecuta DESPUES de los otros 3 scripts, para que ya existan los archivos.
+Se ejecuta DESPUES de los otros scripts, para que ya existan los archivos.
 
 Requiere: ANTHROPIC_API_KEY, GCP_SA_KEY (ya configurados)
 """
 
+import io
 import json
 import os
 import re
@@ -17,11 +19,10 @@ from datetime import datetime
 import anthropic
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
-from googleapiclient.http import MediaIoBaseDownload
-import io
+from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 
 NOMBRE_ARCHIVO = 'veredicto_final.txt'
+NOMBRE_PORTFOLIO = 'portfolio.csv'
 GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
 FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
 ANTHROPIC_API_KEY = (os.environ.get('ANTHROPIC_API_KEY') or '').strip()
@@ -40,10 +41,79 @@ def leer_archivo_local(nombre):
         return ""
 
 
-def generar_veredicto(senal_tecnica, sentimiento, oportunidades):
+def obtener_credenciales_drive():
+    match = re.search(r'\{.*\}', GCP_SA_KEY, re.DOTALL)
+    info = json.loads(match.group(0))
+    return Credentials.from_service_account_info(
+        info, scopes=['https://www.googleapis.com/auth/drive']
+    )
+
+
+def descargar_portfolio_desde_drive():
+    """Descarga portfolio.csv desde Drive (lo actualiza main.py en otro workflow)."""
+    if not GCP_SA_KEY:
+        return ""
+    try:
+        creds = obtener_credenciales_drive()
+        service = build('drive', 'v3', credentials=creds)
+
+        query = f"name = '{NOMBRE_PORTFOLIO}' and '{FOLDER_ID}' in parents and trashed = false"
+        results = service.files().list(q=query, fields='files(id)', pageSize=1).execute()
+        files = results.get('files', [])
+        if not files:
+            print('portfolio.csv no encontrado en Drive.')
+            return ""
+
+        request = service.files().get_media(fileId=files[0]['id'])
+        buf = io.BytesIO()
+        downloader = MediaIoBaseDownload(buf, request)
+        done = False
+        while not done:
+            _, done = downloader.next_chunk()
+        buf.seek(0)
+        return buf.getvalue().decode('utf-8')
+    except Exception as e:
+        print('No se pudo descargar portfolio.csv:', e)
+        return ""
+
+
+def resumir_portfolio(csv_texto):
+    """Convierte el CSV en un resumen corto de posiciones reales, para el prompt."""
+    if not csv_texto:
+        return ""
+
+    lineas = csv_texto.strip().split("\n")
+    posiciones = []
+    total = ""
+
+    for linea in lineas[1:]:
+        partes = linea.split(",")
+        if len(partes) < 6:
+            continue
+        seccion, tipo, activo, cantidad, precio, valor_usd = partes[:6]
+        if seccion == "balance" and tipo != "earn_flex_ya_incluido_en_spot":
+            try:
+                valor = float(valor_usd)
+                posiciones.append((activo, tipo, valor))
+            except ValueError:
+                continue
+        elif seccion == "total":
+            total = valor_usd
+
+    posiciones.sort(key=lambda x: x[2], reverse=True)
+    resumen = [f"Valor total del portafolio: ${total}"]
+    resumen.append("Posiciones (de mayor a menor):")
+    for activo, tipo, valor in posiciones[:12]:
+        resumen.append(f"- {activo} ({tipo}): ${valor:.2f}")
+
+    return "\n".join(resumen)
+
+
+def generar_veredicto(senal_tecnica, sentimiento, oportunidades, portfolio_resumen):
     prompt = f"""Eres el verificador final de un sistema de analisis de criptomonedas.
-Tu trabajo es cruzar la informacion de 3 fuentes independientes y dar un veredicto
-honesto, sin inventar datos que no esten aqui.
+Tu trabajo es cruzar la informacion de varias fuentes independientes y dar un veredicto
+honesto y PERSONALIZADO a las posiciones reales de Juan Carlos, sin inventar datos que
+no esten aqui.
 
 SEÑAL TECNICA DE SOL (unica con backtesting validado):
 {senal_tecnica or "No disponible"}
@@ -55,19 +125,23 @@ ESCANER DE OPORTUNIDADES (mismos indicadores tecnicos aplicados a otras monedas,
 SIN backtesting propio, solo informativo):
 {oportunidades or "No disponible"}
 
-Escribe un veredicto final en español, maximo 8 lineas, en formato de lista simple,
-apto para lector de pantalla (sin tablas). Debe incluir:
+PORTAFOLIO REAL DE JUAN CARLOS EN KRAKEN:
+{portfolio_resumen or "No disponible"}
+
+Escribe un veredicto final en español, maximo 10 lineas, en formato de lista simple,
+sin tablas, apto para ser leido por un lector de pantalla. Debe incluir:
 1. Si la señal tecnica y el sentimiento de SOL coinciden o se contradicen.
-2. Si el escaner de oportunidades encontro algo que merezca atencion, aclarando
-   siempre que no tiene backtesting propio.
-3. Un veredicto final claro: "mantenerse fuera", "vigilar de cerca", o similar.
+2. Que posiciones REALES de su portafolio estan mas expuestas a riesgo segun el
+   sentimiento negativo (menciona el activo y su valor en dolares si aplica).
+3. Que posiciones reales tienen sentimiento positivo actualmente.
+4. Un veredicto final claro: "mantenerse fuera", "vigilar de cerca", o similar.
    NUNCA digas "comprar" o "vender" de forma directa - solo da contexto para que
    Juan Carlos decida.
 """
 
     respuesta = cliente.messages.create(
         model=MODELO,
-        max_tokens=400,
+        max_tokens=500,
         messages=[{"role": "user", "content": prompt}],
     )
 
@@ -79,11 +153,7 @@ def subir_a_drive(texto):
         print('GCP_SA_KEY no configurado, no se sube a Drive.')
         return
     try:
-        match = re.search(r'\{.*\}', GCP_SA_KEY, re.DOTALL)
-        info = json.loads(match.group(0))
-        creds = Credentials.from_service_account_info(
-            info, scopes=['https://www.googleapis.com/auth/drive']
-        )
+        creds = obtener_credenciales_drive()
         service = build('drive', 'v3', credentials=creds)
 
         with open(NOMBRE_ARCHIVO, 'w', encoding='utf-8') as f:
@@ -114,8 +184,12 @@ def main():
     sentimiento = leer_archivo_local('sentimiento_multi_activo.txt')
     oportunidades = leer_archivo_local('oportunidades.txt')
 
-    print("Generando veredicto final (revision cruzada)...")
-    veredicto = generar_veredicto(senal_tecnica, sentimiento, oportunidades)
+    print("Descargando portafolio real desde Drive...")
+    portfolio_csv = descargar_portfolio_desde_drive()
+    portfolio_resumen = resumir_portfolio(portfolio_csv)
+
+    print("Generando veredicto final (revision cruzada + portafolio real)...")
+    veredicto = generar_veredicto(senal_tecnica, sentimiento, oportunidades, portfolio_resumen)
 
     fecha = datetime.now().strftime("%Y-%m-%d %H:%M")
     reporte = f"Veredicto Final - Revision Cruzada - {fecha}\n\n{veredicto}"
