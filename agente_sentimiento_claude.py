@@ -27,7 +27,6 @@ ANTHROPIC_API_KEY = (os.environ.get('ANTHROPIC_API_KEY') or '').strip()
 
 MODELO = 'claude-haiku-4-5-20251001'
 
-# Lista de activos: los 5 principales + todas las criptos del portafolio de Juan Carlos
 ACTIVOS = {
     "BTC": "Bitcoin BTC criptomoneda",
     "ETH": "Ethereum ETH criptomoneda",
@@ -79,7 +78,31 @@ def obtener_noticias(query, idioma="es-419", pais="MX", max_noticias=10):
 
 
 # ----------------------------
-# 2. Agente analista por activo (llamada a Claude)
+# 2. Extraer JSON de forma robusta (arregla el error "Extra data")
+# ----------------------------
+
+def extraer_json(texto):
+    """
+    Extrae el primer objeto JSON valido de un texto, incluso si Claude
+    agrego texto extra antes o despues (bloques de codigo, explicaciones, etc).
+    """
+    # Quitar posibles bloques de markdown ```json ... ```
+    texto_limpio = re.sub(r'```json|```', '', texto).strip()
+
+    inicio = texto_limpio.find('{')
+    if inicio == -1:
+        return {"sentimiento": "Neutral", "resumen": "No se pudo interpretar el analisis."}
+
+    decoder = json.JSONDecoder()
+    try:
+        datos, _ = decoder.raw_decode(texto_limpio, inicio)
+        return datos
+    except json.JSONDecodeError:
+        return {"sentimiento": "Neutral", "resumen": "No se pudo interpretar el analisis."}
+
+
+# ----------------------------
+# 3. Agente analista por activo (llamada a Claude)
 # ----------------------------
 
 def analizar_activo_con_claude(simbolo, titulares):
@@ -93,8 +116,9 @@ def analizar_activo_con_claude(simbolo, titulares):
     lista_titulares = "\n".join(f"- {t}" for t in titulares)
 
     prompt = f"""Eres un analista financiero especializado en criptomonedas.
-Analiza estos titulares recientes sobre {simbolo} y responde SOLO en formato JSON,
-sin texto adicional, con esta estructura exacta:
+Analiza estos titulares recientes sobre {simbolo} y responde UNICAMENTE con un
+objeto JSON, sin explicaciones antes ni despues, sin bloques de markdown,
+con esta estructura exacta:
 
 {{"sentimiento": "Alcista" o "Bajista" o "Neutral", "resumen": "una frase corta en español, maximo 20 palabras, explicando por que"}}
 
@@ -109,14 +133,7 @@ Titulares:
     )
 
     texto = respuesta.content[0].text.strip()
-
-    try:
-        datos = json.loads(texto)
-    except json.JSONDecodeError:
-        match = re.search(r'\{.*\}', texto, re.DOTALL)
-        datos = json.loads(match.group(0)) if match else {
-            "sentimiento": "Neutral", "resumen": "No se pudo interpretar el analisis."
-        }
+    datos = extraer_json(texto)
 
     return {
         "simbolo": simbolo,
@@ -126,7 +143,7 @@ Titulares:
 
 
 # ----------------------------
-# 3. Agente orquestador (junta todo en un solo reporte)
+# 4. Agente orquestador (junta todo en un solo reporte)
 # ----------------------------
 
 def generar_reporte_final(resultados, senal_tecnica_texto=""):
@@ -157,7 +174,7 @@ y si SOL coincide o no con su señal tecnica.
 
 
 # ----------------------------
-# 4. Subir a Google Drive (mismo patron que bot_paper.py)
+# 5. Subir a Google Drive (mismo patron que bot_paper.py)
 # ----------------------------
 
 def subir_sentimiento_a_drive(texto):
@@ -192,7 +209,7 @@ def subir_sentimiento_a_drive(texto):
 
 
 # ----------------------------
-# 5. Punto de entrada
+# 6. Punto de entrada
 # ----------------------------
 
 def main():
