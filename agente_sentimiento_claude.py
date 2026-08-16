@@ -1,7 +1,7 @@
 """
 Agente de Sentimiento con Claude (Anthropic API) - Trading-nicabot
-Analiza noticias de BTC, ETH, SOL, XRP, BNB y ONDO usando Claude Haiku
-(el modelo mas economico) en vez de conteo simple de palabras clave.
+Analiza noticias de todas las criptomonedas del portafolio de Juan Carlos
+usando Claude Haiku (el modelo mas economico).
 
 Requiere:
 - Variable de entorno ANTHROPIC_API_KEY (secret en GitHub)
@@ -27,20 +27,31 @@ ANTHROPIC_API_KEY = (os.environ.get('ANTHROPIC_API_KEY') or '').strip()
 
 MODELO = 'claude-haiku-4-5-20251001'
 
+# Lista de activos: los 5 principales + todas las criptos del portafolio de Juan Carlos
 ACTIVOS = {
     "BTC": "Bitcoin BTC criptomoneda",
     "ETH": "Ethereum ETH criptomoneda",
     "SOL": "Solana SOL criptomoneda",
     "XRP": "XRP Ripple criptomoneda",
-    "BNB": "BNB Binance Coin criptomoneda",
     "ONDO": "Ondo Finance ONDO criptomoneda",
+    "ADA": "Cardano ADA criptomoneda",
+    "BONK": "Bonk BONK criptomoneda",
+    "ENA": "Ethena ENA criptomoneda",
+    "KAS": "Kaspa KAS criptomoneda",
+    "MNT": "Mantle MNT criptomoneda",
+    "PEPE": "Pepe PEPE criptomoneda",
+    "SHIB": "Shiba Inu SHIB criptomoneda",
+    "WLFI": "World Liberty Financial WLFI criptomoneda",
+    "DOGE": "Dogecoin DOGE criptomoneda",
+    "SUI": "Sui SUI criptomoneda",
+    "AVAX": "Avalanche AVAX criptomoneda",
 }
 
 cliente = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
 
 # ----------------------------
-# 1. Descargar noticias recientes (igual que antes, gratis)
+# 1. Descargar noticias recientes (gratis, Google News RSS)
 # ----------------------------
 
 def obtener_noticias(query, idioma="es-419", pais="MX", max_noticias=10):
@@ -130,14 +141,15 @@ Recibiste estos analisis de sentimiento de noticias por activo:
 
 {"Ademas, esta es la senal tecnica actual del bot de SOL:" + chr(10) + senal_tecnica_texto if senal_tecnica_texto else ""}
 
-Escribe un resumen ejecutivo corto en español (maximo 5 lineas), en formato de lista simple,
+Escribe un resumen ejecutivo corto en español (maximo 6 lineas), en formato de lista simple,
 sin tablas, apto para ser leido por un lector de pantalla. Menciona si el sentimiento general
-del mercado es alcista, bajista o mixto, y si SOL coincide o no con su señal tecnica.
+del mercado es alcista, bajista o mixto, cuales activos destacan mas (positivo o negativo),
+y si SOL coincide o no con su señal tecnica.
 """
 
     respuesta = cliente.messages.create(
         model=MODELO,
-        max_tokens=300,
+        max_tokens=350,
         messages=[{"role": "user", "content": prompt}],
     )
 
