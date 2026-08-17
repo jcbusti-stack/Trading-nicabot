@@ -36,6 +36,12 @@ jobs:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: python escaner_oportunidades.py
 
+      - name: Ejecutar agente de ballenas (BTC y ETH)
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+        run: python ballenas.py
+
       - name: Ejecutar agente verificador (revision cruzada)
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
