@@ -36,8 +36,9 @@ FOLDER_ID = (os.environ.get("DRIVE_FOLDER_ID") or "").strip() or "16LdgsWAskLkG6
 NOMBRE_CSV = "acciones.csv"
 
 # Ajusta esta lista con los tickers reales que veas en el DEBUG la primera vez.
-# Estos son los que sabemos que tienes: NVIDIA, PayPal, Intel, Robinhood.
-TICKERS_ACCIONES = {"NVDA", "PYPL", "INTC", "HOOD"}
+# Confirmados en tu cuenta de Kraken: NVIDIA, PayPal, Intel, Robinhood
+# Ventures Fund, Cognex, iShares Silver Trust, Comcast.
+TICKERS_ACCIONES = {"NVDA", "PYPL", "INTC", "RVI", "CGNX", "SLV", "CMCSA"}
 
 
 def kraken_request(uri_path, data, api_key, api_secret):
