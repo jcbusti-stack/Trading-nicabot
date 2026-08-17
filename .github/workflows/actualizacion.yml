@@ -24,7 +24,7 @@ jobs:
       - name: Run main script
         env:
           KRAKEN_API_KEY: ${{ secrets.KRAKEN_API_KEY }}
-          KRAKEN_API_SECRET: ${{ secrets.KRAKEN_API_SECRET }}
+          KRAKEN_API_SECRET: ${{ secrets.KRAKEN_SECRET_KEY }}
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
         run: python main.py
@@ -32,6 +32,6 @@ jobs:
       - name: Actualizar portafolio de acciones
         env:
           KRAKEN_API_KEY: ${{ secrets.KRAKEN_API_KEY }}
-          KRAKEN_API_SECRET: ${{ secrets.KRAKEN_API_SECRET }}
+          KRAKEN_API_SECRET: ${{ secrets.KRAKEN_SECRET_KEY }}
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: python acciones.py
