@@ -2,7 +2,9 @@ name: Actualizar Cartera
 
 on:
   schedule:
-    - cron: '0 0,6,12,18 * * *'
+    # Mexico (CDMX) no usa horario de verano desde 2022, se mantiene en UTC-6 todo el año.
+    # 4:00 AM y 4:00 PM CDMX = 10:00 y 22:00 UTC
+    - cron: '0 10,22 * * *'
   workflow_dispatch:
 
 jobs:
