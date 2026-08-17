@@ -118,8 +118,8 @@ def evaluar_moneda(simbolo):
     except Exception as e:
         return {"simbolo": simbolo, "error": str(e)}
 
-    if len(df) < 300:
-        return {"simbolo": simbolo, "error": f"Historial insuficiente ({len(df)} velas, se necesitan al menos 300)"}
+    if len(df) < 250:
+        return {"simbolo": simbolo, "error": f"Historial insuficiente ({len(df)} velas, se necesitan al menos 250)"}
 
     punto_corte = int(len(df) * PORCENTAJE_IN_SAMPLE)
     df_in_sample = df.iloc[:punto_corte]
