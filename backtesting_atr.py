@@ -1,19 +1,19 @@
 """
 Backtesting - Stop-Loss Dinamico (ATR) vs Fijo - Trading-nicabot
-Compara el stop-loss fijo del 5% (el que ya usa el bot en vivo) contra un
-stop-loss dinamico basado en ATR (Average True Range), que se ajusta segun
-la volatilidad real del momento en vez de ser siempre el mismo porcentaje.
+VERSION 2: descarga historial EXTENDIDO con paginacion y multiples exchanges
+de respaldo, para tener suficientes operaciones y que la comparacion sea valida.
 
-Herramienta MANUAL - se corre cuando quieras evaluar el cambio, no corre
-automatico. Usa la MISMA logica de entrada validada de SOL, solo cambia
+La version anterior solo consiguio 4 operaciones - muy pocas para concluir nada.
+Esta version baja miles de velas retrocediendo en el tiempo por paginas.
+
+Herramienta MANUAL. Misma logica de entrada validada de SOL, solo cambia
 como se calcula el stop-loss.
-
-Requiere: GCP_SA_KEY (para subir el resultado a Drive)
 """
 
 import json
 import os
 import re
+import time
 from datetime import datetime
 
 import ccxt
@@ -28,17 +28,69 @@ GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
 FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
 
 PAR = "SOL/USDT"
+TIMEFRAME = '12h'
+VELAS_OBJETIVO = 4000          # ~5.5 años en velas de 12h
 PORCENTAJE_IN_SAMPLE = 0.70
-MULTIPLICADORES_ATR = [1.5, 2.0, 2.5, 3.0]  # cuantas veces el ATR se usa como distancia de stop
+MULTIPLICADORES_ATR = [1.5, 2.0, 2.5, 3.0]
 
-exchange = ccxt.okx()
+# Se prueban en orden hasta que uno entregue suficientes datos.
+EXCHANGES = ['binance', 'bybit', 'kraken', 'okx']
 
 
-def descargar_historico(par, timeframe='12h', velas=1000):
-    ohlcv = exchange.fetch_ohlcv(par, timeframe=timeframe, limit=velas)
-    df = pd.DataFrame(ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+def descargar_paginado(nombre_exchange, par, timeframe, objetivo):
+    """Descarga velas retrocediendo en el tiempo, pagina por pagina."""
+    exchange = getattr(ccxt, nombre_exchange)({'enableRateLimit': True})
+    ms_por_vela = exchange.parse_timeframe(timeframe) * 1000
+
+    # Punto de partida: 'objetivo' velas hacia atras desde ahora
+    desde = exchange.milliseconds() - (objetivo * ms_por_vela)
+    todas = []
+
+    while len(todas) < objetivo:
+        lote = exchange.fetch_ohlcv(par, timeframe=timeframe, since=desde, limit=1000)
+        if not lote:
+            break
+        todas.extend(lote)
+        nuevo_desde = lote[-1][0] + ms_por_vela
+        if nuevo_desde <= desde:
+            break
+        desde = nuevo_desde
+        if len(lote) < 1000:
+            break
+        time.sleep(exchange.rateLimit / 1000)
+
+    # Quitar duplicados por timestamp y ordenar
+    vistos = {}
+    for vela in todas:
+        vistos[vela[0]] = vela
+    ordenadas = [vistos[k] for k in sorted(vistos)]
+    return ordenadas
+
+
+def obtener_historial(par, timeframe, objetivo):
+    """Prueba varios exchanges hasta conseguir el historial mas largo posible."""
+    mejor_datos = []
+    mejor_nombre = None
+
+    for nombre in EXCHANGES:
+        try:
+            print(f"Intentando descargar de {nombre}...")
+            datos = descargar_paginado(nombre, par, timeframe, objetivo)
+            print(f"  {nombre}: {len(datos)} velas obtenidas.")
+            if len(datos) > len(mejor_datos):
+                mejor_datos = datos
+                mejor_nombre = nombre
+            if len(mejor_datos) >= objetivo * 0.9:
+                break
+        except Exception as e:
+            print(f"  {nombre} no disponible: {e}")
+
+    if not mejor_datos:
+        raise RuntimeError("Ningun exchange devolvio datos.")
+
+    df = pd.DataFrame(mejor_datos, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
     df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms', utc=True)
-    return df.set_index('timestamp')
+    return df.set_index('timestamp'), mejor_nombre
 
 
 def calcular_indicadores(df, periodo_atr=14):
@@ -56,25 +108,21 @@ def calcular_indicadores(df, periodo_atr=14):
     df['MACD'] = ema12 - ema26
     df['MACD_signal'] = df['MACD'].ewm(span=9, adjust=False).mean()
 
-    # ATR: promedio del rango real (True Range) de los ultimos N periodos
     prev_close = df['close'].shift(1)
     tr1 = df['high'] - df['low']
     tr2 = (df['high'] - prev_close).abs()
     tr3 = (df['low'] - prev_close).abs()
-    true_range = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1)
-    df['ATR'] = true_range.rolling(periodo_atr).mean()
+    df['ATR'] = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1).rolling(periodo_atr).mean()
 
     return df.dropna()
 
 
 def simular_operaciones(df, modo_stop, multiplicador_atr=None):
-    """
-    modo_stop: 'fijo' (5% siempre) o 'atr' (dinamico segun volatilidad)
-    """
     en_posicion = False
     precio_entrada = None
     stop_actual = None
     operaciones = []
+    stops_activados = 0
 
     for i in range(len(df)):
         fila = df.iloc[i]
@@ -94,115 +142,124 @@ def simular_operaciones(df, modo_stop, multiplicador_atr=None):
                 else:
                     stop_actual = precio_entrada - (fila['ATR'] * multiplicador_atr)
         else:
-            if senal_salida or fila['close'] <= stop_actual:
+            toco_stop = fila['low'] <= stop_actual
+            if toco_stop:
+                pnl_pct = (stop_actual - precio_entrada) / precio_entrada * 100
+                operaciones.append(pnl_pct)
+                stops_activados += 1
+                en_posicion = False
+                precio_entrada = None
+                stop_actual = None
+            elif senal_salida:
                 pnl_pct = (fila['close'] - precio_entrada) / precio_entrada * 100
                 operaciones.append(pnl_pct)
                 en_posicion = False
                 precio_entrada = None
                 stop_actual = None
 
-    return operaciones
+    return operaciones, stops_activados
 
 
-def calcular_metricas(operaciones):
+def calcular_metricas(operaciones, stops_activados):
     if not operaciones:
-        return {"total_operaciones": 0, "tasa_acierto": 0, "retorno_total_pct": 0, "peor_operacion_pct": 0}
+        return {"total": 0, "acierto": 0, "retorno": 0, "peor": 0, "stops": 0}
 
     ganadoras = [op for op in operaciones if op > 0]
-    tasa_acierto = len(ganadoras) / len(operaciones) * 100
-
     capital = 1000
     for op in operaciones:
         capital *= (1 + op / 100)
-    retorno_total_pct = (capital - 1000) / 1000 * 100
 
     return {
-        "total_operaciones": len(operaciones),
-        "tasa_acierto": round(tasa_acierto, 1),
-        "retorno_total_pct": round(retorno_total_pct, 1),
-        "peor_operacion_pct": round(min(operaciones), 1),
+        "total": len(operaciones),
+        "acierto": round(len(ganadoras) / len(operaciones) * 100, 1),
+        "retorno": round((capital - 1000) / 1000 * 100, 1),
+        "peor": round(min(operaciones), 1),
+        "stops": stops_activados,
     }
 
 
 def evaluar_todo():
-    print(f"Descargando historial de {PAR}...")
-    df = calcular_indicadores(descargar_historico(PAR))
+    df_bruto, fuente = obtener_historial(PAR, TIMEFRAME, VELAS_OBJETIVO)
+    df = calcular_indicadores(df_bruto)
 
-    punto_corte = int(len(df) * PORCENTAJE_IN_SAMPLE)
-    df_in = df.iloc[:punto_corte]
-    df_out = df.iloc[punto_corte:]
+    fecha_inicio = df.index[0].strftime("%Y-%m-%d")
+    fecha_fin = df.index[-1].strftime("%Y-%m-%d")
+
+    corte = int(len(df) * PORCENTAJE_IN_SAMPLE)
+    df_in, df_out = df.iloc[:corte], df.iloc[corte:]
 
     resultados = {}
 
-    print("Evaluando stop-loss FIJO (5%, el que ya usa el bot en vivo)...")
-    ops_in_fijo = simular_operaciones(df_in, 'fijo')
-    ops_out_fijo = simular_operaciones(df_out, 'fijo')
+    ops_in, st_in = simular_operaciones(df_in, 'fijo')
+    ops_out, st_out = simular_operaciones(df_out, 'fijo')
     resultados['Fijo 5%'] = {
-        'in_sample': calcular_metricas(ops_in_fijo),
-        'out_sample': calcular_metricas(ops_out_fijo),
+        'in': calcular_metricas(ops_in, st_in),
+        'out': calcular_metricas(ops_out, st_out),
     }
 
     for mult in MULTIPLICADORES_ATR:
-        print(f"Evaluando stop-loss ATR x{mult}...")
-        ops_in = simular_operaciones(df_in, 'atr', mult)
-        ops_out = simular_operaciones(df_out, 'atr', mult)
+        ops_in, st_in = simular_operaciones(df_in, 'atr', mult)
+        ops_out, st_out = simular_operaciones(df_out, 'atr', mult)
         resultados[f'ATR x{mult}'] = {
-            'in_sample': calcular_metricas(ops_in),
-            'out_sample': calcular_metricas(ops_out),
+            'in': calcular_metricas(ops_in, st_in),
+            'out': calcular_metricas(ops_out, st_out),
         }
 
-    return resultados
+    meta = {
+        "fuente": fuente,
+        "velas": len(df),
+        "desde": fecha_inicio,
+        "hasta": fecha_fin,
+    }
+    return resultados, meta
 
 
-def generar_reporte(resultados):
+def generar_reporte(resultados, meta):
     fecha = datetime.now().strftime("%Y-%m-%d %H:%M")
-    lineas = [f"Backtesting - Stop-Loss ATR vs Fijo (SOL) - {fecha}", ""]
-    lineas.append(
-        "Metodologia: misma logica de entrada validada de SOL (EMA 9/21/200 + RSI + MACD), "
-        "velas de 12h, 70% in-sample / 30% out-of-sample. Solo cambia como se calcula el stop-loss."
+    L = [f"Backtesting - Stop-Loss ATR vs Fijo (SOL) - {fecha}", ""]
+    L.append(
+        f"Datos: {meta['velas']} velas de 12h desde {meta['desde']} hasta {meta['hasta']}, "
+        f"fuente: {meta['fuente']}."
     )
-    lineas.append("")
+    L.append(
+        "Metodologia: misma logica de entrada validada de SOL (EMA 9/21/200 + RSI + MACD), "
+        "70% in-sample / 30% out-of-sample. Solo cambia como se calcula el stop-loss."
+    )
+    L.append("")
 
-    referencia_out = resultados['Fijo 5%']['out_sample']['retorno_total_pct']
+    ref = resultados['Fijo 5%']['out']['retorno']
 
-    for nombre, datos in resultados.items():
-        out = datos['out_sample']
+    for nombre, d in resultados.items():
         marca = ""
         if nombre != 'Fijo 5%':
-            diferencia = out['retorno_total_pct'] - referencia_out
-            if diferencia > 0:
-                marca = f" (MEJOR que el fijo por {diferencia:+.1f} puntos)"
-            else:
-                marca = f" (peor que el fijo por {diferencia:+.1f} puntos)"
+            dif = d['out']['retorno'] - ref
+            marca = f" ({'MEJOR' if dif > 0 else 'peor'} que el fijo por {dif:+.1f} puntos)"
 
-        lineas.append(f"{nombre}{marca}:")
-        lineas.append(
-            f"  In-sample: {datos['in_sample']['total_operaciones']} operaciones, "
-            f"{datos['in_sample']['tasa_acierto']}% acierto, "
-            f"{datos['in_sample']['retorno_total_pct']}% retorno, "
-            f"peor operacion {datos['in_sample']['peor_operacion_pct']}%"
+        L.append(f"{nombre}{marca}:")
+        L.append(
+            f"  In-sample: {d['in']['total']} operaciones, {d['in']['acierto']}% acierto, "
+            f"{d['in']['retorno']}% retorno, peor operacion {d['in']['peor']}%, "
+            f"stop-loss activado {d['in']['stops']} veces"
         )
-        lineas.append(
-            f"  Out-of-sample: {out['total_operaciones']} operaciones, "
-            f"{out['tasa_acierto']}% acierto, "
-            f"{out['retorno_total_pct']}% retorno, "
-            f"peor operacion {out['peor_operacion_pct']}%"
+        L.append(
+            f"  Out-of-sample: {d['out']['total']} operaciones, {d['out']['acierto']}% acierto, "
+            f"{d['out']['retorno']}% retorno, peor operacion {d['out']['peor']}%, "
+            f"stop-loss activado {d['out']['stops']} veces"
         )
-        lineas.append("")
+        L.append("")
 
-    lineas.append(
-        "IMPORTANTE: 'peor operacion' te dice el peor resultado individual de una "
-        "operacion - util para ver si el ATR te protege mejor en momentos de alta "
-        "volatilidad que el 5% fijo, o si te saca demasiado rapido en momentos normales."
+    L.append(
+        "COMO LEER ESTO: fijate en 'stop-loss activado' - si es 0 en todas las "
+        "versiones, la prueba no sirve para comparar, porque el stop-loss nunca "
+        "entro en accion y por eso todos dan el mismo resultado."
     )
-    lineas.append("")
-    lineas.append(
-        "Si algun ATR muestra mejor retorno Y mejor (o similar) tasa de acierto en "
-        "out-of-sample que el fijo, es candidato serio para reemplazar el 5% fijo "
-        "en bot_paper.py. Si no, mejor quedarse con el fijo, que ya esta probado."
+    L.append("")
+    L.append(
+        "Solo si un ATR muestra mejor retorno Y acierto similar o mejor en "
+        "out-of-sample, con el stop-loss activandose varias veces, es candidato "
+        "real para reemplazar el 5% fijo en bot_paper.py."
     )
-
-    return "\n".join(lineas)
+    return "\n".join(L)
 
 
 def subir_a_drive(texto):
@@ -211,9 +268,8 @@ def subir_a_drive(texto):
         return
     try:
         match = re.search(r'\{.*\}', GCP_SA_KEY, re.DOTALL)
-        info = json.loads(match.group(0))
         creds = Credentials.from_service_account_info(
-            info, scopes=['https://www.googleapis.com/auth/drive']
+            json.loads(match.group(0)), scopes=['https://www.googleapis.com/auth/drive']
         )
         service = build('drive', 'v3', credentials=creds)
 
@@ -221,24 +277,23 @@ def subir_a_drive(texto):
             f.write(texto)
 
         query = f"name = '{NOMBRE_ARCHIVO}' and '{FOLDER_ID}' in parents and trashed = false"
-        results = service.files().list(q=query, fields='files(id)', pageSize=1).execute()
-        files = results.get('files', [])
-
+        files = service.files().list(q=query, fields='files(id)', pageSize=1).execute().get('files', [])
         media = MediaFileUpload(NOMBRE_ARCHIVO, mimetype='text/plain')
+
         if files:
             service.files().update(fileId=files[0]['id'], media_body=media).execute()
             print(f'{NOMBRE_ARCHIVO} actualizado en Drive.')
         else:
-            metadata = {'name': NOMBRE_ARCHIVO, 'mimeType': 'text/plain', 'parents': [FOLDER_ID]}
-            service.files().create(body=metadata, media_body=media, fields='id').execute()
+            meta = {'name': NOMBRE_ARCHIVO, 'mimeType': 'text/plain', 'parents': [FOLDER_ID]}
+            service.files().create(body=meta, media_body=media, fields='id').execute()
             print(f'{NOMBRE_ARCHIVO} creado en Drive.')
     except Exception as e:
         print('No se pudo subir el reporte a Drive:', e)
 
 
 def main():
-    resultados = evaluar_todo()
-    reporte = generar_reporte(resultados)
+    resultados, meta = evaluar_todo()
+    reporte = generar_reporte(resultados, meta)
     print("")
     print(reporte)
     subir_a_drive(reporte)
