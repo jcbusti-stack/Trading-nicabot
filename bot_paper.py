@@ -37,6 +37,9 @@ def indicadores(df):
     ema26 = df['close'].ewm(span=26, adjust=False).mean()
     df['MACD'] = ema12 - ema26
     df['MACD_signal'] = df['MACD'].ewm(span=9, adjust=False).mean()
+    # Promedio de volumen de las ultimas 20 velas (sin incluir la actual).
+    # Solo INFORMATIVO: no filtra la señal validada todavia.
+    df['VOL_PROM'] = df['volume'].rolling(20).mean().shift(1)
     return df.dropna()
 
 
@@ -104,6 +107,15 @@ def main():
     print('Calculando confirmacion diaria (informativa)...')
     tendencia_diaria_ok = confirmacion_diaria('SOL/USDT')
 
+    # Relacion de volumen: cuantas veces el volumen actual supera su promedio.
+    # El backtesting sugirio que 1.5x podria mejorar los resultados, pero fue
+    # inconsistente entre periodos, asi que por ahora es SOLO INFORMATIVO.
+    if ultima['VOL_PROM'] and ultima['VOL_PROM'] > 0:
+        relacion_volumen = ultima['volume'] / ultima['VOL_PROM']
+    else:
+        relacion_volumen = None
+    volumen_alto = relacion_volumen is not None and relacion_volumen >= 1.5
+
     print('--- DIAGNOSTICO INDICADORES (12h) ---')
     print(f'Precio actual: {ultima["close"]:.2f}')
     print(f'EMA_200: {ultima["EMA_200"]:.2f} | necesita precio > {ultima["EMA_200"] * 1.015:.2f} -> {"OK" if trend_up else "NO cumple"}')
@@ -113,6 +125,8 @@ def main():
     print(f'SEÑAL DE ENTRADA COMPLETA: {"SI" if senal_entrada else "NO"}')
     if tendencia_diaria_ok is not None:
         print(f'Confirmacion diaria (informativa, NO filtra): {"OK" if tendencia_diaria_ok else "NO cumple"}')
+    if relacion_volumen is not None:
+        print(f'Volumen vs promedio (informativo, NO filtra): {relacion_volumen:.2f}x -> {"ALTO" if volumen_alto else "normal/bajo"}')
     print('--------------------------------------')
 
     if os.path.exists(RUTA_ESTADO):
@@ -161,6 +175,13 @@ def main():
     print('Capital simulado actual:', round(estado['cash'], 2))
     print('Operaciones cerradas hasta hoy:', len(estado['historial']))
 
+    if relacion_volumen is None:
+        texto_volumen = "No disponible"
+    elif volumen_alto:
+        texto_volumen = f"{relacion_volumen:.2f}x el promedio - ALTO (informativo, no filtra todavia)"
+    else:
+        texto_volumen = f"{relacion_volumen:.2f}x el promedio - normal/bajo (informativo, no filtra todavia)"
+
     if tendencia_diaria_ok is None:
         texto_diaria = "No disponible"
     elif tendencia_diaria_ok:
@@ -177,6 +198,7 @@ def main():
         f"RSI: {ultima['RSI']:.1f} ({'OK' if rsi_ok else 'NO cumple'})\n"
         f"MACD: {'OK' if macd_bullish else 'NO cumple'}\n"
         f"Confirmacion diaria (24h): {texto_diaria}\n"
+        f"Volumen de la vela: {texto_volumen}\n"
         f"Señal de entrada completa: {'SI' if senal_entrada else 'NO'}\n"
         f"Capital simulado: ${round(estado['cash'], 2)}\n"
         f"Operaciones cerradas: {len(estado['historial'])}\n"
