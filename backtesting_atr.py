@@ -38,33 +38,45 @@ EXCHANGES = ['binance', 'bybit', 'kraken', 'okx']
 
 
 def descargar_paginado(nombre_exchange, par, timeframe, objetivo):
-    """Descarga velas retrocediendo en el tiempo, pagina por pagina."""
+    """
+    Descarga velas avanzando en el tiempo, pagina por pagina, hasta llegar
+    al presente o hasta juntar el objetivo.
+
+    NOTA: cada exchange entrega un maximo distinto de velas por peticion
+    (OKX ~100-300, Binance ~1000). Antes el script se detenia cuando un lote
+    traia menos de 1000 velas, y por eso solo bajaba ~287 velas de 2021.
+    Ahora sigue pidiendo hasta alcanzar el presente.
+    """
     exchange = getattr(ccxt, nombre_exchange)({'enableRateLimit': True})
     ms_por_vela = exchange.parse_timeframe(timeframe) * 1000
+    ahora = exchange.milliseconds()
 
-    # Punto de partida: 'objetivo' velas hacia atras desde ahora
-    desde = exchange.milliseconds() - (objetivo * ms_por_vela)
-    todas = []
+    desde = ahora - (objetivo * ms_por_vela)
+    velas = {}
+    paginas = 0
+    MAX_PAGINAS = 200  # freno de seguridad
 
-    while len(todas) < objetivo:
+    while desde < ahora and paginas < MAX_PAGINAS:
+        paginas += 1
         lote = exchange.fetch_ohlcv(par, timeframe=timeframe, since=desde, limit=1000)
+
         if not lote:
+            # Sin datos en este tramo: saltar hacia adelante para no atorarse
+            desde += ms_por_vela * 500
+            continue
+
+        for vela in lote:
+            velas[vela[0]] = vela
+
+        siguiente = lote[-1][0] + ms_por_vela
+        if siguiente <= desde:
             break
-        todas.extend(lote)
-        nuevo_desde = lote[-1][0] + ms_por_vela
-        if nuevo_desde <= desde:
-            break
-        desde = nuevo_desde
-        if len(lote) < 1000:
-            break
+        desde = siguiente
+
         time.sleep(exchange.rateLimit / 1000)
 
-    # Quitar duplicados por timestamp y ordenar
-    vistos = {}
-    for vela in todas:
-        vistos[vela[0]] = vela
-    ordenadas = [vistos[k] for k in sorted(vistos)]
-    return ordenadas
+    return [velas[k] for k in sorted(velas)]
+
 
 
 def obtener_historial(par, timeframe, objetivo):
@@ -226,6 +238,26 @@ def generar_reporte(resultados, meta):
         "70% in-sample / 30% out-of-sample. Solo cambia como se calcula el stop-loss."
     )
     L.append("")
+
+    # Avisos automaticos de calidad de datos
+    avisos = []
+    if meta['velas'] < 1000:
+        avisos.append(
+            f"POCOS DATOS: solo {meta['velas']} velas. Se necesitan varios miles "
+            "para que la comparacion sea confiable."
+        )
+    anio_final = int(meta['hasta'][:4])
+    anio_actual = datetime.now().year
+    if anio_actual - anio_final >= 1:
+        avisos.append(
+            f"DATOS VIEJOS: el historial termina en {meta['hasta']}, no llega al presente. "
+            "Los resultados NO reflejan el mercado actual."
+        )
+    if avisos:
+        L.append("*** ADVERTENCIAS SOBRE LA CALIDAD DE ESTA PRUEBA ***")
+        for aviso in avisos:
+            L.append(f"- {aviso}")
+        L.append("")
 
     ref = resultados['Fijo 5%']['out']['retorno']
 
