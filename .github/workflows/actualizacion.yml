@@ -37,3 +37,8 @@ jobs:
           KRAKEN_API_SECRET: ${{ secrets.KRAKEN_SECRET_KEY }}
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: python acciones.py
+
+      - name: Revisar rebalanceo del portafolio
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: python rebalanceo.py
