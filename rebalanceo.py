@@ -49,15 +49,13 @@ CATEGORIAS = {
         "min": 0.0,
         "max": 20.0,
     },
-    "Efectivo / stablecoins": {
-        "activos": {"USDC", "USDT", "USD", "ZUSD"},
-        "min": 5.0,
-        "max": 10.0,
-    },
 }
 
-# Activos sin objetivo formal de porcentaje (compras especulativas puntuales)
-SIN_OBJETIVO = {"WLFI"}
+# Activos sin objetivo formal de porcentaje.
+# El efectivo/stablecoins se quito como objetivo el 18 agosto 2026 por decision
+# de Juan Carlos. Si se quiere reactivar la alerta, volver a agregar la categoria
+# "Efectivo / stablecoins" arriba con su rango (antes era 5-10%).
+SIN_OBJETIVO = {"WLFI", "USDC", "USDT", "USD", "ZUSD"}
 
 
 def obtener_credenciales_drive():
