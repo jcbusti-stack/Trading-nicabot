@@ -1,0 +1,30 @@
+name: Reactivar Bot (Kill Switch)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  reactivar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Reactivar bot
+        run: python reactivar_bot.py
+
+      - name: Guardar cambios
+        run: |
+          git config user.name "bot-trading"
+          git config user.email "bot@trading.local"
+          git add estado.json
+          git diff --quiet --cached || git commit -m "Reactivar bot despues de kill switch"
+          git push
