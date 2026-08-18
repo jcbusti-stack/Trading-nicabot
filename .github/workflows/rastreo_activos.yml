@@ -1,0 +1,25 @@
+name: Rastreo Sistematico Activos
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-rastreo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar rastreo de activos
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: python rastreo_activos.py
