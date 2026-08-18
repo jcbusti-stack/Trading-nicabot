@@ -1,0 +1,24 @@
+name: Monte Carlo Comisiones
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-montecarlo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar Monte Carlo
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: python montecarlo.py
