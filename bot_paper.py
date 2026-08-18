@@ -2,6 +2,7 @@ import ccxt
 import pandas as pd
 import json
 import os
+from datetime import datetime
 import re
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
@@ -9,6 +10,13 @@ from googleapiclient.http import MediaFileUpload
 
 RUTA_ESTADO = 'estado.json'
 CAPITAL_INICIAL = 1000
+
+# KILL SWITCH: si la caida desde el pico de capital simulado supera este
+# porcentaje, el bot deja de abrir posiciones NUEVAS (no cierra nada de golpe,
+# no vende en panico). Umbral fijado por encima del peor caso simulado en el
+# Monte Carlo (79.3%), para que solo se active ante algo verdaderamente
+# anormal, no ante una caida normal de la estrategia validada.
+UMBRAL_KILL_SWITCH_PCT = 85.0
 NOMBRE_SENAL = 'senal_sol.txt'
 GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
 FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
@@ -136,16 +144,39 @@ def main():
         estado = {'en_posicion': False, 'cash': CAPITAL_INICIAL, 'precio_entrada': None,
                    'fecha_entrada': None, 'historial': []}
 
+    # Compatibilidad con estados guardados antes de agregar el kill switch
+    estado.setdefault('pico_capital', estado['cash'])
+    estado.setdefault('kill_switch_activo', False)
+    estado.setdefault('kill_switch_fecha', None)
+
+    # Actualizar el pico y calcular la caida actual desde ese pico
+    if estado['cash'] > estado['pico_capital']:
+        estado['pico_capital'] = estado['cash']
+    drawdown_actual_pct = (
+        (estado['pico_capital'] - estado['cash']) / estado['pico_capital'] * 100
+        if estado['pico_capital'] > 0 else 0.0
+    )
+
+    if drawdown_actual_pct >= UMBRAL_KILL_SWITCH_PCT and not estado['kill_switch_activo']:
+        estado['kill_switch_activo'] = True
+        estado['kill_switch_fecha'] = str(datetime.utcnow())
+        print(f'*** KILL SWITCH ACTIVADO: caida de {drawdown_actual_pct:.1f}% desde el pico. ***')
+
     precio_actual = float(ultima['close'])
     fecha_actual = str(ultima.name)
     mensaje = ''
 
     if not estado['en_posicion']:
-        if senal_entrada:
+        if senal_entrada and not estado['kill_switch_activo']:
             estado['en_posicion'] = True
             estado['precio_entrada'] = precio_actual
             estado['fecha_entrada'] = fecha_actual
             mensaje = f'COMPRA (papel) SOL a ${precio_actual:.2f} el {fecha_actual}'
+        elif senal_entrada and estado['kill_switch_activo']:
+            mensaje = (
+                'SEÑAL DE ENTRADA DETECTADA PERO BLOQUEADA - kill switch activo '
+                f'desde {estado["kill_switch_fecha"]}. Revisa manualmente antes de reactivar.'
+            )
         else:
             mensaje = 'SIN POSICION - esperando senal de entrada'
     else:
@@ -199,6 +230,7 @@ def main():
         f"MACD: {'OK' if macd_bullish else 'NO cumple'}\n"
         f"Confirmacion diaria (24h): {texto_diaria}\n"
         f"Volumen de la vela: {texto_volumen}\n"
+        f"Kill switch: {'ACTIVO desde ' + str(estado['kill_switch_fecha']) + ' - entradas nuevas bloqueadas' if estado['kill_switch_activo'] else 'inactivo (caida actual: ' + f'{drawdown_actual_pct:.1f}' + '% de ' + f'{UMBRAL_KILL_SWITCH_PCT:.0f}' + '% umbral)'}\n"
         f"Señal de entrada completa: {'SI' if senal_entrada else 'NO'}\n"
         f"Capital simulado: ${round(estado['cash'], 2)}\n"
         f"Operaciones cerradas: {len(estado['historial'])}\n"
