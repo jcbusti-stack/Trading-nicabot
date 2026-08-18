@@ -3,5 +3,8 @@
   "cash": 1000,
   "precio_entrada": null,
   "fecha_entrada": null,
-  "historial": []
+  "historial": [],
+  "pico_capital": 1000,
+  "kill_switch_activo": false,
+  "kill_switch_fecha": null
 }
