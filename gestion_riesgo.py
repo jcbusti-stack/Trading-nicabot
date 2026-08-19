@@ -1,13 +1,18 @@
 """
-Agente de Gestion de Riesgo - Trading-nicabot
-Cuando hay señal de entrada valida en SOL, calcula un tamaño de posicion
-sugerido usando la regla estandar de arriesgar solo un pequeño porcentaje
-del capital total por operacion (regla del 1%).
+Agente de Gestion de Riesgo + Veto Informativo de IA - Trading-nicabot
 
-Esto es SOLO INFORMATIVO - nunca ejecuta operaciones, solo sugiere un
-tamaño. La decision final siempre es de Juan Carlos.
+Cuando hay señal de entrada valida en SOL:
+1. Calcula un tamaño de posicion sugerido (regla del 1% de riesgo).
+2. Le pide a Claude que revise el sentimiento y las ballenas del dia y
+   te avise si ve algo preocupante que valga la pena considerar.
 
-Requiere: GCP_SA_KEY (ya configurado)
+IMPORTANTE: el paso 2 es SOLO INFORMATIVO. La IA nunca bloquea, cancela,
+ni modifica la señal de entrada validada por backtesting. Solo te da una
+alerta adicional para que TU decidas con mas contexto. La unica cosa que
+SI bloquea entradas es el kill switch (ver bot_paper.py), que se basa en
+una regla fija de drawdown, no en el criterio de una IA.
+
+Requiere: GCP_SA_KEY (ya configurado), ANTHROPIC_API_KEY (para el veto)
 """
 
 import io
@@ -24,13 +29,11 @@ NOMBRE_ARCHIVO = 'gestion_riesgo.txt'
 NOMBRE_PORTFOLIO = 'portfolio.csv'
 GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
 FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
+ANTHROPIC_API_KEY = (os.environ.get('ANTHROPIC_API_KEY') or '').strip()
 
-# Regla estandar de gestion de riesgo: nunca arriesgar mas de este
-# porcentaje del capital total en una sola operacion.
 RIESGO_POR_OPERACION_PCT = 1.0
-
-# El stop-loss de la estrategia validada de SOL es del 5%
 STOP_LOSS_PCT = 5.0
+MODELO = 'claude-haiku-4-5-20251001'
 
 
 def obtener_credenciales_drive():
@@ -86,7 +89,6 @@ def obtener_capital_total(csv_texto):
 def calcular_posicion(capital_total, precio_entrada):
     monto_riesgo = capital_total * (RIESGO_POR_OPERACION_PCT / 100)
     tamano_posicion_usd = monto_riesgo / (STOP_LOSS_PCT / 100)
-    # No se puede arriesgar mas de lo que se tiene disponible
     tamano_posicion_usd = min(tamano_posicion_usd, capital_total)
     cantidad_sol = tamano_posicion_usd / precio_entrada
     precio_stop_loss = precio_entrada * (1 - STOP_LOSS_PCT / 100)
@@ -99,7 +101,52 @@ def calcular_posicion(capital_total, precio_entrada):
     }
 
 
-def generar_reporte(senal, capital_total):
+def generar_veto_ia(sentimiento_texto, ballenas_texto, precio):
+    """
+    Le pregunta a Claude si hay algo preocupante en el contexto actual.
+    SOLO INFORMATIVO - nunca bloquea la operacion, solo agrega contexto.
+    """
+    if not ANTHROPIC_API_KEY:
+        return "No disponible (falta ANTHROPIC_API_KEY)."
+
+    try:
+        import anthropic
+        cliente = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+
+        prompt = f"""Acaba de aparecer una señal de entrada TECNICA valida para
+comprar SOL a ${precio:.2f}, segun una estrategia ya validada con backtesting
+(EMA/RSI/MACD). Esta señal técnica es la que manda - tu trabajo NO es aprobarla
+ni rechazarla, es revisar el contexto y avisar si hay algo genuinamente
+preocupante que Juan Carlos deberia saber antes de decidir.
+
+SENTIMIENTO DE NOTICIAS DE HOY (SOL y mercado general):
+{sentimiento_texto[:3000] if sentimiento_texto else "No disponible"}
+
+BALLENAS (movimientos grandes de BTC/ETH del bloque mas reciente):
+{ballenas_texto[:2000] if ballenas_texto else "No disponible"}
+
+Responde en español, maximo 5 lineas, en formato de lista simple, apto para
+lector de pantalla. Indica:
+1. Si ves algo genuinamente alarmante (ej: noticia de hackeo, caida de un
+   exchange, evento de riesgo real) - o si el contexto es normal.
+2. Nunca digas "no compres" ni "cancela la señal" - solo describe lo que ves
+   y deja la decision a Juan Carlos.
+3. Si no hay nada preocupante, dilo claramente y brevemente, no inventes
+   riesgos que no existen solo para parecer util.
+"""
+
+        respuesta = cliente.messages.create(
+            model=MODELO,
+            max_tokens=300,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return respuesta.content[0].text.strip()
+
+    except Exception as e:
+        return f"No se pudo generar el veto informativo: {e}"
+
+
+def generar_reporte(senal, capital_total, veto_texto):
     fecha = datetime.now().strftime("%Y-%m-%d %H:%M")
     lineas = [f"Gestion de Riesgo - {fecha}", ""]
     lineas.append(
@@ -142,6 +189,9 @@ def generar_reporte(senal, capital_total):
         "IMPORTANTE: esto es solo un calculo de referencia, no una orden. "
         "Juan Carlos decide si entra, con que monto, y ejecuta manualmente en Kraken."
     )
+    lineas.append("")
+    lineas.append("--- VETO INFORMATIVO DE IA (no bloquea nada, solo avisa) ---")
+    lineas.append(veto_texto)
 
     return "\n".join(lineas)
 
@@ -185,7 +235,14 @@ def main():
     portfolio_csv = descargar_archivo_drive(service, NOMBRE_PORTFOLIO)
     capital_total = obtener_capital_total(portfolio_csv)
 
-    reporte = generar_reporte(senal, capital_total)
+    veto_texto = ""
+    if senal.get('senal_completa'):
+        print("Señal activa detectada - generando veto informativo de IA...")
+        sentimiento_texto = descargar_archivo_drive(service, 'sentimiento_multi_activo.txt')
+        ballenas_texto = descargar_archivo_drive(service, 'ballenas.txt')
+        veto_texto = generar_veto_ia(sentimiento_texto, ballenas_texto, senal.get('precio', 0))
+
+    reporte = generar_reporte(senal, capital_total, veto_texto)
     print("")
     print(reporte)
 
