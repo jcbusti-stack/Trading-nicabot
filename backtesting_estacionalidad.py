@@ -33,7 +33,10 @@ EXCHANGES = ['binance', 'bybit', 'okx']
 TIMEFRAME = '1d'
 VELAS_OBJETIVO = 4000  # ~11 años en velas diarias, para agarrar todo lo disponible
 
-ACTIVOS = ["BTC", "ETH", "SOL"]
+ACTIVOS = [
+    "BTC", "ETH", "SOL", "XRP", "ONDO", "ADA", "BONK", "ENA", "KAS", "MNT",
+    "PEPE", "SHIB", "WLFI", "DOGE", "SUI", "AVAX",
+]
 
 NOMBRES_MES = {
     1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio",
@@ -175,8 +178,12 @@ def generar_reporte(resultados):
 
     L.append("=== COMPARACION DIRECTA: AGOSTO/SEPTIEMBRE vs OCTUBRE ===")
     L.append("")
+    confirma = 0
+    contradice = 0
+    sin_datos = 0
     for r in resultados:
         if "error" in r:
+            sin_datos += 1
             continue
         ago = r['resumen'][8]
         sep = r['resumen'][9]
@@ -189,11 +196,26 @@ def generar_reporte(resultados):
             )
             if oct_['promedio'] > promedio_ago_sep:
                 L.append(f"  -> Octubre SI fue mejor en promedio, con {oct_['n_años']} años de muestra")
+                confirma += 1
             else:
                 L.append(f"  -> Octubre NO fue mejor en promedio, con {oct_['n_años']} años de muestra")
+                contradice += 1
         else:
             L.append(f"{r['simbolo']}: datos insuficientes para comparar")
+            sin_datos += 1
         L.append("")
+
+    total_evaluadas = confirma + contradice
+    L.append("=== RESUMEN GENERAL DE LAS 16 MONEDAS ===")
+    if total_evaluadas > 0:
+        L.append(
+            f"Octubre fue mejor que Ago+Sep en {confirma} de {total_evaluadas} monedas "
+            f"con datos suficientes ({round(confirma/total_evaluadas*100)}%). "
+            f"{sin_datos} moneda(s) sin historial suficiente para evaluar."
+        )
+    else:
+        L.append("No hubo suficientes monedas con datos para sacar un resumen.")
+    L.append("")
 
     L.append("=== AVISO HONESTO SOBRE ESTA PRUEBA ===")
     L.append(
