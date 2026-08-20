@@ -1,0 +1,27 @@
+name: Verificar Señales Externas
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Una vez al dia, junto con el resto del analisis (4am CDMX = 10:00 UTC)
+    - cron: '0 10 * * *'
+
+jobs:
+  run-verificacion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Verificar señales externas
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: python senales_externas.py
