@@ -159,15 +159,25 @@ PORTAFOLIO REAL DE JUAN CARLOS EN KRAKEN:
 {portfolio_resumen or "No disponible"}
 {seccion_precision}
 Escribe un veredicto final en español, maximo 10 lineas, en formato de lista simple,
-sin tablas, apto para ser leido por un lector de pantalla. Debe incluir:
-1. Si la señal tecnica y el sentimiento de SOL coinciden o se contradicen.
+sin tablas, apto para ser leido por un lector de pantalla. Trata las 16 monedas del
+portafolio de forma PAREJA - no empieces automaticamente hablando de SOL cada vez,
+solo mencionala con mas detalle si sus datos de hoy son realmente lo mas relevante
+del dia (señal activa, contradiccion fuerte, o cambio grande). El orden y el enfoque
+del veredicto deben salir de lo que los datos digan hoy, no de un orden fijo.
+
+Debe incluir:
+1. Un resumen general de hacia donde apunta el mercado en conjunto (alcista,
+   bajista, mixto), sin centrarte en una sola moneda.
 2. Que posiciones REALES de su portafolio estan mas expuestas a riesgo segun el
-   sentimiento negativo (menciona el activo y su valor en dolares si aplica).
+   sentimiento negativo (menciona el activo y su valor en dolares si aplica) -
+   cubre varias, no solo la mas grande.
 3. Que posiciones reales tienen sentimiento positivo actualmente.
-4. Si el historial de precision esta disponible, menciona si alguna de las
-   monedas mas relevantes de su portafolio tiene confianza alta o baja en su
-   sentimiento historico.
-5. Un veredicto final claro: "mantenerse fuera", "vigilar de cerca", o similar.
+4. Si el historial de precision esta disponible, menciona 2-3 monedas con
+   confianza alta o baja en su sentimiento historico (no solo SOL).
+5. Si SOL tiene señal tecnica activa o algo relevante hoy, mencionalo aqui -
+   pero como un punto mas, no como apertura obligatoria.
+6. Un veredicto final claro: "mantenerse fuera", "vigilar de cerca", o similar,
+   sobre el portafolio en general.
    NUNCA digas "comprar" o "vender" de forma directa - solo da contexto para que
    Juan Carlos decida.
 """
