@@ -40,8 +40,12 @@ NOMBRE_ESTADO = 'telegram_ultimo_id.txt'
 NOMBRE_LOG = 'mensajes_telegram_nuevos.txt'
 
 PALABRAS_CLAVE_SEÑAL = [
-    'TP1', 'TP2', 'SL:', 'Apalancamiento', 'BUY', 'SELL',
-    'SHORT', 'LONG', 'Precio de entrada'
+    # Señales de entrada (abrir operacion)
+    'TP1', 'TP2', 'TP3', 'TP4', 'SL:', 'Apalancamiento', 'BUY', 'SELL',
+    'SHORT', 'LONG', 'Precio de entrada',
+    # Mensajes de cierre (avisan que una operacion ya termino)
+    'SL en', 'Colocamos SL', 'cerramos', 'cerrado', 'cerrada',
+    'liquidados', 'liquidada', '🏆', 'Take Profit', 'Stop Loss',
 ]
 
 
