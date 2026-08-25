@@ -8,10 +8,7 @@ un log para que Juan Carlos y Claude lo revisen juntos en el chat.
 
 IMPORTANTE: este script NO interpreta ni registra automaticamente la señal
 en el CSV de seguimiento - solo AVISA que llego un mensaje nuevo que parece
-señal. El registro estructurado (con los precios correctos, considerando
-formatos como el punto de miles) se sigue haciendo con Claude en el chat,
-igual que hasta ahora - es mas seguro que confiar en un parser automatico
-con texto de formato libre.
+señal. El registro estructurado se sigue haciendo con Claude en el chat.
 
 Requiere: TELEGRAM_API_ID, TELEGRAM_API_HASH, TELEGRAM_SESSION, GCP_SA_KEY
 """
@@ -22,7 +19,7 @@ import os
 import re
 from datetime import datetime
 
-from telethon.sync import TelegramClient
+from telethon import TelegramClient
 from telethon.sessions import StringSession
 
 from google.oauth2.service_account import Credentials
@@ -35,8 +32,9 @@ SESSION_STRING = os.environ.get('TELEGRAM_SESSION', '').strip()
 GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
 FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
 
-# Ajusta esto al nombre EXACTO del canal como aparece en Telegram
-NOMBRE_CANAL = "Trading Pockets VIP SEÑALES"
+# Busqueda flexible: coincide con cualquier dialogo cuyo titulo CONTENGA esto
+# (no necesita ser exacto). Ajusta si el nombre real es distinto.
+NOMBRE_CANAL_BUSQUEDA = "Trading Pockets"
 
 NOMBRE_ESTADO = 'telegram_ultimo_id.txt'
 NOMBRE_LOG = 'mensajes_telegram_nuevos.txt'
@@ -89,7 +87,36 @@ def parece_señal(texto):
     return any(palabra.upper() in texto_upper for palabra in PALABRAS_CLAVE_SEÑAL)
 
 
-def main():
+async def encontrar_canal(client, busqueda):
+    """
+    Busca entre TODOS los chats del usuario uno cuyo titulo contenga la
+    palabra de busqueda (sin importar mayusculas/minusculas ni acentos).
+    Esto funciona con titulos de grupos/canales, a diferencia de
+    get_entity() que solo funciona con @usuarios exactos.
+    """
+    busqueda_normalizada = busqueda.lower()
+    coincidencias = []
+
+    async for dialogo in client.iter_dialogs():
+        titulo = (dialogo.name or "").lower()
+        if busqueda_normalizada in titulo:
+            coincidencias.append(dialogo)
+
+    if not coincidencias:
+        print("No se encontro ningun chat que contenga esa palabra. Chats disponibles:")
+        async for dialogo in client.iter_dialogs(limit=30):
+            print(f"  - {dialogo.name}")
+        return None
+
+    if len(coincidencias) > 1:
+        print(f"Se encontraron {len(coincidencias)} coincidencias, usando la primera:")
+        for d in coincidencias:
+            print(f"  - {d.name}")
+
+    return coincidencias[0].entity
+
+
+async def main():
     if not API_ID or not API_HASH or not SESSION_STRING:
         print('Faltan credenciales de Telegram. No se puede continuar.')
         return
@@ -100,48 +127,55 @@ def main():
     creds = obtener_credenciales_drive()
     service = build('drive', 'v3', credentials=creds)
 
-    # Leer el ultimo ID de mensaje revisado
     estado_id, estado_texto = descargar_texto(service, NOMBRE_ESTADO)
     ultimo_id_revisado = int(estado_texto.strip()) if estado_texto.strip().isdigit() else 0
 
-    with TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH) as client:
-        canal = client.get_entity(NOMBRE_CANAL)
-        mensajes_nuevos = []
+    client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
+    await client.start()
 
-        for mensaje in client.iter_messages(canal, min_id=ultimo_id_revisado, limit=50):
-            if mensaje.id <= ultimo_id_revisado:
-                continue
-            if mensaje.text:
-                mensajes_nuevos.append(mensaje)
+    canal = await encontrar_canal(client, NOMBRE_CANAL_BUSQUEDA)
+    if canal is None:
+        await client.disconnect()
+        return
 
-        mensajes_nuevos.sort(key=lambda m: m.id)
+    mensajes_nuevos = []
+    async for mensaje in client.iter_messages(canal, min_id=ultimo_id_revisado, limit=50):
+        if mensaje.id <= ultimo_id_revisado:
+            continue
+        if mensaje.text:
+            mensajes_nuevos.append(mensaje)
 
-        if not mensajes_nuevos:
-            print('Sin mensajes nuevos desde la ultima revision.')
-            return
+    mensajes_nuevos.sort(key=lambda m: m.id)
 
-        max_id = max(m.id for m in mensajes_nuevos)
-        señales_detectadas = [m for m in mensajes_nuevos if parece_señal(m.text)]
+    if not mensajes_nuevos:
+        print('Sin mensajes nuevos desde la ultima revision.')
+        await client.disconnect()
+        return
 
-        print(f'{len(mensajes_nuevos)} mensajes nuevos, {len(señales_detectadas)} parecen señales.')
+    max_id = max(m.id for m in mensajes_nuevos)
+    señales_detectadas = [m for m in mensajes_nuevos if parece_señal(m.text)]
 
-        if señales_detectadas:
-            fecha = datetime.now().strftime("%Y-%m-%d %H:%M")
-            log_id, log_previo = descargar_texto(service, NOMBRE_LOG)
-            lineas = [log_previo] if log_previo else []
-            lineas.append(f"\n=== Revision {fecha} ===")
-            for m in señales_detectadas:
-                hora_msg = m.date.strftime("%Y-%m-%d %H:%M UTC")
-                lineas.append(f"\n--- Mensaje del {hora_msg} (id {m.id}) ---")
-                lineas.append(m.text)
+    print(f'{len(mensajes_nuevos)} mensajes nuevos, {len(señales_detectadas)} parecen señales.')
 
-            texto_final = "\n".join(lineas)
-            subir_texto(service, NOMBRE_LOG, texto_final, file_id=log_id)
+    if señales_detectadas:
+        fecha = datetime.now().strftime("%Y-%m-%d %H:%M")
+        log_id, log_previo = descargar_texto(service, NOMBRE_LOG)
+        lineas = [log_previo] if log_previo else []
+        lineas.append(f"\n=== Revision {fecha} ===")
+        for m in señales_detectadas:
+            hora_msg = m.date.strftime("%Y-%m-%d %H:%M UTC")
+            lineas.append(f"\n--- Mensaje del {hora_msg} (id {m.id}) ---")
+            lineas.append(m.text)
 
-        # Actualizar el ultimo ID revisado
-        subir_texto(service, NOMBRE_ESTADO, str(max_id), file_id=estado_id)
-        print(f'Ultimo ID revisado actualizado a {max_id}.')
+        texto_final = "\n".join(lineas)
+        subir_texto(service, NOMBRE_LOG, texto_final, file_id=log_id)
+
+    subir_texto(service, NOMBRE_ESTADO, str(max_id), file_id=estado_id)
+    print(f'Ultimo ID revisado actualizado a {max_id}.')
+
+    await client.disconnect()
 
 
 if __name__ == '__main__':
-    main()
+    import asyncio
+    asyncio.run(main())
