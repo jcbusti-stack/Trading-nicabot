@@ -25,7 +25,7 @@ from datetime import datetime
 
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-from telethon.tl.functions.channels import GetForumTopicsRequest
+from telethon.tl.functions.messages import GetForumTopicsRequest
 
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
@@ -130,7 +130,7 @@ async def encontrar_topico(client, canal, busqueda):
     busqueda_normalizada = busqueda.lower()
     try:
         resultado = await client(GetForumTopicsRequest(
-            channel=canal, offset_date=None, offset_id=0, offset_topic=0, limit=100
+            peer=canal, offset_date=None, offset_id=0, offset_topic=0, limit=100
         ))
     except Exception as e:
         print(f"Este grupo no usa Temas (Forum Topics), o no se pudo consultar: {e}")
