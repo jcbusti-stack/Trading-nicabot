@@ -1,10 +1,14 @@
 """
 Monitor de Canal de Telegram - Trading-nicabot
 
-Revisa el canal "Trading Pockets VIP SEÑALES" en busca de mensajes nuevos
-desde la ultima vez que corrio. Si un mensaje PARECE una señal de trading
-(contiene palabras como TP1, SL, Apalancamiento, BUY, SELL), lo guarda en
-un log para que Juan Carlos y Claude lo revisen juntos en el chat.
+Revisa SOLO el tema/topico "SEÑALES" dentro del grupo "Trading Pockets",
+en busca de mensajes nuevos desde la ultima vez que corrio. El grupo tiene
+varios temas (FORMACION, SEÑALES VIP, SEÑALES, chat general, etc) - antes
+el robot mezclaba todos, ahora filtra solo el tema correcto de señales.
+
+Si un mensaje PARECE una señal de trading (contiene palabras como TP1, SL,
+Apalancamiento, BUY, SELL, o avisos de cierre), lo guarda en un log para
+que Juan Carlos y Claude lo revisen juntos en el chat.
 
 IMPORTANTE: este script NO interpreta ni registra automaticamente la señal
 en el CSV de seguimiento - solo AVISA que llego un mensaje nuevo que parece
@@ -21,6 +25,7 @@ from datetime import datetime
 
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+from telethon.tl.functions.channels import GetForumTopicsRequest
 
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
@@ -32,18 +37,20 @@ SESSION_STRING = os.environ.get('TELEGRAM_SESSION', '').strip()
 GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
 FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
 
-# Busqueda flexible: coincide con cualquier dialogo cuyo titulo CONTENGA esto
-# (no necesita ser exacto). Ajusta si el nombre real es distinto.
+# Busqueda flexible del GRUPO (puede tener varios temas adentro)
 NOMBRE_CANAL_BUSQUEDA = "Trading Pockets"
+
+# Busqueda flexible del TEMA especifico de señales dentro del grupo.
+# Ajusta esto si el nombre exacto del tema es distinto (ej. solo "SEÑALES"
+# en vez de "SEÑALES VIP" - la busqueda es por "contiene", no exacta).
+NOMBRE_TEMA_BUSQUEDA = "SEÑALES"
 
 NOMBRE_ESTADO = 'telegram_ultimo_id.txt'
 NOMBRE_LOG = 'mensajes_telegram_nuevos.txt'
 
 PALABRAS_CLAVE_SEÑAL = [
-    # Señales de entrada (abrir operacion)
     'TP1', 'TP2', 'TP3', 'TP4', 'SL:', 'Apalancamiento', 'BUY', 'SELL',
     'SHORT', 'LONG', 'Precio de entrada',
-    # Mensajes de cierre (avisan que una operacion ya termino)
     'SL en', 'Colocamos SL', 'cerramos', 'cerrado', 'cerrada',
     'liquidados', 'liquidada', '🏆', 'Take Profit', 'Stop Loss',
 ]
@@ -92,12 +99,6 @@ def parece_señal(texto):
 
 
 async def encontrar_canal(client, busqueda):
-    """
-    Busca entre TODOS los chats del usuario uno cuyo titulo contenga la
-    palabra de busqueda (sin importar mayusculas/minusculas ni acentos).
-    Esto funciona con titulos de grupos/canales, a diferencia de
-    get_entity() que solo funciona con @usuarios exactos.
-    """
     busqueda_normalizada = busqueda.lower()
     coincidencias = []
 
@@ -118,6 +119,37 @@ async def encontrar_canal(client, busqueda):
             print(f"  - {d.name}")
 
     return coincidencias[0].entity
+
+
+async def encontrar_topico(client, canal, busqueda):
+    """
+    Busca, dentro de un grupo con 'Temas' (Forum Topics) activados, el
+    tema cuyo titulo contenga la palabra de busqueda. Devuelve su ID, o
+    None si el grupo no usa temas o no se encontro ninguno que coincida.
+    """
+    busqueda_normalizada = busqueda.lower()
+    try:
+        resultado = await client(GetForumTopicsRequest(
+            channel=canal, offset_date=None, offset_id=0, offset_topic=0, limit=100
+        ))
+    except Exception as e:
+        print(f"Este grupo no usa Temas (Forum Topics), o no se pudo consultar: {e}")
+        return None
+
+    print("Temas encontrados en el grupo:")
+    coincidencia = None
+    for topico in resultado.topics:
+        titulo = getattr(topico, 'title', '')
+        print(f"  - {titulo} (id {topico.id})")
+        if busqueda_normalizada in titulo.lower() and coincidencia is None:
+            coincidencia = topico.id
+
+    if coincidencia is None:
+        print(f"Ningun tema contiene '{busqueda}'. Se revisara el grupo completo (puede traer mas ruido).")
+    else:
+        print(f"Usando el tema con id {coincidencia}.")
+
+    return coincidencia
 
 
 async def main():
@@ -142,8 +174,14 @@ async def main():
         await client.disconnect()
         return
 
+    topico_id = await encontrar_topico(client, canal, NOMBRE_TEMA_BUSQUEDA)
+
+    kwargs_mensajes = {'min_id': ultimo_id_revisado, 'limit': 50}
+    if topico_id is not None:
+        kwargs_mensajes['reply_to'] = topico_id
+
     mensajes_nuevos = []
-    async for mensaje in client.iter_messages(canal, min_id=ultimo_id_revisado, limit=50):
+    async for mensaje in client.iter_messages(canal, **kwargs_mensajes):
         if mensaje.id <= ultimo_id_revisado:
             continue
         if mensaje.text:
