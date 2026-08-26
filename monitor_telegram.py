@@ -1,14 +1,19 @@
 """
 Monitor de Canal de Telegram - Trading-nicabot
 
-Revisa SOLO el tema/topico "SEÑALES" dentro del grupo "Trading Pockets",
-en busca de mensajes nuevos desde la ultima vez que corrio. El grupo tiene
-varios temas (FORMACION, SEÑALES VIP, SEÑALES, chat general, etc) - antes
-el robot mezclaba todos, ahora filtra solo el tema correcto de señales.
+Revisa TODOS los chats de Telegram cuyo nombre contenga "Trading Pockets"
+(pueden ser mas de uno - se detecto que existen al menos dos grupos
+distintos con nombres parecidos, ej. "Trading Pockets" y "Trading Pockets
+VIP SEÑALES"). Dentro de cada uno, si tiene "Temas" (Forum Topics)
+activados, busca el tema que contenga "SEÑALES".
 
-Si un mensaje PARECE una señal de trading (contiene palabras como TP1, SL,
-Apalancamiento, BUY, SELL, o avisos de cierre), lo guarda en un log para
-que Juan Carlos y Claude lo revisen juntos en el chat.
+Guarda un ultimo-id-revisado POR CADA chat+tema por separado (no uno solo
+global), para no perder mensajes cuando hay varias fuentes con sus propios
+numeros de mensaje independientes.
+
+Si un mensaje PARECE una señal de trading (TP1, SL, Apalancamiento, BUY,
+SELL, o avisos de cierre), lo guarda en un log para que Juan Carlos y
+Claude lo revisen juntos en el chat.
 
 IMPORTANTE: este script NO interpreta ni registra automaticamente la señal
 en el CSV de seguimiento - solo AVISA que llego un mensaje nuevo que parece
@@ -37,12 +42,11 @@ SESSION_STRING = os.environ.get('TELEGRAM_SESSION', '').strip()
 GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
 FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
 
-# Busqueda flexible del GRUPO (puede tener varios temas adentro)
+# Busqueda flexible del/los GRUPO(S) - revisa TODOS los que coincidan,
+# no solo el primero. Puede haber mas de uno con nombres parecidos.
 NOMBRE_CANAL_BUSQUEDA = "Trading Pockets"
 
-# Busqueda flexible del TEMA especifico de señales dentro del grupo.
-# Ajusta esto si el nombre exacto del tema es distinto (ej. solo "SEÑALES"
-# en vez de "SEÑALES VIP" - la busqueda es por "contiene", no exacta).
+# Busqueda flexible del TEMA de señales dentro de cada grupo (si tiene Temas)
 NOMBRE_TEMA_BUSQUEDA = "SEÑALES"
 
 NOMBRE_ESTADO = 'telegram_ultimo_id.txt'
@@ -98,7 +102,25 @@ def parece_señal(texto):
     return any(palabra.upper() in texto_upper for palabra in PALABRAS_CLAVE_SEÑAL)
 
 
-async def encontrar_canal(client, busqueda):
+def cargar_estado(texto):
+    """El estado ahora es un JSON: {"clave_fuente": ultimo_id, ...}
+    Compatible con el formato viejo (un solo numero) si aun no se ha
+    actualizado - en ese caso se descarta y se empieza de cero por fuente."""
+    texto = texto.strip()
+    if not texto:
+        return {}
+    try:
+        datos = json.loads(texto)
+        if isinstance(datos, dict):
+            return datos
+    except (json.JSONDecodeError, ValueError):
+        pass
+    return {}
+
+
+async def encontrar_canales(client, busqueda):
+    """Devuelve TODOS los chats cuyo nombre contenga la busqueda, no solo
+    el primero - puede haber varios grupos con nombres parecidos."""
     busqueda_normalizada = busqueda.lower()
     coincidencias = []
 
@@ -111,45 +133,37 @@ async def encontrar_canal(client, busqueda):
         print("No se encontro ningun chat que contenga esa palabra. Chats disponibles:")
         async for dialogo in client.iter_dialogs(limit=30):
             print(f"  - {dialogo.name}")
-        return None
+        return []
 
-    if len(coincidencias) > 1:
-        print(f"Se encontraron {len(coincidencias)} coincidencias, usando la primera:")
-        for d in coincidencias:
-            print(f"  - {d.name}")
+    print(f"Se encontraron {len(coincidencias)} chat(s) que coinciden:")
+    for d in coincidencias:
+        print(f"  - {d.name}")
 
-    return coincidencias[0].entity
+    return coincidencias
 
 
-async def encontrar_topico(client, canal, busqueda):
-    """
-    Busca, dentro de un grupo con 'Temas' (Forum Topics) activados, el
-    tema cuyo titulo contenga la palabra de busqueda. Devuelve su ID, o
-    None si el grupo no usa temas o no se encontro ninguno que coincida.
-    """
+async def encontrar_temas(client, canal, busqueda):
+    """Devuelve una lista de (topico_id, titulo) que coincidan con la
+    busqueda dentro de un chat. Si el chat no usa Temas, devuelve [(None, '')]
+    para indicar 'revisar el chat completo, sin filtrar por tema'."""
     busqueda_normalizada = busqueda.lower()
     try:
         resultado = await client(GetForumTopicsRequest(
             peer=canal, offset_date=None, offset_id=0, offset_topic=0, limit=100
         ))
-    except Exception as e:
-        print(f"Este grupo no usa Temas (Forum Topics), o no se pudo consultar: {e}")
-        return None
+    except Exception:
+        return [(None, "(sin temas)")]
 
-    print("Temas encontrados en el grupo:")
-    coincidencia = None
+    coincidencias = []
     for topico in resultado.topics:
         titulo = getattr(topico, 'title', '')
-        print(f"  - {titulo} (id {topico.id})")
-        if busqueda_normalizada in titulo.lower() and coincidencia is None:
-            coincidencia = topico.id
+        if busqueda_normalizada in titulo.lower():
+            coincidencias.append((topico.id, titulo))
 
-    if coincidencia is None:
-        print(f"Ningun tema contiene '{busqueda}'. Se revisara el grupo completo (puede traer mas ruido).")
-    else:
-        print(f"Usando el tema con id {coincidencia}.")
+    if not coincidencias:
+        return [(None, "(sin tema que coincida, se revisa todo)")]
 
-    return coincidencia
+    return coincidencias
 
 
 async def main():
@@ -164,56 +178,75 @@ async def main():
     service = build('drive', 'v3', credentials=creds)
 
     estado_id, estado_texto = descargar_texto(service, NOMBRE_ESTADO)
-    ultimo_id_revisado = int(estado_texto.strip()) if estado_texto.strip().isdigit() else 0
+    estado = cargar_estado(estado_texto)
 
     client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
     await client.start()
 
-    canal = await encontrar_canal(client, NOMBRE_CANAL_BUSQUEDA)
-    if canal is None:
+    canales = await encontrar_canales(client, NOMBRE_CANAL_BUSQUEDA)
+    if not canales:
         await client.disconnect()
         return
 
-    topico_id = await encontrar_topico(client, canal, NOMBRE_TEMA_BUSQUEDA)
+    todos_mensajes_nuevos = []  # lista de (mensaje, nombre_fuente)
 
-    kwargs_mensajes = {'min_id': ultimo_id_revisado, 'limit': 50}
-    if topico_id is not None:
-        kwargs_mensajes['reply_to'] = topico_id
+    for dialogo in canales:
+        canal = dialogo.entity
+        temas = await encontrar_temas(client, canal, NOMBRE_TEMA_BUSQUEDA)
 
-    mensajes_nuevos = []
-    async for mensaje in client.iter_messages(canal, **kwargs_mensajes):
-        if mensaje.id <= ultimo_id_revisado:
-            continue
-        if mensaje.text:
-            mensajes_nuevos.append(mensaje)
+        for topico_id, titulo_tema in temas:
+            clave_fuente = f"{dialogo.id}_{topico_id}"
+            ultimo_id_revisado = estado.get(clave_fuente, 0)
 
-    mensajes_nuevos.sort(key=lambda m: m.id)
+            kwargs_mensajes = {'min_id': ultimo_id_revisado, 'limit': 50}
+            if topico_id is not None:
+                kwargs_mensajes['reply_to'] = topico_id
 
-    if not mensajes_nuevos:
-        print('Sin mensajes nuevos desde la ultima revision.')
+            mensajes_de_esta_fuente = []
+            async for mensaje in client.iter_messages(canal, **kwargs_mensajes):
+                if mensaje.id <= ultimo_id_revisado:
+                    continue
+                if mensaje.text:
+                    mensajes_de_esta_fuente.append(mensaje)
+
+            if mensajes_de_esta_fuente:
+                nuevo_max = max(m.id for m in mensajes_de_esta_fuente)
+                estado[clave_fuente] = nuevo_max
+                nombre_fuente = f"{dialogo.name} / {titulo_tema}"
+                for m in mensajes_de_esta_fuente:
+                    todos_mensajes_nuevos.append((m, nombre_fuente))
+            else:
+                # Aunque no haya mensajes nuevos, guardar que ya se reviso
+                # esta fuente (para no quedar en 0 siempre si el chat esta
+                # vacio de mensajes recientes).
+                estado.setdefault(clave_fuente, ultimo_id_revisado)
+
+    if not todos_mensajes_nuevos:
+        print('Sin mensajes nuevos en ninguna fuente desde la ultima revision.')
+        subir_texto(service, NOMBRE_ESTADO, json.dumps(estado), file_id=estado_id)
         await client.disconnect()
         return
 
-    max_id = max(m.id for m in mensajes_nuevos)
-    señales_detectadas = [m for m in mensajes_nuevos if parece_señal(m.text)]
+    todos_mensajes_nuevos.sort(key=lambda par: par[0].date)
+    señales_detectadas = [(m, f) for m, f in todos_mensajes_nuevos if parece_señal(m.text)]
 
-    print(f'{len(mensajes_nuevos)} mensajes nuevos, {len(señales_detectadas)} parecen señales.')
+    print(f'{len(todos_mensajes_nuevos)} mensajes nuevos en total, {len(señales_detectadas)} parecen señales.')
 
     if señales_detectadas:
         fecha = datetime.now().strftime("%Y-%m-%d %H:%M")
         log_id, log_previo = descargar_texto(service, NOMBRE_LOG)
         lineas = [log_previo] if log_previo else []
         lineas.append(f"\n=== Revision {fecha} ===")
-        for m in señales_detectadas:
+        for m, fuente in señales_detectadas:
             hora_msg = m.date.strftime("%Y-%m-%d %H:%M UTC")
-            lineas.append(f"\n--- Mensaje del {hora_msg} (id {m.id}) ---")
+            lineas.append(f"\n--- [{fuente}] Mensaje del {hora_msg} (id {m.id}) ---")
             lineas.append(m.text)
 
         texto_final = "\n".join(lineas)
         subir_texto(service, NOMBRE_LOG, texto_final, file_id=log_id)
 
-    subir_texto(service, NOMBRE_ESTADO, str(max_id), file_id=estado_id)
-    print(f'Ultimo ID revisado actualizado a {max_id}.')
+    subir_texto(service, NOMBRE_ESTADO, json.dumps(estado), file_id=estado_id)
+    print('Estado actualizado para todas las fuentes revisadas.')
 
     await client.disconnect()
 
