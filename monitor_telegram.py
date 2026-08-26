@@ -42,9 +42,12 @@ SESSION_STRING = os.environ.get('TELEGRAM_SESSION', '').strip()
 GCP_SA_KEY = (os.environ.get('GCP_SA_KEY') or '').strip()
 FOLDER_ID = (os.environ.get('DRIVE_FOLDER_ID') or '').strip() or '16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt'
 
-# Busqueda flexible del/los GRUPO(S) - revisa TODOS los que coincidan,
-# no solo el primero. Puede haber mas de uno con nombres parecidos.
-NOMBRE_CANAL_BUSQUEDA = "Trading Pockets"
+# Busqueda flexible del GRUPO - solo se revisa el que coincida con esto.
+# Se uso "VIP" ademas de "Trading Pockets" para evitar confundirlo con el
+# grupo gratuito parecido ("Trading Pockets 📈"), que a veces publica
+# señales similares pero no siempre iguales - causo un error de registro
+# el 26 de agosto de 2026 al mezclarlos.
+NOMBRE_CANAL_BUSQUEDA = "Trading Pockets VIP"
 
 # Busqueda flexible del TEMA de señales dentro de cada grupo (si tiene Temas)
 NOMBRE_TEMA_BUSQUEDA = "SEÑALES"
