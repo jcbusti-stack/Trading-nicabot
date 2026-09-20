@@ -1,8 +1,8 @@
 {
-  "en_posicion": false,
+  "en_posicion": true,
   "cash": 1000,
-  "precio_entrada": null,
-  "fecha_entrada": null,
+  "precio_entrada": 108.22,
+  "fecha_entrada": "2026-09-20 12:00:00+00:00",
   "historial": [],
   "pico_capital": 1000,
   "kill_switch_activo": false,
