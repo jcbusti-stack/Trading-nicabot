@@ -1,0 +1,139 @@
+{
+  "exchange": "kraken",
+  "timeframe": "12h",
+  "velas": 1000,
+  "capital_inicial": 1000.0,
+  "ruta_estado": "estado.json",
+  "estrategia": {
+    "ema_rapida": 9,
+    "ema_lenta": 21,
+    "ema_tendencia": 200,
+    "margen_tendencia_pct": 1.5,
+    "rsi_periodo": 14,
+    "rsi_max_entrada": 65,
+    "rsi_salida": 75,
+    "atr_periodo": 14
+  },
+  "riesgo": {
+    "riesgo_por_operacion_pct": 1.0,
+    "max_exposicion_pct": 100.0,
+    "stop_modo": "pct",
+    "stop_pct": 5.0,
+    "stop_atr_mult": 2.0,
+    "take_profit_r": 3.0,
+    "trailing_atr_mult": null,
+    "kill_switch_pct": 25.0,
+    "kill_switch_cierra_posicion": false
+  },
+  "costos": {
+    "comision_pct": 0.26,
+    "slippage_pct": 0.05,
+    "_nota": "Kraken: 0.26% taker / 0.16% maker (nivel base). Las ordenes del bot son a mercado = taker."
+  },
+  "live": {
+    "max_orden_usdt": 50.0, "_nota": "tope en USD por compra real",
+    "dry_run_por_defecto": true
+  },
+  "drive": {
+    "folder_id": "16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt",
+    "nombre_senal": "senal_sol.txt",
+    "nombre_resumen": "senal_multi.txt"
+  },
+  "pares": [
+    "BTC/USD",
+    "ONDO/USD",
+    "KAS/USD",
+    "ETH/USD",
+    "SOL/USD",
+    "SUI/USD",
+    "PEPE/USD",
+    "AVAX/USD",
+    "ADA/USD",
+    "SHIB/USD",
+    "ENA/USD",
+    "DOGE/USD",
+    "XRP/USD",
+    "MNT/USD",
+    "BONK/USD",
+    "WLFI/USD"
+  ],
+  "portafolio": {
+    "max_posiciones_abiertas": 5,
+    "max_exposicion_total_pct": 100.0,
+    "max_por_activo_pct": 25.0
+  },
+  "ajustes_por_par": {
+    "PEPE/USD": {
+      "riesgo": {
+        "stop_pct": 8.0,
+        "riesgo_por_operacion_pct": 0.5,
+        "max_por_activo_pct": 10.0
+      }
+    },
+    "SHIB/USD": {
+      "riesgo": {
+        "stop_pct": 8.0,
+        "riesgo_por_operacion_pct": 0.5,
+        "max_por_activo_pct": 10.0
+      }
+    },
+    "BONK/USD": {
+      "riesgo": {
+        "stop_pct": 8.0,
+        "riesgo_por_operacion_pct": 0.5,
+        "max_por_activo_pct": 10.0
+      }
+    },
+    "WLFI/USD": {
+      "riesgo": {
+        "stop_pct": 8.0,
+        "riesgo_por_operacion_pct": 0.5,
+        "max_por_activo_pct": 10.0
+      }
+    },
+    "DOGE/USD": {
+      "riesgo": {
+        "stop_pct": 8.0,
+        "riesgo_por_operacion_pct": 0.5,
+        "max_por_activo_pct": 10.0
+      }
+    },
+    "ONDO/USD": {
+      "riesgo": {
+        "stop_pct": 7.0,
+        "riesgo_por_operacion_pct": 0.75,
+        "max_por_activo_pct": 15.0
+      }
+    },
+    "KAS/USD": {
+      "riesgo": {
+        "stop_pct": 7.0,
+        "riesgo_por_operacion_pct": 0.75,
+        "max_por_activo_pct": 15.0
+      }
+    },
+    "SUI/USD": {
+      "riesgo": {
+        "stop_pct": 7.0,
+        "riesgo_por_operacion_pct": 0.75,
+        "max_por_activo_pct": 15.0
+      }
+    },
+    "ENA/USD": {
+      "riesgo": {
+        "stop_pct": 7.0,
+        "riesgo_por_operacion_pct": 0.75,
+        "max_por_activo_pct": 15.0
+      }
+    },
+    "MNT/USD": {
+      "riesgo": {
+        "stop_pct": 7.0,
+        "riesgo_por_operacion_pct": 0.75,
+        "max_por_activo_pct": 15.0
+      }
+    }
+  },
+  "_comentario": "Datos y ordenes en Kraken (USD). Pares no listados se omiten con aviso. ajustes_por_par sobrescribe estrategia/riesgo/costos para ese par.",
+  "dir_cache_velas": "datos_velas"
+}
