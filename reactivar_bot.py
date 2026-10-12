@@ -29,13 +29,15 @@ def main():
         return
 
     print(f"Kill switch estaba activo desde: {estado.get('kill_switch_fecha')}")
-    print(f"Capital actual: ${estado['cash']:.2f}")
+    print(f"Efectivo actual: ${estado['cash']:.2f}")
 
     estado['kill_switch_activo'] = False
     estado['kill_switch_fecha'] = None
-    estado['pico_capital'] = estado['cash']  # reinicia el pico desde hoy
+    # Reinicia el pico: en el siguiente paso del bot se toma el equity actual
+    # (efectivo + posicion abierta) como nuevo pico.
+    estado['pico_capital'] = 0.0 if (estado.get('posiciones') or estado.get('en_posicion')) else estado['cash']
 
-    with open(RUTA_ESTADO, 'w') as f:
+    with open(RUTA_ESTADO, 'w', encoding='utf-8') as f:
         json.dump(estado, f, indent=2)
 
     print('Kill switch DESACTIVADO. El bot puede volver a abrir posiciones.')

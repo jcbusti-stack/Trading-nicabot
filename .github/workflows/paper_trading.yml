@@ -1,4 +1,4 @@
-name: Paper Trading SOL
+name: Paper Trading Multi-activo
 
 on:
   schedule:
@@ -10,6 +10,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: paper-trading
+  cancel-in-progress: false
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
@@ -20,14 +24,19 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt -r requirements-dev.txt
 
-      - name: Run bot
+      - name: Pruebas
+        run: python -m pytest -q
+
+      - name: Run bot (PAPER, sin dinero real)
         env:
+          MODO: paper   # NO cambiar a live aqui: las ordenes reales estan desactivadas en CI a proposito
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          DRIVE_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID }}
         run: python bot_paper.py
 
       - name: Calcular gestion de riesgo y veto de IA
@@ -40,6 +49,6 @@ jobs:
         run: |
           git config user.name "bot-trading"
           git config user.email "bot@trading.local"
-          git add estado.json
+          git add estado.json datos_velas/
           git diff --quiet --cached || git commit -m "Actualizar estado paper trading"
           git push
