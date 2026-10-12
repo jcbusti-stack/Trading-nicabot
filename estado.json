@@ -1,18 +1,51 @@
 {
-  "en_posicion": false,
-  "cash": 1106.3574200702274,
-  "precio_entrada": null,
-  "fecha_entrada": null,
+  "version": 3,
+  "cash": 987.5109254956836,
   "historial": [
     {
       "entrada": 108.22,
       "salida": 119.73,
       "fecha_entrada": "2026-09-20 12:00:00+00:00",
       "fecha_salida": "2026-09-28 12:00:00+00:00",
-      "resultado_pct": 10.64
+      "resultado_pct": 10.64,
+      "par": "SOL/USD"
     }
   ],
   "pico_capital": 1106.3574200702274,
   "kill_switch_activo": false,
-  "kill_switch_fecha": null
+  "kill_switch_fecha": null,
+  "comisiones_totales": 0.3081995670195629,
+  "posiciones": {
+    "ONDO/USD": {
+      "precio_entrada": 0.50489232,
+      "fecha_entrada": "2026-10-12 00:00:00+00:00",
+      "cantidad": 234.77935851257195,
+      "stop": 0.4695498575999999,
+      "precio_maximo": 0.50489232,
+      "take_profit": 0.6109197072000001,
+      "costo_entrada": 118.84649457454374,
+      "ultimo_precio": 0.50464
+    }
+  },
+  "ultima_vela": {
+    "ADA/USD": "2026-10-12 00:00:00+00:00",
+    "AVAX/USD": "2026-10-12 00:00:00+00:00",
+    "BONK/USD": "2026-10-12 00:00:00+00:00",
+    "BTC/USD": "2026-10-12 00:00:00+00:00",
+    "DOGE/USD": "2026-10-12 00:00:00+00:00",
+    "ENA/USD": "2026-10-12 00:00:00+00:00",
+    "ETH/USD": "2026-10-12 00:00:00+00:00",
+    "KAS/USD": "2026-10-12 00:00:00+00:00",
+    "MNT/USD": "2026-10-12 00:00:00+00:00",
+    "ONDO/USD": "2026-10-12 00:00:00+00:00",
+    "PEPE/USD": "2026-10-12 00:00:00+00:00",
+    "SHIB/USD": "2026-10-12 00:00:00+00:00",
+    "SOL/USD": "2026-10-12 00:00:00+00:00",
+    "SUI/USD": "2026-10-12 00:00:00+00:00",
+    "WLFI/USD": "2026-10-12 00:00:00+00:00",
+    "XRP/USD": "2026-10-12 00:00:00+00:00"
+  },
+  "en_posicion": false,
+  "precio_entrada": null,
+  "fecha_entrada": null
 }
