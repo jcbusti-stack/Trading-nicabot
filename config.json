@@ -61,13 +61,13 @@
     "trailing_atr_mult": null,
     "kill_switch_pct": 25.0,
     "kill_switch_cierra_posicion": false,
-    "tp_parcial_r": 1.0,
+    "tp_parcial_r": null,
     "tp_parcial_frac": 0.5,
     "breakeven_tras_parcial": true,
     "breakeven_offset_pct": 0.6,
-    "max_velas_posicion": 14,
+    "max_velas_posicion": 10,
     "trailing_solo_tras_parcial": false,
-    "_nota_salidas": "Variante elegida parcial_1r_be_tp3r_tiempo14: vende 50% a 1R, sube stop a entrada+0.6% (cubre comisiones), resto a TP 3R / senal / salida por tiempo a las 14 velas (7 dias). Apagar: tp_parcial_r=null, max_velas_posicion=null. Ver reportes/investigacion_aciertos.md"
+    "_nota_salidas": "Variante salida_tiempo_10: entrada y TP 3R originales + salida por tiempo a las 10 velas (5 dias). Mejor profit factor OOS (1.59). Ver reportes/investigacion_aciertos.md"
   },
   "costos": {
     "comision_pct": 0.26,
