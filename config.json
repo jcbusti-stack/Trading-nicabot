@@ -40,8 +40,16 @@
     "_nota": "Kraken: 0.26% taker / 0.16% maker (nivel base). Las ordenes del bot son a mercado = taker."
   },
   "live": {
-    "max_orden_usdt": 50.0, "_nota": "tope en USD por compra real",
+    "max_orden_usdt": 50.0,
+    "_nota": "tope en USD por compra real",
     "dry_run_por_defecto": true
+  },
+  "filtro_btc": {
+    "enabled": true,
+    "par": "BTC/USD",
+    "precio_sobre_ema200": true,
+    "ema9_sobre_ema21": true,
+    "_nota": "Solo abre posiciones nuevas si BTC 12h esta alcista (cierre > EMA200 y EMA9 > EMA21). Salidas y stops no se afectan."
   },
   "drive": {
     "folder_id": "16LdgsWAskLkG6uSO1fo3Ex5emboVSbOt",

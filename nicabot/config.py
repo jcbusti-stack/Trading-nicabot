@@ -20,6 +20,7 @@ DEFECTO = {
                'kill_switch_pct': 25.0, 'kill_switch_cierra_posicion': False},
     'costos': {'comision_pct': 0.26, 'slippage_pct': 0.05},
     'live': {'max_orden_usdt': 50.0, 'dry_run_por_defecto': True},
+    'filtro_btc': {'enabled': True, 'par': 'BTC/USD', 'precio_sobre_ema200': True, 'ema9_sobre_ema21': True},
     'drive': {'folder_id': '', 'nombre_senal': 'senal_sol.txt', 'nombre_resumen': 'senal_multi.txt'},
 }
 
