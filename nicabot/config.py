@@ -12,7 +12,11 @@ DEFECTO = {
     'ruta_estado': 'estado.json',
     'estrategia': {'ema_rapida': 9, 'ema_lenta': 21, 'ema_tendencia': 200, 'margen_tendencia_pct': 1.5,
                    'rsi_periodo': 14, 'rsi_max_entrada': 65, 'rsi_salida': 75, 'atr_periodo': 14,
-                   'min_velas_ema': 250, 'semilla_1d': True},
+                   'min_velas_ema': 250, 'semilla_1d': True,
+                   'filtros': {'volumen': {'enabled': False, 'periodo': 20, 'factor': 1.0},
+                               'volatilidad': {'enabled': False, 'atr_pct_max': None},
+                               'multi_marco': {'enabled': False, 'ema_diaria': 50, 'usar_diario': True,
+                                               'usar_macd_4h': True}}},
     'entrada': {'usar_precio_vivo': True, 'max_horas_desde_cierre': 3.0,
                 'max_caida_pct': 2.0, 'max_subida_pct': 3.0},
     'riesgo': {'riesgo_por_operacion_pct': 1.0, 'max_exposicion_pct': 100.0, 'stop_modo': 'pct',
@@ -21,6 +25,7 @@ DEFECTO = {
     'costos': {'comision_pct': 0.26, 'slippage_pct': 0.05},
     'live': {'max_orden_usdt': 50.0, 'dry_run_por_defecto': True},
     'filtro_btc': {'enabled': True, 'par': 'BTC/USD', 'precio_sobre_ema200': True, 'ema9_sobre_ema21': True},
+    'revision_mensual': {'enabled': True, 'ultimas_n': 12, 'min_operaciones': 8, 'enfriamiento_dias': 60},
     'drive': {'folder_id': '', 'nombre_senal': 'senal_sol.txt', 'nombre_resumen': 'senal_multi.txt'},
 }
 

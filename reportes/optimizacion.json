@@ -1,0 +1,2557 @@
+{
+ "activos": [
+  "volumen",
+  "multi_marco"
+ ],
+ "resultados": [
+  {
+   "par": "BTC/USD",
+   "ventanas": 12,
+   "desde": "2019-05-17",
+   "variantes": {
+    "base": {
+     "retorno_pct": 2.5,
+     "ops": 72,
+     "win_rate": 38.9,
+     "profit_factor": 1.11,
+     "max_dd_pct": 4.14,
+     "expectativa_usd": 0.42,
+     "comisiones_usd": 76.2,
+     "ganancia_usd": 311.12,
+     "perdida_usd": 280.62
+    },
+    "volumen": {
+     "retorno_pct": 1.77,
+     "ops": 57,
+     "win_rate": 42.1,
+     "profit_factor": 1.1,
+     "max_dd_pct": 3.52,
+     "expectativa_usd": 0.37,
+     "comisiones_usd": 60.11,
+     "ganancia_usd": 226.48,
+     "perdida_usd": 205.44
+    },
+    "volatilidad": {
+     "retorno_pct": -7.47,
+     "ops": 65,
+     "win_rate": 35.4,
+     "profit_factor": 0.71,
+     "max_dd_pct": 4.39,
+     "expectativa_usd": -1.16,
+     "comisiones_usd": 67.78,
+     "ganancia_usd": 181.8,
+     "perdida_usd": 257.07
+    },
+    "multi_marco": {
+     "retorno_pct": -1.8,
+     "ops": 54,
+     "win_rate": 37.0,
+     "profit_factor": 0.94,
+     "max_dd_pct": 4.83,
+     "expectativa_usd": -0.27,
+     "comisiones_usd": 56.78,
+     "ganancia_usd": 229.98,
+     "perdida_usd": 244.78
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": -3.71,
+    "ops": 36,
+    "win_rate": 36.1,
+    "profit_factor": 0.74,
+    "max_dd_pct": 3.45,
+    "expectativa_usd": -0.99,
+    "comisiones_usd": 28.46,
+    "ganancia_usd": 103.46,
+    "perdida_usd": 139.28
+   },
+   "oos_desde": "2021-01-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": -3.73,
+    "ops": 43,
+    "win_rate": 39.5,
+    "profit_factor": 0.81,
+    "max_dd_pct": 4.42,
+    "expectativa_usd": -0.84,
+    "comisiones_usd": 45.14,
+    "ganancia_usd": 154.47,
+    "perdida_usd": 190.63
+   },
+   "atr_pct_max": 3.45,
+   "params_finales": {
+    "stop": [
+     "pct",
+     4.0
+    ],
+    "emas": [
+     12,
+     26
+    ],
+    "rsi_max_entrada": 60,
+    "take_profit_r": 2.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "ONDO/USD",
+   "ventanas": 0,
+   "desde": "2025-08-24",
+   "variantes": {
+    "base": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    },
+    "volumen": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    },
+    "volatilidad": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    },
+    "multi_marco": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    }
+   },
+   "oos_ajustado": null,
+   "oos_base_con_filtros": null,
+   "atr_pct_max": 7.26,
+   "params_finales": {
+    "stop": [
+     "atr",
+     2.0
+    ],
+    "emas": [
+     9,
+     21
+    ],
+    "rsi_max_entrada": 70,
+    "take_profit_r": 2.0
+   },
+   "elegidos": [],
+   "adoptado": false
+  },
+  {
+   "par": "KAS/USD",
+   "ventanas": 3,
+   "desde": "2023-09-18",
+   "variantes": {
+    "base": {
+     "retorno_pct": 0.66,
+     "ops": 11,
+     "win_rate": 27.3,
+     "profit_factor": 1.14,
+     "max_dd_pct": 3.48,
+     "expectativa_usd": 0.64,
+     "comisiones_usd": 6.22,
+     "ganancia_usd": 55.89,
+     "perdida_usd": 48.85
+    },
+    "volumen": {
+     "retorno_pct": 1.8,
+     "ops": 6,
+     "win_rate": 33.3,
+     "profit_factor": 2.0,
+     "max_dd_pct": 1.39,
+     "expectativa_usd": 3.0,
+     "comisiones_usd": 3.42,
+     "ganancia_usd": 36.09,
+     "perdida_usd": 18.09
+    },
+    "volatilidad": {
+     "retorno_pct": 0.66,
+     "ops": 11,
+     "win_rate": 27.3,
+     "profit_factor": 1.14,
+     "max_dd_pct": 3.48,
+     "expectativa_usd": 0.64,
+     "comisiones_usd": 6.22,
+     "ganancia_usd": 55.89,
+     "perdida_usd": 48.85
+    },
+    "multi_marco": {
+     "retorno_pct": 3.08,
+     "ops": 7,
+     "win_rate": 42.9,
+     "profit_factor": 2.24,
+     "max_dd_pct": 2.41,
+     "expectativa_usd": 4.42,
+     "comisiones_usd": 4.03,
+     "ganancia_usd": 55.89,
+     "perdida_usd": 24.96
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": 1.62,
+    "ops": 4,
+    "win_rate": 50.0,
+    "profit_factor": 3.93,
+    "max_dd_pct": 1.16,
+    "expectativa_usd": 4.07,
+    "comisiones_usd": 1.76,
+    "ganancia_usd": 21.83,
+    "perdida_usd": 5.55
+   },
+   "oos_desde": "2025-07-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": 0.9,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 2.08,
+    "max_dd_pct": 1.31,
+    "expectativa_usd": 3.04,
+    "comisiones_usd": 1.71,
+    "ganancia_usd": 17.56,
+    "perdida_usd": 8.45
+   },
+   "atr_pct_max": 7.9,
+   "params_finales": {
+    "stop": [
+     "atr",
+     3.0
+    ],
+    "emas": [
+     20,
+     50
+    ],
+    "rsi_max_entrada": 65,
+    "take_profit_r": 3.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "ETH/USD",
+   "ventanas": 12,
+   "desde": "2019-05-17",
+   "variantes": {
+    "base": {
+     "retorno_pct": 8.96,
+     "ops": 74,
+     "win_rate": 37.8,
+     "profit_factor": 1.29,
+     "max_dd_pct": 5.57,
+     "expectativa_usd": 1.27,
+     "comisiones_usd": 79.93,
+     "ganancia_usd": 418.1,
+     "perdida_usd": 323.76
+    },
+    "volumen": {
+     "retorno_pct": 9.04,
+     "ops": 52,
+     "win_rate": 42.3,
+     "profit_factor": 1.46,
+     "max_dd_pct": 3.74,
+     "expectativa_usd": 1.77,
+     "comisiones_usd": 55.74,
+     "ganancia_usd": 292.66,
+     "perdida_usd": 200.46
+    },
+    "volatilidad": {
+     "retorno_pct": 1.86,
+     "ops": 71,
+     "win_rate": 35.2,
+     "profit_factor": 1.07,
+     "max_dd_pct": 5.25,
+     "expectativa_usd": 0.33,
+     "comisiones_usd": 76.12,
+     "ganancia_usd": 353.66,
+     "perdida_usd": 330.42
+    },
+    "multi_marco": {
+     "retorno_pct": 8.95,
+     "ops": 48,
+     "win_rate": 35.4,
+     "profit_factor": 1.45,
+     "max_dd_pct": 4.51,
+     "expectativa_usd": 1.96,
+     "comisiones_usd": 51.98,
+     "ganancia_usd": 303.95,
+     "perdida_usd": 210.11
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": 10.71,
+    "ops": 41,
+    "win_rate": 39.0,
+    "profit_factor": 1.54,
+    "max_dd_pct": 6.47,
+    "expectativa_usd": 2.65,
+    "comisiones_usd": 43.82,
+    "ganancia_usd": 311.62,
+    "perdida_usd": 202.97
+   },
+   "oos_desde": "2021-01-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": 7.01,
+    "ops": 33,
+    "win_rate": 36.4,
+    "profit_factor": 1.48,
+    "max_dd_pct": 3.65,
+    "expectativa_usd": 2.22,
+    "comisiones_usd": 35.35,
+    "ganancia_usd": 225.66,
+    "perdida_usd": 152.44
+   },
+   "atr_pct_max": 4.94,
+   "params_finales": {
+    "stop": [
+     "pct",
+     4.0
+    ],
+    "emas": [
+     20,
+     50
+    ],
+    "rsi_max_entrada": 70,
+    "take_profit_r": 4.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    }
+   ],
+   "adoptado": true
+  },
+  {
+   "par": "SOL/USD",
+   "ventanas": 9,
+   "desde": "2020-12-24",
+   "variantes": {
+    "base": {
+     "retorno_pct": 21.3,
+     "ops": 62,
+     "win_rate": 40.3,
+     "profit_factor": 1.68,
+     "max_dd_pct": 5.97,
+     "expectativa_usd": 3.3,
+     "comisiones_usd": 66.9,
+     "ganancia_usd": 507.07,
+     "perdida_usd": 302.53
+    },
+    "volumen": {
+     "retorno_pct": 18.26,
+     "ops": 53,
+     "win_rate": 41.5,
+     "profit_factor": 1.63,
+     "max_dd_pct": 5.44,
+     "expectativa_usd": 3.31,
+     "comisiones_usd": 57.16,
+     "ganancia_usd": 455.4,
+     "perdida_usd": 279.94
+    },
+    "volatilidad": {
+     "retorno_pct": 24.23,
+     "ops": 59,
+     "win_rate": 42.4,
+     "profit_factor": 1.81,
+     "max_dd_pct": 5.97,
+     "expectativa_usd": 3.87,
+     "comisiones_usd": 64.04,
+     "ganancia_usd": 508.34,
+     "perdida_usd": 280.09
+    },
+    "multi_marco": {
+     "retorno_pct": 11.89,
+     "ops": 34,
+     "win_rate": 41.2,
+     "profit_factor": 1.61,
+     "max_dd_pct": 4.42,
+     "expectativa_usd": 3.47,
+     "comisiones_usd": 36.06,
+     "ganancia_usd": 310.62,
+     "perdida_usd": 192.7
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": 13.02,
+    "ops": 44,
+    "win_rate": 36.4,
+    "profit_factor": 1.45,
+    "max_dd_pct": 5.04,
+    "expectativa_usd": 2.91,
+    "comisiones_usd": 49.72,
+    "ganancia_usd": 413.83,
+    "perdida_usd": 285.61
+   },
+   "oos_desde": "2022-07-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": 18.89,
+    "ops": 29,
+    "win_rate": 48.3,
+    "profit_factor": 2.12,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 6.13,
+    "comisiones_usd": 31.07,
+    "ganancia_usd": 337.06,
+    "perdida_usd": 159.29
+   },
+   "atr_pct_max": 6.79,
+   "params_finales": {
+    "stop": [
+     "pct",
+     4.0
+    ],
+    "emas": [
+     9,
+     21
+    ],
+    "rsi_max_entrada": 70,
+    "take_profit_r": 4.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "SUI/USD",
+   "ventanas": 3,
+   "desde": "2023-09-15",
+   "variantes": {
+    "base": {
+     "retorno_pct": 0.24,
+     "ops": 10,
+     "win_rate": 20.0,
+     "profit_factor": 1.08,
+     "max_dd_pct": 1.87,
+     "expectativa_usd": 0.3,
+     "comisiones_usd": 5.56,
+     "ganancia_usd": 41.03,
+     "perdida_usd": 37.98
+    },
+    "volumen": {
+     "retorno_pct": 1.07,
+     "ops": 9,
+     "win_rate": 22.2,
+     "profit_factor": 1.37,
+     "max_dd_pct": 1.71,
+     "expectativa_usd": 1.24,
+     "comisiones_usd": 5.04,
+     "ganancia_usd": 41.03,
+     "perdida_usd": 29.91
+    },
+    "volatilidad": {
+     "retorno_pct": 0.24,
+     "ops": 10,
+     "win_rate": 20.0,
+     "profit_factor": 1.08,
+     "max_dd_pct": 1.87,
+     "expectativa_usd": 0.3,
+     "comisiones_usd": 5.56,
+     "ganancia_usd": 41.03,
+     "perdida_usd": 37.98
+    },
+    "multi_marco": {
+     "retorno_pct": -2.39,
+     "ops": 6,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 1.87,
+     "expectativa_usd": -4.0,
+     "comisiones_usd": 3.26,
+     "ganancia_usd": 0,
+     "perdida_usd": 23.98
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": -1.07,
+    "ops": 7,
+    "win_rate": 14.3,
+    "profit_factor": 0.46,
+    "max_dd_pct": 1.68,
+    "expectativa_usd": -1.53,
+    "comisiones_usd": 2.22,
+    "ganancia_usd": 9.07,
+    "perdida_usd": 19.75
+   },
+   "oos_desde": "2025-07-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": -1.8,
+    "ops": 5,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 1.71,
+    "expectativa_usd": -3.6,
+    "comisiones_usd": 2.74,
+    "ganancia_usd": 0,
+    "perdida_usd": 18.02
+   },
+   "atr_pct_max": 8.03,
+   "params_finales": {
+    "stop": [
+     "atr",
+     3.0
+    ],
+    "emas": [
+     12,
+     26
+    ],
+    "rsi_max_entrada": 60,
+    "take_profit_r": 3.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "PEPE/USD",
+   "ventanas": 3,
+   "desde": "2023-09-18",
+   "variantes": {
+    "base": {
+     "retorno_pct": -1.16,
+     "ops": 9,
+     "win_rate": 44.4,
+     "profit_factor": 0.46,
+     "max_dd_pct": 1.25,
+     "expectativa_usd": -1.3,
+     "comisiones_usd": 2.9,
+     "ganancia_usd": 9.93,
+     "perdida_usd": 21.6
+    },
+    "volumen": {
+     "retorno_pct": -0.81,
+     "ops": 7,
+     "win_rate": 42.9,
+     "profit_factor": 0.5,
+     "max_dd_pct": 1.25,
+     "expectativa_usd": -1.15,
+     "comisiones_usd": 2.26,
+     "ganancia_usd": 8.18,
+     "perdida_usd": 16.25
+    },
+    "volatilidad": {
+     "retorno_pct": -1.16,
+     "ops": 9,
+     "win_rate": 44.4,
+     "profit_factor": 0.46,
+     "max_dd_pct": 1.25,
+     "expectativa_usd": -1.3,
+     "comisiones_usd": 2.9,
+     "ganancia_usd": 9.93,
+     "perdida_usd": 21.6
+    },
+    "multi_marco": {
+     "retorno_pct": -1.45,
+     "ops": 4,
+     "win_rate": 25.0,
+     "profit_factor": 0.09,
+     "max_dd_pct": 0.72,
+     "expectativa_usd": -3.65,
+     "comisiones_usd": 1.26,
+     "ganancia_usd": 1.43,
+     "perdida_usd": 16.02
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": -0.65,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.14,
+    "max_dd_pct": 0.46,
+    "expectativa_usd": -2.16,
+    "comisiones_usd": 0.98,
+    "ganancia_usd": 1.09,
+    "perdida_usd": 7.57
+   },
+   "oos_desde": "2025-07-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": -0.92,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.13,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -3.08,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 1.43,
+    "perdida_usd": 10.68
+   },
+   "atr_pct_max": 9.6,
+   "params_finales": {
+    "stop": [
+     "atr",
+     3.0
+    ],
+    "emas": [
+     12,
+     26
+    ],
+    "rsi_max_entrada": 60,
+    "take_profit_r": 3.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "AVAX/USD",
+   "ventanas": 8,
+   "desde": "2021-02-04",
+   "variantes": {
+    "base": {
+     "retorno_pct": -3.79,
+     "ops": 57,
+     "win_rate": 22.8,
+     "profit_factor": 0.91,
+     "max_dd_pct": 6.41,
+     "expectativa_usd": -0.59,
+     "comisiones_usd": 59.56,
+     "ganancia_usd": 325.97,
+     "perdida_usd": 359.82
+    },
+    "volumen": {
+     "retorno_pct": -0.81,
+     "ops": 44,
+     "win_rate": 25.0,
+     "profit_factor": 0.99,
+     "max_dd_pct": 5.85,
+     "expectativa_usd": -0.03,
+     "comisiones_usd": 45.79,
+     "ganancia_usd": 270.41,
+     "perdida_usd": 271.85
+    },
+    "volatilidad": {
+     "retorno_pct": -2.11,
+     "ops": 51,
+     "win_rate": 23.5,
+     "profit_factor": 0.95,
+     "max_dd_pct": 6.41,
+     "expectativa_usd": -0.32,
+     "comisiones_usd": 53.34,
+     "ganancia_usd": 297.76,
+     "perdida_usd": 314.22
+    },
+    "multi_marco": {
+     "retorno_pct": -9.98,
+     "ops": 33,
+     "win_rate": 15.2,
+     "profit_factor": 0.56,
+     "max_dd_pct": 6.49,
+     "expectativa_usd": -3.13,
+     "comisiones_usd": 33.82,
+     "ganancia_usd": 132.02,
+     "perdida_usd": 235.44
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": 0.11,
+    "ops": 28,
+    "win_rate": 35.7,
+    "profit_factor": 1.02,
+    "max_dd_pct": 3.7,
+    "expectativa_usd": 0.07,
+    "comisiones_usd": 13.82,
+    "ganancia_usd": 91.89,
+    "perdida_usd": 89.88
+   },
+   "oos_desde": "2023-01-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": -5.85,
+    "ops": 25,
+    "win_rate": 20.0,
+    "profit_factor": 0.66,
+    "max_dd_pct": 5.55,
+    "expectativa_usd": -2.33,
+    "comisiones_usd": 25.64,
+    "ganancia_usd": 115.03,
+    "perdida_usd": 173.35
+   },
+   "atr_pct_max": 7.27,
+   "params_finales": {
+    "stop": [
+     "atr",
+     3.0
+    ],
+    "emas": [
+     20,
+     50
+    ],
+    "rsi_max_entrada": 70,
+    "take_profit_r": 4.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    }
+   ],
+   "adoptado": true
+  },
+  {
+   "par": "ADA/USD",
+   "ventanas": 12,
+   "desde": "2019-05-17",
+   "variantes": {
+    "base": {
+     "retorno_pct": 2.7,
+     "ops": 64,
+     "win_rate": 31.2,
+     "profit_factor": 1.09,
+     "max_dd_pct": 7.69,
+     "expectativa_usd": 0.55,
+     "comisiones_usd": 67.29,
+     "ganancia_usd": 420.15,
+     "perdida_usd": 385.24
+    },
+    "volumen": {
+     "retorno_pct": 7.82,
+     "ops": 49,
+     "win_rate": 34.7,
+     "profit_factor": 1.28,
+     "max_dd_pct": 7.69,
+     "expectativa_usd": 1.7,
+     "comisiones_usd": 51.93,
+     "ganancia_usd": 383.88,
+     "perdida_usd": 300.4
+    },
+    "volatilidad": {
+     "retorno_pct": 5.59,
+     "ops": 56,
+     "win_rate": 32.1,
+     "profit_factor": 1.2,
+     "max_dd_pct": 6.65,
+     "expectativa_usd": 1.11,
+     "comisiones_usd": 58.8,
+     "ganancia_usd": 378.97,
+     "perdida_usd": 317.01
+    },
+    "multi_marco": {
+     "retorno_pct": 14.06,
+     "ops": 41,
+     "win_rate": 36.6,
+     "profit_factor": 1.61,
+     "max_dd_pct": 5.29,
+     "expectativa_usd": 3.38,
+     "comisiones_usd": 43.65,
+     "ganancia_usd": 366.78,
+     "perdida_usd": 228.05
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": 14.77,
+    "ops": 32,
+    "win_rate": 43.8,
+    "profit_factor": 1.92,
+    "max_dd_pct": 6.02,
+    "expectativa_usd": 4.52,
+    "comisiones_usd": 33.15,
+    "ganancia_usd": 302.05,
+    "perdida_usd": 157.3
+   },
+   "oos_desde": "2021-01-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": 20.85,
+    "ops": 34,
+    "win_rate": 44.1,
+    "profit_factor": 2.18,
+    "max_dd_pct": 4.99,
+    "expectativa_usd": 5.9,
+    "comisiones_usd": 36.5,
+    "ganancia_usd": 369.93,
+    "perdida_usd": 169.36
+   },
+   "atr_pct_max": 6.97,
+   "params_finales": {
+    "stop": [
+     "pct",
+     6.0
+    ],
+    "emas": [
+     20,
+     50
+    ],
+    "rsi_max_entrada": 65,
+    "take_profit_r": 3.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      5.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "SHIB/USD",
+   "ventanas": 7,
+   "desde": "2021-09-22",
+   "variantes": {
+    "base": {
+     "retorno_pct": -2.93,
+     "ops": 35,
+     "win_rate": 28.6,
+     "profit_factor": 0.65,
+     "max_dd_pct": 2.98,
+     "expectativa_usd": -0.83,
+     "comisiones_usd": 11.32,
+     "ganancia_usd": 52.55,
+     "perdida_usd": 81.45
+    },
+    "volumen": {
+     "retorno_pct": -1.01,
+     "ops": 31,
+     "win_rate": 32.3,
+     "profit_factor": 0.84,
+     "max_dd_pct": 2.06,
+     "expectativa_usd": -0.31,
+     "comisiones_usd": 10.09,
+     "ganancia_usd": 52.67,
+     "perdida_usd": 62.34
+    },
+    "volatilidad": {
+     "retorno_pct": -1.78,
+     "ops": 32,
+     "win_rate": 31.2,
+     "profit_factor": 0.75,
+     "max_dd_pct": 1.91,
+     "expectativa_usd": -0.54,
+     "comisiones_usd": 10.38,
+     "ganancia_usd": 52.55,
+     "perdida_usd": 69.95
+    },
+    "multi_marco": {
+     "retorno_pct": -0.98,
+     "ops": 25,
+     "win_rate": 36.0,
+     "profit_factor": 0.85,
+     "max_dd_pct": 1.94,
+     "expectativa_usd": -0.37,
+     "comisiones_usd": 8.12,
+     "ganancia_usd": 51.16,
+     "perdida_usd": 60.44
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": -2.92,
+    "ops": 28,
+    "win_rate": 28.6,
+    "profit_factor": 0.59,
+    "max_dd_pct": 2.4,
+    "expectativa_usd": -1.05,
+    "comisiones_usd": 10.63,
+    "ganancia_usd": 43.0,
+    "perdida_usd": 72.38
+   },
+   "oos_desde": "2023-07-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": 0.45,
+    "ops": 22,
+    "win_rate": 40.9,
+    "profit_factor": 1.1,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.22,
+    "comisiones_usd": 7.2,
+    "ganancia_usd": 51.27,
+    "perdida_usd": 46.4
+   },
+   "atr_pct_max": 6.83,
+   "params_finales": {
+    "stop": [
+     "atr",
+     3.0
+    ],
+    "emas": [
+     9,
+     21
+    ],
+    "rsi_max_entrada": 60,
+    "take_profit_r": 3.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "ENA/USD",
+   "ventanas": 1,
+   "desde": "2024-08-15",
+   "variantes": {
+    "base": {
+     "retorno_pct": 1.44,
+     "ops": 4,
+     "win_rate": 50.0,
+     "profit_factor": 3.06,
+     "max_dd_pct": 0.46,
+     "expectativa_usd": 3.61,
+     "comisiones_usd": 2.28,
+     "ganancia_usd": 21.48,
+     "perdida_usd": 7.03
+    },
+    "volumen": {
+     "retorno_pct": -0.37,
+     "ops": 1,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.42,
+     "expectativa_usd": -3.66,
+     "comisiones_usd": 0.55,
+     "ganancia_usd": 0,
+     "perdida_usd": 3.66
+    },
+    "volatilidad": {
+     "retorno_pct": 1.44,
+     "ops": 4,
+     "win_rate": 50.0,
+     "profit_factor": 3.06,
+     "max_dd_pct": 0.46,
+     "expectativa_usd": 3.61,
+     "comisiones_usd": 2.28,
+     "ganancia_usd": 21.48,
+     "perdida_usd": 7.03
+    },
+    "multi_marco": {
+     "retorno_pct": -0.37,
+     "ops": 1,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.42,
+     "expectativa_usd": -3.66,
+     "comisiones_usd": 0.55,
+     "ganancia_usd": 0,
+     "perdida_usd": 3.66
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": 0.42,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 1.61,
+    "max_dd_pct": 0.81,
+    "expectativa_usd": 2.09,
+    "comisiones_usd": 1.57,
+    "ganancia_usd": 11.03,
+    "perdida_usd": 6.84
+   },
+   "oos_desde": "2026-07-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "atr_pct_max": 10.06,
+   "params_finales": {
+    "stop": [
+     "pct",
+     4.0
+    ],
+    "emas": [
+     9,
+     21
+    ],
+    "rsi_max_entrada": 70,
+    "take_profit_r": 4.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "DOGE/USD",
+   "ventanas": 11,
+   "desde": "2019-11-18",
+   "variantes": {
+    "base": {
+     "retorno_pct": -3.21,
+     "ops": 57,
+     "win_rate": 31.6,
+     "profit_factor": 0.76,
+     "max_dd_pct": 3.54,
+     "expectativa_usd": -0.56,
+     "comisiones_usd": 18.53,
+     "ganancia_usd": 99.41,
+     "perdida_usd": 131.06
+    },
+    "volumen": {
+     "retorno_pct": -1.21,
+     "ops": 48,
+     "win_rate": 31.2,
+     "profit_factor": 0.9,
+     "max_dd_pct": 3.03,
+     "expectativa_usd": -0.23,
+     "comisiones_usd": 15.63,
+     "ganancia_usd": 95.91,
+     "perdida_usd": 107.16
+    },
+    "volatilidad": {
+     "retorno_pct": -3.3,
+     "ops": 50,
+     "win_rate": 30.0,
+     "profit_factor": 0.71,
+     "max_dd_pct": 3.54,
+     "expectativa_usd": -0.65,
+     "comisiones_usd": 16.21,
+     "ganancia_usd": 81.71,
+     "perdida_usd": 114.33
+    },
+    "multi_marco": {
+     "retorno_pct": -3.2,
+     "ops": 38,
+     "win_rate": 28.9,
+     "profit_factor": 0.67,
+     "max_dd_pct": 2.79,
+     "expectativa_usd": -0.84,
+     "comisiones_usd": 12.29,
+     "ganancia_usd": 64.0,
+     "perdida_usd": 95.88
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": -2.43,
+    "ops": 41,
+    "win_rate": 34.1,
+    "profit_factor": 0.73,
+    "max_dd_pct": 2.27,
+    "expectativa_usd": -0.59,
+    "comisiones_usd": 10.15,
+    "ganancia_usd": 65.83,
+    "perdida_usd": 90.11
+   },
+   "oos_desde": "2021-07-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": -0.65,
+    "ops": 32,
+    "win_rate": 34.4,
+    "profit_factor": 0.92,
+    "max_dd_pct": 2.26,
+    "expectativa_usd": -0.18,
+    "comisiones_usd": 10.4,
+    "ganancia_usd": 64.03,
+    "perdida_usd": 69.95
+   },
+   "atr_pct_max": 7.24,
+   "params_finales": {
+    "stop": [
+     "atr",
+     2.0
+    ],
+    "emas": [
+     9,
+     21
+    ],
+    "rsi_max_entrada": 70,
+    "take_profit_r": 3.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "XRP/USD",
+   "ventanas": 12,
+   "desde": "2019-05-17",
+   "variantes": {
+    "base": {
+     "retorno_pct": -11.88,
+     "ops": 73,
+     "win_rate": 24.7,
+     "profit_factor": 0.75,
+     "max_dd_pct": 6.94,
+     "expectativa_usd": -1.64,
+     "comisiones_usd": 75.71,
+     "ganancia_usd": 354.86,
+     "perdida_usd": 474.89
+    },
+    "volumen": {
+     "retorno_pct": -4.85,
+     "ops": 56,
+     "win_rate": 28.6,
+     "profit_factor": 0.87,
+     "max_dd_pct": 4.43,
+     "expectativa_usd": -0.82,
+     "comisiones_usd": 58.2,
+     "ganancia_usd": 299.99,
+     "perdida_usd": 345.63
+    },
+    "volatilidad": {
+     "retorno_pct": -6.61,
+     "ops": 59,
+     "win_rate": 25.4,
+     "profit_factor": 0.84,
+     "max_dd_pct": 6.86,
+     "expectativa_usd": -1.02,
+     "comisiones_usd": 61.26,
+     "ganancia_usd": 310.75,
+     "perdida_usd": 371.17
+    },
+    "multi_marco": {
+     "retorno_pct": -3.92,
+     "ops": 50,
+     "win_rate": 26.0,
+     "profit_factor": 0.9,
+     "max_dd_pct": 4.9,
+     "expectativa_usd": -0.68,
+     "comisiones_usd": 52.18,
+     "ganancia_usd": 306.77,
+     "perdida_usd": 340.71
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": -4.24,
+    "ops": 22,
+    "win_rate": 22.7,
+    "profit_factor": 0.6,
+    "max_dd_pct": 2.58,
+    "expectativa_usd": -1.94,
+    "comisiones_usd": 14.51,
+    "ganancia_usd": 63.24,
+    "perdida_usd": 105.94
+   },
+   "oos_desde": "2021-01-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": -6.13,
+    "ops": 39,
+    "win_rate": 25.6,
+    "profit_factor": 0.79,
+    "max_dd_pct": 4.9,
+    "expectativa_usd": -1.53,
+    "comisiones_usd": 40.52,
+    "ganancia_usd": 218.75,
+    "perdida_usd": 278.39
+   },
+   "atr_pct_max": 6.27,
+   "params_finales": {
+    "stop": [
+     "atr",
+     3.0
+    ],
+    "emas": [
+     20,
+     50
+    ],
+    "rsi_max_entrada": 60,
+    "take_profit_r": 2.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      4.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    },
+    {
+     "stop": [
+      "atr",
+      2.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 60,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "atr",
+      3.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "MNT/USD",
+   "ventanas": 2,
+   "desde": "2024-04-13",
+   "variantes": {
+    "base": {
+     "retorno_pct": 2.6,
+     "ops": 4,
+     "win_rate": 50.0,
+     "profit_factor": 6.04,
+     "max_dd_pct": 0.71,
+     "expectativa_usd": 6.51,
+     "comisiones_usd": 2.32,
+     "ganancia_usd": 31.19,
+     "perdida_usd": 5.16
+    },
+    "volumen": {
+     "retorno_pct": 0.64,
+     "ops": 2,
+     "win_rate": 50.0,
+     "profit_factor": 3.23,
+     "max_dd_pct": 0.71,
+     "expectativa_usd": 3.2,
+     "comisiones_usd": 1.13,
+     "ganancia_usd": 9.25,
+     "perdida_usd": 2.86
+    },
+    "volatilidad": {
+     "retorno_pct": 2.6,
+     "ops": 4,
+     "win_rate": 50.0,
+     "profit_factor": 6.04,
+     "max_dd_pct": 0.71,
+     "expectativa_usd": 6.51,
+     "comisiones_usd": 2.32,
+     "ganancia_usd": 31.19,
+     "perdida_usd": 5.16
+    },
+    "multi_marco": {
+     "retorno_pct": 2.84,
+     "ops": 3,
+     "win_rate": 66.7,
+     "profit_factor": 10.91,
+     "max_dd_pct": 0.71,
+     "expectativa_usd": 9.45,
+     "comisiones_usd": 1.76,
+     "ganancia_usd": 31.21,
+     "perdida_usd": 2.86
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": 0.64,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.23,
+    "max_dd_pct": 0.71,
+    "expectativa_usd": 3.2,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 9.25,
+    "perdida_usd": 2.86
+   },
+   "oos_desde": "2026-01-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": 0.64,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.23,
+    "max_dd_pct": 0.71,
+    "expectativa_usd": 3.2,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 9.25,
+    "perdida_usd": 2.86
+   },
+   "atr_pct_max": 6.62,
+   "params_finales": {
+    "stop": [
+     "pct",
+     8.0
+    ],
+    "emas": [
+     20,
+     50
+    ],
+    "rsi_max_entrada": 70,
+    "take_profit_r": 4.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      8.0
+     ],
+     "emas": [
+      20,
+      50
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 4.0
+    },
+    {
+     "stop": [
+      "pct",
+      7.0
+     ],
+     "emas": [
+      9,
+      21
+     ],
+     "rsi_max_entrada": 65,
+     "take_profit_r": 3.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "BONK/USD",
+   "ventanas": 2,
+   "desde": "2024-04-28",
+   "variantes": {
+    "base": {
+     "retorno_pct": -0.52,
+     "ops": 2,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.49,
+     "expectativa_usd": -2.6,
+     "comisiones_usd": 0.64,
+     "ganancia_usd": 0,
+     "perdida_usd": 5.19
+    },
+    "volumen": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0.0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    },
+    "volatilidad": {
+     "retorno_pct": -0.52,
+     "ops": 2,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.49,
+     "expectativa_usd": -2.6,
+     "comisiones_usd": 0.64,
+     "ganancia_usd": 0,
+     "perdida_usd": 5.19
+    },
+    "multi_marco": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0.0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    }
+   },
+   "oos_ajustado": {
+    "retorno_pct": 0.95,
+    "ops": 1,
+    "win_rate": 100.0,
+    "profit_factor": Infinity,
+    "max_dd_pct": 0.03,
+    "expectativa_usd": 9.49,
+    "comisiones_usd": 0.46,
+    "ganancia_usd": 9.49,
+    "perdida_usd": 0
+   },
+   "oos_desde": "2026-01-01",
+   "oos_base_con_filtros": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "atr_pct_max": 9.74,
+   "params_finales": {
+    "stop": [
+     "pct",
+     6.0
+    ],
+    "emas": [
+     12,
+     26
+    ],
+    "rsi_max_entrada": 70,
+    "take_profit_r": 2.0
+   },
+   "elegidos": [
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    },
+    {
+     "stop": [
+      "pct",
+      6.0
+     ],
+     "emas": [
+      12,
+      26
+     ],
+     "rsi_max_entrada": 70,
+     "take_profit_r": 2.0
+    }
+   ],
+   "adoptado": false
+  },
+  {
+   "par": "WLFI/USD",
+   "ventanas": 0,
+   "desde": "2026-01-14",
+   "variantes": {
+    "base": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    },
+    "volumen": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    },
+    "volatilidad": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    },
+    "multi_marco": {
+     "retorno_pct": 0.0,
+     "ops": 0,
+     "win_rate": 0.0,
+     "profit_factor": 0.0,
+     "max_dd_pct": 0.0,
+     "expectativa_usd": 0.0,
+     "comisiones_usd": 0,
+     "ganancia_usd": 0,
+     "perdida_usd": 0
+    }
+   },
+   "oos_ajustado": null,
+   "oos_base_con_filtros": null,
+   "atr_pct_max": 6.11,
+   "params_finales": null,
+   "elegidos": [],
+   "adoptado": false
+  }
+ ]
+}

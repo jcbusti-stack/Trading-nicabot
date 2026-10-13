@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: estado-json   # compartido con vigilancia_stops.yml y reactivar_bot.yml
+  group: estado-json   # compartido con vigilancia_stops.yml, reactivar_bot.yml y revision_mensual.yml
   cancel-in-progress: false
 
 jobs:

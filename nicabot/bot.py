@@ -12,6 +12,7 @@ from .config import cargar_config, config_par
 from .ejecucion import crear_ejecutor
 from .estrategia import evaluar_senales
 from .indicadores import calcular_indicadores
+from . import filtros as F
 from .motor import equity, posiciones, procesar_vela, revisar_kill_switch
 
 log = logging.getLogger('nicabot.bot')
@@ -38,11 +39,12 @@ def velas_pendientes(df, ultima_vela):
     return df.iloc[-1:]
 
 
-def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, ahora=None):
+def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, ahora=None, dfs_4h=None):
     """dfs: {par: DataFrame OHLCV} para pruebas sin red; si es None se descarga de Kraken.
     precios_vivos: {par: precio} para pruebas; si es None se lee el ticker publico.
     ahora: momento actual (pruebas)."""
     ahora = pd.Timestamp(ahora) if ahora is not None else pd.Timestamp.now(tz='UTC')
+    dfs_4h_local = dict(dfs_4h or {})
     cfg = cfg or cargar_config()
     if dfs is None:
         exchange = exchange or datos.crear_exchange_publico(cfg.get('exchange', 'kraken'))
@@ -58,6 +60,12 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
                 if cfg['estrategia'].get('semilla_1d') and len(df) < cfg['estrategia'].get('min_velas_ema', 0):
                     df = datos.con_semilla(df, datos.descargar_semilla_1d(exchange, par))
                 dfs[par] = df
+                mm = F.config_filtros(config_par(cfg, par)['estrategia'])['multi_marco']
+                if mm['enabled'] and mm.get('usar_macd_4h', True) and par not in dfs_4h_local:
+                    try:
+                        dfs_4h_local[par] = datos.descargar_velas(exchange, par, '4h', 720)
+                    except Exception as e:
+                        log.warning('%s: sin velas 4h para el filtro multi-marco (%s); no bloquea.', par, e)
             except Exception as e:
                 log.error('No se pudieron descargar velas de %s: %s (se omite este paso)', par, e)
     ind, n_velas = {}, {}
@@ -68,6 +76,7 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
         if n_sint:
             log.info('%s: %d velas 12h reales + %d aproximadas desde 1d para calentar la EMA.', par, len(df) - n_sint, n_sint)
         d = calcular_indicadores(df.drop(columns='sintetica', errors='ignore'), ce)
+        d = F.agregar_columnas(d, dfs_4h_local.get(par), ce)
         if 'sintetica' in df:
             d = d[~df['sintetica'].reindex(d.index).fillna(False).astype(bool)]
         if d.empty:
@@ -109,7 +118,14 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
         for par, fila in sorted(por_fecha[fecha], key=lambda x: x[0]):
             cp = config_par(cfg, par)
             sen = evaluar_senales(fila, cp['estrategia'])
+            if sen.get('bloqueos_filtros') and par not in posiciones(estado):
+                log.info('%s %s: filtros de entrada: %s', fecha, par, ', '.join(sen['bloqueos_filtros']))
             precio_entrada = None
+            desact = (estado.get('revision') or {}).get('desactivados', {}).get(par)
+            if sen['entrada'] and par not in posiciones(estado) and desact and str(fecha) < str(desact.get('hasta')):
+                sen = dict(sen, entrada=False)
+                e = {'tipo': 'entrada_bloqueada', 'par': par, 'motivo': f"par desactivado por revision mensual hasta {desact.get('hasta')}"}
+                log.info('%s %s', fecha, e)
             if sen['entrada'] and par not in posiciones(estado):
                 bloqueo = None
                 ok_r, motivo_r, _ = regimen_btc(d_btc, fecha, fb)

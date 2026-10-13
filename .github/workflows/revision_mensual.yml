@@ -1,0 +1,54 @@
+name: Revision Mensual por Moneda (paper)
+
+on:
+  schedule:
+    # Dia 1 de cada mes a las 15:41 UTC (9:41 AM CDMX). Minuto no redondo y lejos de :02 (bot) y :x4/:x9 (vigilancia).
+    - cron: '41 15 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: estado-json   # mismo grupo que paper_trading, vigilancia_stops y reactivar_bot
+  cancel-in-progress: false
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Pruebas
+        run: python -m pytest -q
+
+      - name: Revision mensual (PAPER, sin ordenes)
+        env:
+          MODO: paper
+        run: python revision_mensual.py
+
+      - name: Commit estado/config/reporte
+        run: |
+          git config user.name "bot-trading"
+          git config user.email "bot@trading.local"
+          git add estado.json config.json reportes/
+          git diff --quiet --cached && exit 0
+          git commit -m "Revision mensual: actualizar pares activos"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "Push rechazado (intento $i), rebase y reintento..."
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || { git rebase --abort; exit 1; }
+            sleep $((i * 5))
+          done
+          exit 1

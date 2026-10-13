@@ -31,3 +31,4 @@ logs/
 senal_*.txt
 *.tmp
 .pytest_cache/
+datos_historia/
