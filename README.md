@@ -202,3 +202,14 @@ si un par tiene expectativa negativa en sus últimas `ultimas_n` operaciones
 `enfriamiento_dias` (60). Las posiciones abiertas siguen con su stop/TP. Al
 terminar el enfriamiento se reactiva y se cuenta de cero. Reporte en
 `reportes/revision_mensual.md`; el estado queda en `estado.json` → `revision`.
+
+## Más aciertos: toma parcial + salida por tiempo (por defecto)
+
+Investigación completa en `reportes/investigacion_aciertos.md` (`python -m nicabot.investigacion`).
+
+- **Por defecto ahora**: vende el **50% de la posición a 1R** (ganancia = 1 vez el riesgo), sube el stop a **entrada + 0.6%** y deja el resto correr hasta **TP 3R**, señal de salida o **14 velas (7 días)**.
+- Fuera de muestra: aciertos **40.5% → 50.9%**, profit factor **1.55 → 1.26**, retorno promedio por par **4.9% → 2.0%**, drawdown máx **6.5% → 5.0%**. Se gana más seguido pero menos dinero.
+- Opciones en `config.json`:
+  - `riesgo.tp_parcial_r` (null = apagado), `tp_parcial_frac`, `breakeven_tras_parcial`, `breakeven_offset_pct`, `max_velas_posicion` (null = sin límite), `trailing_solo_tras_parcial`.
+  - `estrategia.modo_entrada`: `cruce` (defecto) | `pullback` | `reversion` (RSI2 tipo Connors) | `mixto`; `estrategia.salida_macd`; `estrategia.max_extension_atr`.
+- Volver a lo anterior: `tp_parcial_r: null` y `max_velas_posicion: null`.
