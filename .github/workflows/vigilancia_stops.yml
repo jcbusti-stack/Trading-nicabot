@@ -2,8 +2,8 @@ name: Vigilancia de Stops (paper)
 
 on:
   schedule:
-    # Cada 20 min en minutos no redondos (GitHub retrasa los crons en :00).
-    - cron: '7,27,47 * * * *'
+    # Cada 5 min (repo público: minutos ilimitados).
+    - cron: '2-59/5 * * * *'
   workflow_dispatch:
 
 permissions:
