@@ -3,15 +3,16 @@ name: Paper Trading Multi-activo
 on:
   schedule:
     # Mexico (CDMX) no usa horario de verano desde 2022, se mantiene en UTC-6 todo el año.
-    # 4:00 AM y 4:00 PM CDMX = 10:00 y 22:00 UTC
-    - cron: '0 10,22 * * *'
+    # 2 min despues del cierre de cada vela de 12h de Kraken (00:00 y 12:00 UTC = 6:02 PM y 6:02 AM CDMX).
+    # Va antes de la vigilancia (:07) porque GitHub solo deja UNA corrida pendiente por grupo de concurrencia.
+    - cron: '2 0,12 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: paper-trading
+  group: estado-json   # compartido con vigilancia_stops.yml y reactivar_bot.yml
   cancel-in-progress: false
 
 jobs:
@@ -50,5 +51,12 @@ jobs:
           git config user.name "bot-trading"
           git config user.email "bot@trading.local"
           git add estado.json datos_velas/
-          git diff --quiet --cached || git commit -m "Actualizar estado paper trading"
-          git push
+          git diff --quiet --cached && exit 0
+          git commit -m "Actualizar estado paper trading"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "Push rechazado (intento $i), rebase y reintento..."
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || { git rebase --abort; exit 1; }
+            sleep $((i * 5))
+          done
+          exit 1

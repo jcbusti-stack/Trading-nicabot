@@ -75,6 +75,55 @@ def descargar_velas(exchange, par, timeframe='12h', velas=300, solo_cerradas=Tru
     return df.tail(max(velas, 1)) if not dir_cache else df
 
 
+def precio_vivo(exchange, par):
+    """Ultimo precio del ticker publico de Kraken (None si falla)."""
+    try:
+        t = con_reintentos(lambda: exchange.fetch_ticker(par), intentos=3, espera=2.0)
+        p = t.get('last') or t.get('close') or t.get('bid')
+        return float(p) if p else None
+    except Exception as e:
+        log.warning('No se pudo leer el ticker de %s: %s', par, e)
+        return None
+
+
+def semilla_diaria(df_1d, antes_de):
+    """Convierte velas de 1d en pares de velas 12h APROXIMADAS (solo para calentar
+    la EMA200). Cada dia se parte en 00:00 (open -> punto medio) y 12:00
+    (punto medio -> close), con el high/low del dia. Solo se usan dias
+    anteriores a `antes_de`. Las filas llevan sintetica=True."""
+    d = df_1d[df_1d.index + pd.Timedelta(days=1) <= antes_de]
+    if d.empty:
+        return d.assign(sintetica=pd.Series(dtype=bool))
+    medio = (d['open'] + d['close']) / 2
+    a = pd.DataFrame({'open': d['open'], 'high': d['high'], 'low': d['low'], 'close': medio,
+                      'volume': d['volume'] / 2}, index=d.index)
+    b = pd.DataFrame({'open': medio.values, 'high': d['high'].values, 'low': d['low'].values,
+                      'close': d['close'].values, 'volume': (d['volume'] / 2).values},
+                     index=d.index + pd.Timedelta(hours=12))
+    out = pd.concat([a, b]).sort_index()
+    out['sintetica'] = True
+    return out
+
+
+def con_semilla(df, df_1d):
+    """Antepone historia aproximada (de velas 1d) a una serie 12h real."""
+    df = df.copy()
+    df['sintetica'] = False
+    if df_1d is None or df_1d.empty or df.empty:
+        return df
+    sem = semilla_diaria(df_1d, df.index[0])
+    return pd.concat([sem, df]).sort_index()
+
+
+def descargar_semilla_1d(exchange, par):
+    """Kraken da hasta 720 velas de 1d (~2 anos). None si falla."""
+    try:
+        return _solo_cerradas(_a_df(con_reintentos(lambda: exchange.fetch_ohlcv(par, timeframe='1d', limit=720))), '1d')
+    except Exception as e:
+        log.warning('No se pudo descargar historia 1d de %s: %s', par, e)
+        return None
+
+
 def _mezclar_cache(df, par, timeframe, dir_cache):
     os.makedirs(dir_cache, exist_ok=True)
     ruta = os.path.join(dir_cache, f"{par.replace('/', '_')}_{timeframe}.csv")

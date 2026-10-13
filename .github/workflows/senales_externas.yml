@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # Una vez al dia, junto con el resto del analisis (4am CDMX = 10:00 UTC)
-    - cron: '0 10 * * *'
+    - cron: '23 10 * * *'
 
 jobs:
   run-verificacion:
