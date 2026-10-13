@@ -163,7 +163,7 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
             try:
                 if e['tipo'] == 'compra':
                     ejecutor.comprar(e['par'], e['cantidad'], e['precio_ref'])
-                elif e['tipo'] == 'venta':
+                elif e['tipo'] in ('venta', 'venta_parcial'):
                     ejecutor.vender(e['par'], e['cantidad'], e['precio_ref'])
             except Exception as ex:
                 log.error('Fallo orden real %s %s: %s', e['tipo'], e.get('par'), ex)

@@ -11,7 +11,7 @@ import pandas as pd
 
 from . import datos, estado as est, riesgo as R
 from .config import cargar_config, config_par
-from .motor import _cerrar, posiciones, revisar_kill_switch
+from .motor import _cerrar, _venta_parcial, posiciones, revisar_kill_switch
 
 log = logging.getLogger('nicabot.vigilancia')
 
@@ -33,8 +33,12 @@ def revisar_posiciones(estado, precios_vivos, cfg, ahora=None):
         elif pos.get('take_profit') and precio >= pos['take_profit']:
             eventos.append(_cerrar(estado, par, precio, fecha, 'take-profit (vigilancia)', cp))
         else:
+            if pos.get('tp_parcial') and not pos.get('parcial_hecho') and precio >= pos['tp_parcial']:
+                eventos.append(_venta_parcial(estado, par, pos, precio, fecha, cp))
             pos['ultimo_precio'] = float(precio)
             pos['precio_maximo'] = max(pos.get('precio_maximo') or 0, float(precio))
+            if cp['riesgo'].get('trailing_solo_tras_parcial') and not pos.get('parcial_hecho'):
+                continue
             nuevo = R.actualizar_trailing(pos['stop'], pos['precio_maximo'], pos.get('atr'), cp['riesgo'])
             if nuevo > pos['stop']:
                 pos['stop'], pos['trailing_movido'] = nuevo, True

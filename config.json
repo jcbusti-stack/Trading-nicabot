@@ -32,7 +32,17 @@
         "usar_macd_4h": true
       },
       "_nota": "Encendidos solo los que no empeoraron fuera de muestra (ver reportes/optimizacion.md)."
-    }
+    },
+    "modo_entrada": "cruce",
+    "salida_macd": true,
+    "max_extension_atr": null,
+    "rsi_corto_periodo": 2,
+    "sma_salida": 5,
+    "reversion_rsi_max": 10,
+    "pullback_rsi_min": 40,
+    "pullback_rsi_max": 50,
+    "pullback_tolerancia_pct": 0.5,
+    "_nota_modo": "modo_entrada: cruce (defecto) | pullback | reversion | mixto. Ver reportes/investigacion_aciertos.md"
   },
   "entrada": {
     "usar_precio_vivo": true,
@@ -50,7 +60,14 @@
     "take_profit_r": 3.0,
     "trailing_atr_mult": null,
     "kill_switch_pct": 25.0,
-    "kill_switch_cierra_posicion": false
+    "kill_switch_cierra_posicion": false,
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6,
+    "max_velas_posicion": 14,
+    "trailing_solo_tras_parcial": false,
+    "_nota_salidas": "Variante elegida parcial_1r_be_tp3r_tiempo14: vende 50% a 1R, sube stop a entrada+0.6% (cubre comisiones), resto a TP 3R / senal / salida por tiempo a las 14 velas (7 dias). Apagar: tp_parcial_r=null, max_velas_posicion=null. Ver reportes/investigacion_aciertos.md"
   },
   "costos": {
     "comision_pct": 0.26,

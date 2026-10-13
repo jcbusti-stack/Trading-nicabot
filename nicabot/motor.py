@@ -47,15 +47,39 @@ def _cerrar(estado, par, precio_bruto, fecha, motivo, cfg):
     comision = bruto * c['comision_pct'] / 100
     estado['cash'] += bruto - comision
     estado['comisiones_totales'] = estado.get('comisiones_totales', 0.0) + comision
-    pnl_usd = bruto - comision - pos['costo_entrada']
+    # Una operacion = una fila del historial, incluyendo la venta parcial si la hubo
+    pnl_usd = bruto - comision - pos['costo_entrada'] + pos.get('pnl_parcial', 0.0)
     estado['historial'].append({
         'par': par, 'entrada': round(pos['precio_entrada'], 8), 'salida': round(precio, 8),
         'fecha_entrada': pos['fecha_entrada'], 'fecha_salida': fecha,
         'resultado_pct': round((precio - pos['precio_entrada']) / pos['precio_entrada'] * 100, 2),
         'pnl_usd': round(pnl_usd, 2), 'cantidad': pos['cantidad'], 'motivo': motivo,
+        **({'parcial': True} if pos.get('parcial_hecho') else {}),
     })
     return {'tipo': 'venta', 'par': par, 'precio': precio, 'cantidad': pos['cantidad'],
             'motivo': motivo, 'pnl_usd': pnl_usd}
+
+
+def _venta_parcial(estado, par, pos, precio_bruto, fecha, cfg):
+    """Vende riesgo.tp_parcial_frac de la posicion y (opcional) sube el stop a break-even."""
+    rc, c = cfg['riesgo'], cfg['costos']
+    frac = float(rc.get('tp_parcial_frac', 0.5))
+    qty = pos['cantidad'] * frac
+    precio = R.precio_con_slippage(precio_bruto, 'venta', c['slippage_pct'])
+    bruto = qty * precio
+    comision = bruto * c['comision_pct'] / 100
+    costo = pos['costo_entrada'] * frac
+    estado['cash'] += bruto - comision
+    estado['comisiones_totales'] = estado.get('comisiones_totales', 0.0) + comision
+    pos['pnl_parcial'] = pos.get('pnl_parcial', 0.0) + bruto - comision - costo
+    pos['cantidad'] -= qty
+    pos['costo_entrada'] -= costo
+    pos['parcial_hecho'] = True
+    if rc.get('breakeven_tras_parcial', True):
+        be = pos['precio_entrada'] * (1 + rc.get('breakeven_offset_pct', 0.0) / 100)
+        pos['stop'] = max(pos['stop'], be)
+    return {'tipo': 'venta_parcial', 'par': par, 'precio': precio, 'cantidad': qty, 'fecha': fecha,
+            'pnl_usd': bruto - comision - costo}
 
 
 def procesar_vela(estado, par, fila, fecha, senales, cfg, precios=None, precio_entrada=None):
@@ -68,18 +92,28 @@ def procesar_vela(estado, par, fila, fecha, senales, cfg, precios=None, precio_e
     pos = posiciones(estado).get(par)
 
     if pos:
+        pos['velas'] = pos.get('velas', 0) + 1
+        max_velas = rc.get('max_velas_posicion')
         if fila['low'] <= pos['stop']:
-            eventos.append(_cerrar(estado, par, min(fila['open'], pos['stop']), fecha, 'stop-loss', cfg))
-        elif pos.get('take_profit') and fila['high'] >= pos['take_profit']:
-            eventos.append(_cerrar(estado, par, max(fila['open'], pos['take_profit']), fecha, 'take-profit', cfg))
-        elif senales['salida']:
-            eventos.append(_cerrar(estado, par, fila['close'], fecha, 'senal', cfg))
+            motivo = 'break-even' if pos.get('parcial_hecho') and pos['stop'] >= pos['precio_entrada'] else 'stop-loss'
+            eventos.append(_cerrar(estado, par, min(fila['open'], pos['stop']), fecha, motivo, cfg))
         else:
+            tp_p = pos.get('tp_parcial')
+            if tp_p and not pos.get('parcial_hecho') and fila['high'] >= tp_p:
+                eventos.append(_venta_parcial(estado, par, pos, max(fila['open'], tp_p), fecha, cfg))
+            if pos.get('take_profit') and fila['high'] >= pos['take_profit']:
+                eventos.append(_cerrar(estado, par, max(fila['open'], pos['take_profit']), fecha, 'take-profit', cfg))
+            elif senales['salida']:
+                eventos.append(_cerrar(estado, par, fila['close'], fecha, 'senal', cfg))
+            elif max_velas and pos['velas'] >= max_velas:
+                eventos.append(_cerrar(estado, par, fila['close'], fecha, 'tiempo', cfg))
+        if posiciones(estado).get(par):
             pos['precio_maximo'] = max(pos.get('precio_maximo') or 0, fila['high'])
-            pos['stop'] = R.actualizar_trailing(pos['stop'], pos['precio_maximo'], fila.get('ATR'), rc)
+            if pos.get('parcial_hecho') or not rc.get('trailing_solo_tras_parcial'):
+                pos['stop'] = R.actualizar_trailing(pos['stop'], pos['precio_maximo'], fila.get('ATR'), rc)
             pos['ultimo_precio'] = float(fila['close'])
 
-    if not posiciones(estado).get(par) and not eventos and senales['entrada']:
+    if not pos and not posiciones(estado).get(par) and senales['entrada']:
         if estado['kill_switch_activo']:
             eventos.append({'tipo': 'entrada_bloqueada', 'par': par, 'motivo': 'kill switch'})
         elif len(posiciones(estado)) >= pf['max_posiciones_abiertas']:
@@ -103,6 +137,7 @@ def procesar_vela(estado, par, fila, fecha, senales, cfg, precios=None, precio_e
                 posiciones(estado)[par] = {
                     'precio_entrada': precio, 'fecha_entrada': fecha, 'cantidad': qty, 'stop': stop,
                     'precio_maximo': precio, 'take_profit': R.precio_take_profit(precio, stop, rc),
+                    'tp_parcial': R.precio_tp_parcial(precio, stop, rc), 'velas': 0,
                     'costo_entrada': nocional + comision, 'ultimo_precio': ref,
                     'atr': _num(fila.get('ATR'))}
                 eventos.append({'tipo': 'compra', 'par': par, 'precio': precio, 'cantidad': qty, 'stop': stop,

@@ -23,6 +23,12 @@ def calcular_indicadores(df, cfg_estrategia=None):
     prev_close = df['close'].shift(1)
     tr = (df['high'] - df['low']).combine((df['high'] - prev_close).abs(), max).combine((df['low'] - prev_close).abs(), max)
     df['ATR'] = tr.ewm(alpha=1 / atr_p, adjust=False).mean()
+    # Para variantes de entrada (pullback / reversion tipo Connors)
+    rc = c.get('rsi_corto_periodo', 2)
+    g2 = delta.clip(lower=0).ewm(alpha=1 / rc, adjust=False).mean()
+    p2 = (-delta.clip(upper=0)).ewm(alpha=1 / rc, adjust=False).mean()
+    df['RSI_C'] = (100 - 100 / (1 + g2 / p2)).where(p2 != 0, 100.0)
+    df['SMA_SAL'] = df['close'].rolling(c.get('sma_salida', 5)).mean()
     # Solo informativo
     df['VOL_PROM'] = df['volume'].rolling(20).mean().shift(1)
     return df.dropna()

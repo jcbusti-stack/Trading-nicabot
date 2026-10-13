@@ -14,9 +14,17 @@ def precio_take_profit(precio_entrada, stop, cfg_riesgo):
     return precio_entrada + r * (precio_entrada - stop)
 
 
+def precio_tp_parcial(precio_entrada, stop, cfg_riesgo):
+    """Precio de la toma parcial (riesgo.tp_parcial_r en R). None si esta apagada."""
+    r = cfg_riesgo.get('tp_parcial_r')
+    if not r or not cfg_riesgo.get('tp_parcial_frac'):
+        return None
+    return precio_entrada + r * (precio_entrada - stop)
+
+
 def actualizar_trailing(stop_actual, precio_maximo, atr, cfg_riesgo):
     mult = cfg_riesgo.get('trailing_atr_mult')
-    if not mult or not atr:
+    if not mult or not atr or (isinstance(atr, float) and atr != atr):
         return stop_actual
     return max(stop_actual, precio_maximo - mult * atr)
 

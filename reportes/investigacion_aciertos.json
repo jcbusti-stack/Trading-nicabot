@@ -1,0 +1,4006 @@
+{
+ "agregado": {
+  "actual": {
+   "ops": 220,
+   "win_rate": 40.5,
+   "profit_factor": 1.55,
+   "expectativa_usd": 2.38,
+   "retorno_prom_pct": 4.92,
+   "dd_prom_pct": 2.46,
+   "dd_max_pct": 6.47,
+   "pares_positivos": 7,
+   "pares": 11
+  },
+  "tp_2r": {
+   "ops": 226,
+   "win_rate": 41.6,
+   "profit_factor": 1.29,
+   "expectativa_usd": 1.24,
+   "retorno_prom_pct": 2.54,
+   "dd_prom_pct": 2.31,
+   "dd_max_pct": 6.47,
+   "pares_positivos": 7,
+   "pares": 11
+  },
+  "tp_1.5r": {
+   "ops": 231,
+   "win_rate": 46.3,
+   "profit_factor": 1.31,
+   "expectativa_usd": 1.22,
+   "retorno_prom_pct": 2.6,
+   "dd_prom_pct": 2.21,
+   "dd_max_pct": 6.47,
+   "pares_positivos": 7,
+   "pares": 11
+  },
+  "tp_1r": {
+   "ops": 241,
+   "win_rate": 50.2,
+   "profit_factor": 1.06,
+   "expectativa_usd": 0.23,
+   "retorno_prom_pct": 0.48,
+   "dd_prom_pct": 1.93,
+   "dd_max_pct": 4.58,
+   "pares_positivos": 5,
+   "pares": 11
+  },
+  "parcial_1r_be_tp3r": {
+   "ops": 227,
+   "win_rate": 50.2,
+   "profit_factor": 1.24,
+   "expectativa_usd": 0.89,
+   "retorno_prom_pct": 1.81,
+   "dd_prom_pct": 2.04,
+   "dd_max_pct": 4.98,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "parcial_1r_be_trailing3atr": {
+   "ops": 226,
+   "win_rate": 50.0,
+   "profit_factor": 1.2,
+   "expectativa_usd": 0.74,
+   "retorno_prom_pct": 1.49,
+   "dd_prom_pct": 2.14,
+   "dd_max_pct": 4.98,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "parcial_0.75r_be_tp3r": {
+   "ops": 228,
+   "win_rate": 54.8,
+   "profit_factor": 1.14,
+   "expectativa_usd": 0.48,
+   "retorno_prom_pct": 0.94,
+   "dd_prom_pct": 1.96,
+   "dd_max_pct": 4.62,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "parcial_1r_be_tp3r_sin_macd": {
+   "ops": 210,
+   "win_rate": 54.3,
+   "profit_factor": 1.11,
+   "expectativa_usd": 0.53,
+   "retorno_prom_pct": 0.99,
+   "dd_prom_pct": 2.44,
+   "dd_max_pct": 5.33,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "parcial_1r_be_trail_sin_macd": {
+   "ops": 210,
+   "win_rate": 53.8,
+   "profit_factor": 1.15,
+   "expectativa_usd": 0.7,
+   "retorno_prom_pct": 1.3,
+   "dd_prom_pct": 2.53,
+   "dd_max_pct": 5.33,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "tiempo_10velas": {
+   "ops": 232,
+   "win_rate": 43.6,
+   "profit_factor": 1.59,
+   "expectativa_usd": 2.42,
+   "retorno_prom_pct": 5.26,
+   "dd_prom_pct": 2.25,
+   "dd_max_pct": 6.47,
+   "pares_positivos": 8,
+   "pares": 11
+  },
+  "sin_salida_macd": {
+   "ops": 191,
+   "win_rate": 37.2,
+   "profit_factor": 1.33,
+   "expectativa_usd": 2.16,
+   "retorno_prom_pct": 3.98,
+   "dd_prom_pct": 3.16,
+   "dd_max_pct": 6.81,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "trailing_atr3": {
+   "ops": 223,
+   "win_rate": 39.9,
+   "profit_factor": 1.55,
+   "expectativa_usd": 2.29,
+   "retorno_prom_pct": 4.81,
+   "dd_prom_pct": 2.46,
+   "dd_max_pct": 6.47,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "sin_extension_2atr": {
+   "ops": 170,
+   "win_rate": 37.6,
+   "profit_factor": 1.44,
+   "expectativa_usd": 1.9,
+   "retorno_prom_pct": 3.11,
+   "dd_prom_pct": 2.11,
+   "dd_max_pct": 4.99,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "pullback": {
+   "ops": 136,
+   "win_rate": 30.9,
+   "profit_factor": 0.98,
+   "expectativa_usd": -0.06,
+   "retorno_prom_pct": -0.02,
+   "dd_prom_pct": 1.82,
+   "dd_max_pct": 3.89,
+   "pares_positivos": 4,
+   "pares": 9
+  },
+  "pullback_parcial_1r": {
+   "ops": 136,
+   "win_rate": 38.9,
+   "profit_factor": 1.0,
+   "expectativa_usd": -0.01,
+   "retorno_prom_pct": -0.01,
+   "dd_prom_pct": 1.58,
+   "dd_max_pct": 3.1,
+   "pares_positivos": 5,
+   "pares": 9
+  },
+  "reversion_rsi2": {
+   "ops": 286,
+   "win_rate": 57.7,
+   "profit_factor": 0.88,
+   "expectativa_usd": -0.41,
+   "retorno_prom_pct": -1.06,
+   "dd_prom_pct": 1.79,
+   "dd_max_pct": 4.44,
+   "pares_positivos": 4,
+   "pares": 11
+  },
+  "reversion_rsi2_stop_ancho": {
+   "ops": 278,
+   "win_rate": 62.2,
+   "profit_factor": 0.79,
+   "expectativa_usd": -0.32,
+   "retorno_prom_pct": -0.84,
+   "dd_prom_pct": 1.08,
+   "dd_max_pct": 4.0,
+   "pares_positivos": 4,
+   "pares": 11
+  },
+  "mixto_cruce_reversion": {
+   "ops": 495,
+   "win_rate": 39.6,
+   "profit_factor": 1.16,
+   "expectativa_usd": 0.5,
+   "retorno_prom_pct": 2.21,
+   "dd_prom_pct": 2.76,
+   "dd_max_pct": 7.44,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "parcial_1r_be_tp3r_ext2atr": {
+   "ops": 174,
+   "win_rate": 47.7,
+   "profit_factor": 1.1,
+   "expectativa_usd": 0.4,
+   "retorno_prom_pct": 0.63,
+   "dd_prom_pct": 1.85,
+   "dd_max_pct": 3.95,
+   "pares_positivos": 5,
+   "pares": 11
+  },
+  "parcial_1r_be_tp2r": {
+   "ops": 232,
+   "win_rate": 50.0,
+   "profit_factor": 1.12,
+   "expectativa_usd": 0.46,
+   "retorno_prom_pct": 0.94,
+   "dd_prom_pct": 2.06,
+   "dd_max_pct": 4.98,
+   "pares_positivos": 5,
+   "pares": 11
+  },
+  "parcial_1r_be0_tp3r": {
+   "ops": 224,
+   "win_rate": 50.0,
+   "profit_factor": 1.3,
+   "expectativa_usd": 1.11,
+   "retorno_prom_pct": 2.26,
+   "dd_prom_pct": 2.04,
+   "dd_max_pct": 5.06,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "parcial_1r_frac33_tp3r_tiempo10": {
+   "ops": 236,
+   "win_rate": 49.6,
+   "profit_factor": 1.3,
+   "expectativa_usd": 1.1,
+   "retorno_prom_pct": 2.36,
+   "dd_prom_pct": 1.97,
+   "dd_max_pct": 5.12,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "parcial_1r_sinbe_tp3r_tiempo10": {
+   "ops": 232,
+   "win_rate": 46.5,
+   "profit_factor": 1.37,
+   "expectativa_usd": 1.34,
+   "retorno_prom_pct": 2.85,
+   "dd_prom_pct": 1.99,
+   "dd_max_pct": 5.53,
+   "pares_positivos": 7,
+   "pares": 11
+  },
+  "tp_1.5r_tiempo10": {
+   "ops": 240,
+   "win_rate": 47.9,
+   "profit_factor": 1.31,
+   "expectativa_usd": 1.19,
+   "retorno_prom_pct": 2.62,
+   "dd_prom_pct": 2.19,
+   "dd_max_pct": 6.47,
+   "pares_positivos": 8,
+   "pares": 11
+  },
+  "parcial_1r_be_tp3r_tiempo10": {
+   "ops": 236,
+   "win_rate": 50.0,
+   "profit_factor": 1.23,
+   "expectativa_usd": 0.86,
+   "retorno_prom_pct": 1.84,
+   "dd_prom_pct": 1.94,
+   "dd_max_pct": 4.98,
+   "pares_positivos": 6,
+   "pares": 11
+  },
+  "parcial_1r_be_tp3r_tiempo14": {
+   "ops": 228,
+   "win_rate": 50.9,
+   "profit_factor": 1.26,
+   "expectativa_usd": 0.97,
+   "retorno_prom_pct": 2.0,
+   "dd_prom_pct": 2.03,
+   "dd_max_pct": 4.98,
+   "pares_positivos": 6,
+   "pares": 11
+  }
+ },
+ "por_par": {
+  "BTC/USD": {
+   "actual": {
+    "retorno_pct": -3.73,
+    "ops": 43,
+    "win_rate": 39.5,
+    "profit_factor": 0.81,
+    "max_dd_pct": 4.42,
+    "expectativa_usd": -0.84,
+    "comisiones_usd": 45.14,
+    "ganancia_usd": 154.47,
+    "perdida_usd": 190.63
+   },
+   "tp_2r": {
+    "retorno_pct": -2.88,
+    "ops": 43,
+    "win_rate": 39.5,
+    "profit_factor": 0.86,
+    "max_dd_pct": 3.54,
+    "expectativa_usd": -0.64,
+    "comisiones_usd": 45.17,
+    "ganancia_usd": 163.1,
+    "perdida_usd": 190.76
+   },
+   "tp_1.5r": {
+    "retorno_pct": -1.24,
+    "ops": 43,
+    "win_rate": 41.9,
+    "profit_factor": 0.94,
+    "max_dd_pct": 3.54,
+    "expectativa_usd": -0.26,
+    "comisiones_usd": 45.33,
+    "ganancia_usd": 168.84,
+    "perdida_usd": 180.07
+   },
+   "tp_1r": {
+    "retorno_pct": -1.4,
+    "ops": 45,
+    "win_rate": 46.7,
+    "profit_factor": 0.93,
+    "max_dd_pct": 2.9,
+    "expectativa_usd": -0.29,
+    "comisiones_usd": 47.46,
+    "ganancia_usd": 164.6,
+    "perdida_usd": 177.43
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": -3.11,
+    "ops": 43,
+    "win_rate": 46.5,
+    "profit_factor": 0.82,
+    "max_dd_pct": 3.43,
+    "expectativa_usd": -0.7,
+    "comisiones_usd": 45.18,
+    "ganancia_usd": 135.54,
+    "perdida_usd": 165.57
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": -3.18,
+    "ops": 43,
+    "win_rate": 46.5,
+    "profit_factor": 0.81,
+    "max_dd_pct": 3.43,
+    "expectativa_usd": -0.71,
+    "comisiones_usd": 45.18,
+    "ganancia_usd": 134.85,
+    "perdida_usd": 165.56
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": -0.46,
+    "ops": 43,
+    "win_rate": 55.8,
+    "profit_factor": 0.98,
+    "max_dd_pct": 3.43,
+    "expectativa_usd": -0.08,
+    "comisiones_usd": 45.37,
+    "ganancia_usd": 129.07,
+    "perdida_usd": 132.35
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": -3.94,
+    "ops": 37,
+    "win_rate": 54.1,
+    "profit_factor": 0.8,
+    "max_dd_pct": 3.88,
+    "expectativa_usd": -1.03,
+    "comisiones_usd": 38.94,
+    "ganancia_usd": 150.82,
+    "perdida_usd": 189.09
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": -4.47,
+    "ops": 38,
+    "win_rate": 52.6,
+    "profit_factor": 0.78,
+    "max_dd_pct": 3.88,
+    "expectativa_usd": -1.15,
+    "comisiones_usd": 39.96,
+    "ganancia_usd": 156.4,
+    "perdida_usd": 200.15
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 0.39,
+    "ops": 45,
+    "win_rate": 40.0,
+    "profit_factor": 1.03,
+    "max_dd_pct": 3.32,
+    "expectativa_usd": 0.11,
+    "comisiones_usd": 46.93,
+    "ganancia_usd": 193.4,
+    "perdida_usd": 188.29
+   },
+   "sin_salida_macd": {
+    "retorno_pct": -9.42,
+    "ops": 35,
+    "win_rate": 28.6,
+    "profit_factor": 0.65,
+    "max_dd_pct": 6.7,
+    "expectativa_usd": -2.74,
+    "comisiones_usd": 36.56,
+    "ganancia_usd": 181.2,
+    "perdida_usd": 276.97
+   },
+   "trailing_atr3": {
+    "retorno_pct": -1.72,
+    "ops": 44,
+    "win_rate": 38.6,
+    "profit_factor": 0.91,
+    "max_dd_pct": 4.42,
+    "expectativa_usd": -0.36,
+    "comisiones_usd": 46.32,
+    "ganancia_usd": 153.74,
+    "perdida_usd": 169.45
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": -7.17,
+    "ops": 41,
+    "win_rate": 36.6,
+    "profit_factor": 0.62,
+    "max_dd_pct": 4.42,
+    "expectativa_usd": -1.76,
+    "comisiones_usd": 42.93,
+    "ganancia_usd": 118.0,
+    "perdida_usd": 190.34
+   },
+   "pullback": {
+    "retorno_pct": -10.95,
+    "ops": 67,
+    "win_rate": 25.4,
+    "profit_factor": 0.48,
+    "max_dd_pct": 3.31,
+    "expectativa_usd": -1.71,
+    "comisiones_usd": 69.06,
+    "ganancia_usd": 105.27,
+    "perdida_usd": 219.73
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": -6.14,
+    "ops": 67,
+    "win_rate": 31.3,
+    "profit_factor": 0.66,
+    "max_dd_pct": 3.1,
+    "expectativa_usd": -0.93,
+    "comisiones_usd": 69.42,
+    "ganancia_usd": 121.95,
+    "perdida_usd": 184.05
+   },
+   "reversion_rsi2": {
+    "retorno_pct": -3.6,
+    "ops": 67,
+    "win_rate": 61.2,
+    "profit_factor": 0.81,
+    "max_dd_pct": 4.44,
+    "expectativa_usd": -0.52,
+    "comisiones_usd": 69.75,
+    "ganancia_usd": 150.31,
+    "perdida_usd": 185.43
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": -4.06,
+    "ops": 67,
+    "win_rate": 64.2,
+    "profit_factor": 0.68,
+    "max_dd_pct": 4.0,
+    "expectativa_usd": -0.6,
+    "comisiones_usd": 47.45,
+    "ganancia_usd": 86.83,
+    "perdida_usd": 127.14
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": -6.83,
+    "ops": 101,
+    "win_rate": 41.6,
+    "profit_factor": 0.76,
+    "max_dd_pct": 4.35,
+    "expectativa_usd": -0.68,
+    "comisiones_usd": 105.48,
+    "ganancia_usd": 220.49,
+    "perdida_usd": 289.15
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": -5.69,
+    "ops": 41,
+    "win_rate": 43.9,
+    "profit_factor": 0.65,
+    "max_dd_pct": 3.43,
+    "expectativa_usd": -1.39,
+    "comisiones_usd": 42.99,
+    "ganancia_usd": 108.19,
+    "perdida_usd": 165.34
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": -2.93,
+    "ops": 43,
+    "win_rate": 46.5,
+    "profit_factor": 0.83,
+    "max_dd_pct": 3.43,
+    "expectativa_usd": -0.66,
+    "comisiones_usd": 45.19,
+    "ganancia_usd": 137.24,
+    "perdida_usd": 165.56
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": -1.62,
+    "ops": 43,
+    "win_rate": 46.5,
+    "profit_factor": 0.91,
+    "max_dd_pct": 3.22,
+    "expectativa_usd": -0.35,
+    "comisiones_usd": 45.3,
+    "ganancia_usd": 151.13,
+    "perdida_usd": 165.97
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": -1.86,
+    "ops": 45,
+    "win_rate": 46.7,
+    "profit_factor": 0.89,
+    "max_dd_pct": 3.18,
+    "expectativa_usd": -0.4,
+    "comisiones_usd": 46.78,
+    "ganancia_usd": 147.28,
+    "perdida_usd": 165.5
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": -0.12,
+    "ops": 45,
+    "win_rate": 42.2,
+    "profit_factor": 1.0,
+    "max_dd_pct": 3.11,
+    "expectativa_usd": -0.01,
+    "comisiones_usd": 46.93,
+    "ganancia_usd": 167.74,
+    "perdida_usd": 168.31
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 0.32,
+    "ops": 45,
+    "win_rate": 42.2,
+    "profit_factor": 1.02,
+    "max_dd_pct": 3.32,
+    "expectativa_usd": 0.08,
+    "comisiones_usd": 46.98,
+    "ganancia_usd": 180.87,
+    "perdida_usd": 177.27
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": -1.56,
+    "ops": 45,
+    "win_rate": 46.7,
+    "profit_factor": 0.91,
+    "max_dd_pct": 3.11,
+    "expectativa_usd": -0.34,
+    "comisiones_usd": 46.82,
+    "ganancia_usd": 150.39,
+    "perdida_usd": 165.61
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": -2.79,
+    "ops": 43,
+    "win_rate": 46.5,
+    "profit_factor": 0.84,
+    "max_dd_pct": 3.43,
+    "expectativa_usd": -0.62,
+    "comisiones_usd": 45.19,
+    "ganancia_usd": 139.34,
+    "perdida_usd": 166.13
+   }
+  },
+  "ONDO/USD": {
+   "actual": null,
+   "tp_2r": null,
+   "tp_1.5r": null,
+   "tp_1r": null,
+   "parcial_1r_be_tp3r": null,
+   "parcial_1r_be_trailing3atr": null,
+   "parcial_0.75r_be_tp3r": null,
+   "parcial_1r_be_tp3r_sin_macd": null,
+   "parcial_1r_be_trail_sin_macd": null,
+   "tiempo_10velas": null,
+   "sin_salida_macd": null,
+   "trailing_atr3": null,
+   "sin_extension_2atr": null,
+   "pullback": null,
+   "pullback_parcial_1r": null,
+   "reversion_rsi2": null,
+   "reversion_rsi2_stop_ancho": null,
+   "mixto_cruce_reversion": null,
+   "parcial_1r_be_tp3r_ext2atr": null,
+   "parcial_1r_be_tp2r": null,
+   "parcial_1r_be0_tp3r": null,
+   "parcial_1r_frac33_tp3r_tiempo10": null,
+   "parcial_1r_sinbe_tp3r_tiempo10": null,
+   "tp_1.5r_tiempo10": null,
+   "parcial_1r_be_tp3r_tiempo10": null,
+   "parcial_1r_be_tp3r_tiempo14": null
+  },
+  "KAS/USD": {
+   "actual": {
+    "retorno_pct": 0.9,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 2.08,
+    "max_dd_pct": 1.31,
+    "expectativa_usd": 3.04,
+    "comisiones_usd": 1.71,
+    "ganancia_usd": 17.56,
+    "perdida_usd": 8.45
+   },
+   "tp_2r": {
+    "retorno_pct": 2.06,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 3.57,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 6.93,
+    "comisiones_usd": 1.74,
+    "ganancia_usd": 28.89,
+    "perdida_usd": 8.09
+   },
+   "tp_1.5r": {
+    "retorno_pct": 1.31,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 2.64,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 4.41,
+    "comisiones_usd": 1.72,
+    "ganancia_usd": 21.32,
+    "perdida_usd": 8.09
+   },
+   "tp_1r": {
+    "retorno_pct": 0.56,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.7,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 1.9,
+    "comisiones_usd": 1.69,
+    "ganancia_usd": 13.78,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": 0.75,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.94,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.7,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": 0.75,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.94,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.7,
+    "perdida_usd": 8.09
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": 0.56,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.71,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 1.91,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 13.82,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": 0.75,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.94,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.7,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": 0.75,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.94,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.7,
+    "perdida_usd": 8.09
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 0.9,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 2.08,
+    "max_dd_pct": 1.31,
+    "expectativa_usd": 3.04,
+    "comisiones_usd": 1.71,
+    "ganancia_usd": 17.56,
+    "perdida_usd": 8.45
+   },
+   "sin_salida_macd": {
+    "retorno_pct": 3.13,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 4.91,
+    "max_dd_pct": 1.3,
+    "expectativa_usd": 10.56,
+    "comisiones_usd": 1.77,
+    "ganancia_usd": 39.76,
+    "perdida_usd": 8.09
+   },
+   "trailing_atr3": {
+    "retorno_pct": 0.92,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 2.14,
+    "max_dd_pct": 1.28,
+    "expectativa_usd": 3.11,
+    "comisiones_usd": 1.71,
+    "ganancia_usd": 17.56,
+    "perdida_usd": 8.22
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": 0.9,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 2.08,
+    "max_dd_pct": 1.31,
+    "expectativa_usd": 3.04,
+    "comisiones_usd": 1.71,
+    "ganancia_usd": 17.56,
+    "perdida_usd": 8.45
+   },
+   "pullback": {
+    "retorno_pct": -0.81,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": -8.09,
+    "comisiones_usd": 0.54,
+    "ganancia_usd": 0,
+    "perdida_usd": 8.09
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": -0.81,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": -8.09,
+    "comisiones_usd": 0.54,
+    "ganancia_usd": 0,
+    "perdida_usd": 8.09
+   },
+   "reversion_rsi2": {
+    "retorno_pct": 1.79,
+    "ops": 4,
+    "win_rate": 100.0,
+    "profit_factor": Infinity,
+    "max_dd_pct": 0.22,
+    "expectativa_usd": 4.44,
+    "comisiones_usd": 2.28,
+    "ganancia_usd": 17.78,
+    "perdida_usd": 0
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": 0.73,
+    "ops": 4,
+    "win_rate": 100.0,
+    "profit_factor": Infinity,
+    "max_dd_pct": 0.08,
+    "expectativa_usd": 1.82,
+    "comisiones_usd": 0.97,
+    "ganancia_usd": 7.28,
+    "perdida_usd": 0
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": 1.55,
+    "ops": 6,
+    "win_rate": 66.7,
+    "profit_factor": 2.83,
+    "max_dd_pct": 1.31,
+    "expectativa_usd": 2.58,
+    "comisiones_usd": 3.4,
+    "ganancia_usd": 23.99,
+    "perdida_usd": 8.48
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": 0.75,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.94,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.7,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": 1.31,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 2.64,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 4.41,
+    "comisiones_usd": 1.72,
+    "ganancia_usd": 21.32,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": 0.72,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.9,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.43,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.38,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": 0.81,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 2.02,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.75,
+    "comisiones_usd": 1.71,
+    "ganancia_usd": 16.35,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": 0.73,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.92,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.47,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.5,
+    "perdida_usd": 8.09
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 1.31,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 2.64,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 4.41,
+    "comisiones_usd": 1.72,
+    "ganancia_usd": 21.32,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": 0.75,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.94,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.7,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": 0.75,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.94,
+    "max_dd_pct": 1.03,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 15.7,
+    "perdida_usd": 8.09
+   }
+  },
+  "ETH/USD": {
+   "actual": {
+    "retorno_pct": 12.71,
+    "ops": 48,
+    "win_rate": 39.6,
+    "profit_factor": 1.46,
+    "max_dd_pct": 6.47,
+    "expectativa_usd": 2.67,
+    "comisiones_usd": 64.12,
+    "ganancia_usd": 408.24,
+    "perdida_usd": 280.2
+   },
+   "tp_2r": {
+    "retorno_pct": 3.61,
+    "ops": 49,
+    "win_rate": 40.8,
+    "profit_factor": 1.15,
+    "max_dd_pct": 6.47,
+    "expectativa_usd": 0.84,
+    "comisiones_usd": 64.86,
+    "ganancia_usd": 319.71,
+    "perdida_usd": 278.46
+   },
+   "tp_1.5r": {
+    "retorno_pct": 2.3,
+    "ops": 49,
+    "win_rate": 44.9,
+    "profit_factor": 1.11,
+    "max_dd_pct": 6.47,
+    "expectativa_usd": 0.57,
+    "comisiones_usd": 64.53,
+    "ganancia_usd": 291.63,
+    "perdida_usd": 263.76
+   },
+   "tp_1r": {
+    "retorno_pct": -4.52,
+    "ops": 53,
+    "win_rate": 50.9,
+    "profit_factor": 0.84,
+    "max_dd_pct": 4.58,
+    "expectativa_usd": -0.82,
+    "comisiones_usd": 69.68,
+    "ganancia_usd": 230.66,
+    "perdida_usd": 274.34
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": 3.93,
+    "ops": 51,
+    "win_rate": 51.0,
+    "profit_factor": 1.16,
+    "max_dd_pct": 4.98,
+    "expectativa_usd": 0.85,
+    "comisiones_usd": 67.52,
+    "ganancia_usd": 306.84,
+    "perdida_usd": 263.69
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": 2.09,
+    "ops": 51,
+    "win_rate": 51.0,
+    "profit_factor": 1.09,
+    "max_dd_pct": 4.98,
+    "expectativa_usd": 0.49,
+    "comisiones_usd": 67.29,
+    "ganancia_usd": 287.79,
+    "perdida_usd": 262.98
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": -0.57,
+    "ops": 51,
+    "win_rate": 51.0,
+    "profit_factor": 0.99,
+    "max_dd_pct": 4.62,
+    "expectativa_usd": -0.04,
+    "comisiones_usd": 67.33,
+    "ganancia_usd": 250.16,
+    "perdida_usd": 252.17
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": 2.19,
+    "ops": 51,
+    "win_rate": 51.0,
+    "profit_factor": 1.09,
+    "max_dd_pct": 5.33,
+    "expectativa_usd": 0.52,
+    "comisiones_usd": 67.5,
+    "ganancia_usd": 312.99,
+    "perdida_usd": 286.31
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": 1.57,
+    "ops": 50,
+    "win_rate": 50.0,
+    "profit_factor": 1.07,
+    "max_dd_pct": 5.33,
+    "expectativa_usd": 0.41,
+    "comisiones_usd": 66.04,
+    "ganancia_usd": 306.47,
+    "perdida_usd": 286.1
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 14.91,
+    "ops": 48,
+    "win_rate": 43.8,
+    "profit_factor": 1.55,
+    "max_dd_pct": 6.47,
+    "expectativa_usd": 3.07,
+    "comisiones_usd": 64.27,
+    "ganancia_usd": 413.84,
+    "perdida_usd": 266.5
+   },
+   "sin_salida_macd": {
+    "retorno_pct": 13.07,
+    "ops": 46,
+    "win_rate": 37.0,
+    "profit_factor": 1.37,
+    "max_dd_pct": 6.81,
+    "expectativa_usd": 2.72,
+    "comisiones_usd": 62.35,
+    "ganancia_usd": 460.85,
+    "perdida_usd": 335.63
+   },
+   "trailing_atr3": {
+    "retorno_pct": 12.45,
+    "ops": 48,
+    "win_rate": 39.6,
+    "profit_factor": 1.45,
+    "max_dd_pct": 6.47,
+    "expectativa_usd": 2.61,
+    "comisiones_usd": 64.11,
+    "ganancia_usd": 403.74,
+    "perdida_usd": 278.42
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": -0.02,
+    "ops": 18,
+    "win_rate": 27.8,
+    "profit_factor": 1.03,
+    "max_dd_pct": 3.06,
+    "expectativa_usd": 0.17,
+    "comisiones_usd": 24.17,
+    "ganancia_usd": 117.65,
+    "perdida_usd": 114.66
+   },
+   "pullback": {
+    "retorno_pct": -5.59,
+    "ops": 12,
+    "win_rate": 25.0,
+    "profit_factor": 0.23,
+    "max_dd_pct": 3.89,
+    "expectativa_usd": -4.67,
+    "comisiones_usd": 16.0,
+    "ganancia_usd": 16.96,
+    "perdida_usd": 72.95
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": -4.78,
+    "ops": 12,
+    "win_rate": 33.3,
+    "profit_factor": 0.29,
+    "max_dd_pct": 2.86,
+    "expectativa_usd": -3.97,
+    "comisiones_usd": 16.05,
+    "ganancia_usd": 19.47,
+    "perdida_usd": 67.07
+   },
+   "reversion_rsi2": {
+    "retorno_pct": -0.06,
+    "ops": 49,
+    "win_rate": 63.3,
+    "profit_factor": 1.0,
+    "max_dd_pct": 2.97,
+    "expectativa_usd": 0.02,
+    "comisiones_usd": 63.93,
+    "ganancia_usd": 186.59,
+    "perdida_usd": 185.84
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": -2.19,
+    "ops": 46,
+    "win_rate": 67.4,
+    "profit_factor": 0.72,
+    "max_dd_pct": 1.6,
+    "expectativa_usd": -0.48,
+    "comisiones_usd": 23.22,
+    "ganancia_usd": 56.71,
+    "perdida_usd": 78.58
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": 6.02,
+    "ops": 92,
+    "win_rate": 41.3,
+    "profit_factor": 1.15,
+    "max_dd_pct": 7.44,
+    "expectativa_usd": 0.7,
+    "comisiones_usd": 121.69,
+    "ganancia_usd": 491.37,
+    "perdida_usd": 426.66
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": -3.12,
+    "ops": 18,
+    "win_rate": 33.3,
+    "profit_factor": 0.74,
+    "max_dd_pct": 3.06,
+    "expectativa_usd": -1.64,
+    "comisiones_usd": 24.04,
+    "ganancia_usd": 84.4,
+    "perdida_usd": 113.93
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": 0.02,
+    "ops": 52,
+    "win_rate": 51.9,
+    "profit_factor": 1.02,
+    "max_dd_pct": 4.98,
+    "expectativa_usd": 0.08,
+    "comisiones_usd": 68.59,
+    "ganancia_usd": 267.29,
+    "perdida_usd": 263.08
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": 4.72,
+    "ops": 50,
+    "win_rate": 52.0,
+    "profit_factor": 1.2,
+    "max_dd_pct": 5.06,
+    "expectativa_usd": 1.01,
+    "comisiones_usd": 66.23,
+    "ganancia_usd": 302.9,
+    "perdida_usd": 252.28
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": 7.59,
+    "ops": 51,
+    "win_rate": 49.0,
+    "profit_factor": 1.3,
+    "max_dd_pct": 5.12,
+    "expectativa_usd": 1.55,
+    "comisiones_usd": 67.73,
+    "ganancia_usd": 342.43,
+    "perdida_usd": 263.43
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": 6.95,
+    "ops": 48,
+    "win_rate": 47.9,
+    "profit_factor": 1.31,
+    "max_dd_pct": 5.53,
+    "expectativa_usd": 1.5,
+    "comisiones_usd": 63.75,
+    "ganancia_usd": 302.73,
+    "perdida_usd": 230.94
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 4.23,
+    "ops": 49,
+    "win_rate": 49.0,
+    "profit_factor": 1.18,
+    "max_dd_pct": 6.47,
+    "expectativa_usd": 0.94,
+    "comisiones_usd": 64.69,
+    "ganancia_usd": 296.34,
+    "perdida_usd": 250.08
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": 4.55,
+    "ops": 51,
+    "win_rate": 51.0,
+    "profit_factor": 1.19,
+    "max_dd_pct": 4.98,
+    "expectativa_usd": 0.96,
+    "comisiones_usd": 67.54,
+    "ganancia_usd": 310.17,
+    "perdida_usd": 261.02
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": 3.93,
+    "ops": 51,
+    "win_rate": 51.0,
+    "profit_factor": 1.16,
+    "max_dd_pct": 4.98,
+    "expectativa_usd": 0.85,
+    "comisiones_usd": 67.52,
+    "ganancia_usd": 306.84,
+    "perdida_usd": 263.69
+   }
+  },
+  "SOL/USD": {
+   "actual": {
+    "retorno_pct": 18.89,
+    "ops": 29,
+    "win_rate": 48.3,
+    "profit_factor": 2.12,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 6.13,
+    "comisiones_usd": 31.07,
+    "ganancia_usd": 337.06,
+    "perdida_usd": 159.29
+   },
+   "tp_2r": {
+    "retorno_pct": 7.17,
+    "ops": 31,
+    "win_rate": 45.2,
+    "profit_factor": 1.41,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 2.29,
+    "comisiones_usd": 32.68,
+    "ganancia_usd": 245.18,
+    "perdida_usd": 174.22
+   },
+   "tp_1.5r": {
+    "retorno_pct": 1.94,
+    "ops": 32,
+    "win_rate": 46.9,
+    "profit_factor": 1.11,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 0.62,
+    "comisiones_usd": 33.48,
+    "ganancia_usd": 193.61,
+    "perdida_usd": 173.73
+   },
+   "tp_1r": {
+    "retorno_pct": -1.89,
+    "ops": 33,
+    "win_rate": 51.5,
+    "profit_factor": 0.89,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": -0.55,
+    "comisiones_usd": 34.34,
+    "ganancia_usd": 149.66,
+    "perdida_usd": 167.88
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": 3.51,
+    "ops": 31,
+    "win_rate": 51.6,
+    "profit_factor": 1.22,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 1.14,
+    "comisiones_usd": 32.46,
+    "ganancia_usd": 192.6,
+    "perdida_usd": 157.34
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": 3.09,
+    "ops": 31,
+    "win_rate": 51.6,
+    "profit_factor": 1.2,
+    "max_dd_pct": 4.38,
+    "expectativa_usd": 1.01,
+    "comisiones_usd": 32.46,
+    "ganancia_usd": 188.63,
+    "perdida_usd": 157.35
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": 0.08,
+    "ops": 31,
+    "win_rate": 54.8,
+    "profit_factor": 1.01,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 0.04,
+    "comisiones_usd": 32.33,
+    "ganancia_usd": 147.31,
+    "perdida_usd": 146.01
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": 2.46,
+    "ops": 31,
+    "win_rate": 51.6,
+    "profit_factor": 1.15,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 0.81,
+    "comisiones_usd": 32.42,
+    "ganancia_usd": 192.47,
+    "perdida_usd": 167.45
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": 1.81,
+    "ops": 31,
+    "win_rate": 51.6,
+    "profit_factor": 1.11,
+    "max_dd_pct": 4.59,
+    "expectativa_usd": 0.61,
+    "comisiones_usd": 32.4,
+    "ganancia_usd": 186.27,
+    "perdida_usd": 167.4
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 15.53,
+    "ops": 31,
+    "win_rate": 45.2,
+    "profit_factor": 1.91,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 4.8,
+    "comisiones_usd": 33.07,
+    "ganancia_usd": 312.36,
+    "perdida_usd": 163.46
+   },
+   "sin_salida_macd": {
+    "retorno_pct": 14.68,
+    "ops": 29,
+    "win_rate": 41.4,
+    "profit_factor": 1.73,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 4.84,
+    "comisiones_usd": 30.91,
+    "ganancia_usd": 332.13,
+    "perdida_usd": 191.71
+   },
+   "trailing_atr3": {
+    "retorno_pct": 18.89,
+    "ops": 29,
+    "win_rate": 48.3,
+    "profit_factor": 2.12,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 6.13,
+    "comisiones_usd": 31.07,
+    "ganancia_usd": 337.06,
+    "perdida_usd": 159.29
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": 20.23,
+    "ops": 28,
+    "win_rate": 50.0,
+    "profit_factor": 2.27,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 6.75,
+    "comisiones_usd": 30.12,
+    "ganancia_usd": 337.62,
+    "perdida_usd": 148.52
+   },
+   "pullback": {
+    "retorno_pct": 8.72,
+    "ops": 14,
+    "win_rate": 50.0,
+    "profit_factor": 2.74,
+    "max_dd_pct": 1.95,
+    "expectativa_usd": 6.26,
+    "comisiones_usd": 14.95,
+    "ganancia_usd": 137.79,
+    "perdida_usd": 50.21
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": 5.31,
+    "ops": 14,
+    "win_rate": 57.1,
+    "profit_factor": 2.12,
+    "max_dd_pct": 1.95,
+    "expectativa_usd": 3.83,
+    "comisiones_usd": 14.81,
+    "ganancia_usd": 101.57,
+    "perdida_usd": 48.02
+   },
+   "reversion_rsi2": {
+    "retorno_pct": 7.77,
+    "ops": 46,
+    "win_rate": 67.4,
+    "profit_factor": 1.49,
+    "max_dd_pct": 3.46,
+    "expectativa_usd": 1.69,
+    "comisiones_usd": 48.96,
+    "ganancia_usd": 237.81,
+    "perdida_usd": 159.99
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": 0.12,
+    "ops": 44,
+    "win_rate": 70.5,
+    "profit_factor": 1.03,
+    "max_dd_pct": 1.58,
+    "expectativa_usd": 0.04,
+    "comisiones_usd": 15.6,
+    "ganancia_usd": 61.65,
+    "perdida_usd": 60.11
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": 12.83,
+    "ops": 75,
+    "win_rate": 41.3,
+    "profit_factor": 1.44,
+    "max_dd_pct": 4.02,
+    "expectativa_usd": 1.66,
+    "comisiones_usd": 79.77,
+    "ganancia_usd": 408.0,
+    "perdida_usd": 283.37
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": 4.67,
+    "ops": 30,
+    "win_rate": 53.3,
+    "profit_factor": 1.32,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 1.55,
+    "comisiones_usd": 31.51,
+    "ganancia_usd": 192.98,
+    "perdida_usd": 146.57
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": -0.47,
+    "ops": 32,
+    "win_rate": 50.0,
+    "profit_factor": 0.98,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": -0.13,
+    "comisiones_usd": 33.32,
+    "ganancia_usd": 163.89,
+    "perdida_usd": 167.98
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": 3.92,
+    "ops": 29,
+    "win_rate": 48.3,
+    "profit_factor": 1.25,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 1.35,
+    "comisiones_usd": 30.4,
+    "ganancia_usd": 196.56,
+    "perdida_usd": 157.42
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": 2.91,
+    "ops": 32,
+    "win_rate": 46.9,
+    "profit_factor": 1.18,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 0.92,
+    "comisiones_usd": 33.48,
+    "ganancia_usd": 191.14,
+    "perdida_usd": 161.77
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": 5.47,
+    "ops": 31,
+    "win_rate": 45.2,
+    "profit_factor": 1.34,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 1.78,
+    "comisiones_usd": 32.62,
+    "ganancia_usd": 217.28,
+    "perdida_usd": 162.09
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 1.06,
+    "ops": 34,
+    "win_rate": 44.1,
+    "profit_factor": 1.06,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 0.34,
+    "comisiones_usd": 35.55,
+    "ganancia_usd": 189.43,
+    "perdida_usd": 177.99
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": 1.4,
+    "ops": 32,
+    "win_rate": 46.9,
+    "profit_factor": 1.09,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 0.46,
+    "comisiones_usd": 33.43,
+    "ganancia_usd": 176.17,
+    "perdida_usd": 161.53
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": 2.86,
+    "ops": 31,
+    "win_rate": 51.6,
+    "profit_factor": 1.18,
+    "max_dd_pct": 3.3,
+    "expectativa_usd": 0.93,
+    "comisiones_usd": 32.44,
+    "ganancia_usd": 186.27,
+    "perdida_usd": 157.34
+   }
+  },
+  "SUI/USD": {
+   "actual": {
+    "retorno_pct": -1.8,
+    "ops": 5,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 1.71,
+    "expectativa_usd": -3.6,
+    "comisiones_usd": 2.74,
+    "ganancia_usd": 0,
+    "perdida_usd": 18.02
+   },
+   "tp_2r": {
+    "retorno_pct": -1.8,
+    "ops": 5,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 1.71,
+    "expectativa_usd": -3.6,
+    "comisiones_usd": 2.74,
+    "ganancia_usd": 0,
+    "perdida_usd": 18.02
+   },
+   "tp_1.5r": {
+    "retorno_pct": -0.75,
+    "ops": 5,
+    "win_rate": 20.0,
+    "profit_factor": 0.58,
+    "max_dd_pct": 1.06,
+    "expectativa_usd": -1.51,
+    "comisiones_usd": 2.77,
+    "ganancia_usd": 10.55,
+    "perdida_usd": 18.08
+   },
+   "tp_1r": {
+    "retorno_pct": 0.1,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 1.08,
+    "max_dd_pct": 0.81,
+    "expectativa_usd": 0.21,
+    "comisiones_usd": 2.81,
+    "ganancia_usd": 13.78,
+    "perdida_usd": 12.73
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": -0.58,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.54,
+    "max_dd_pct": 1.22,
+    "expectativa_usd": -1.15,
+    "comisiones_usd": 2.79,
+    "ganancia_usd": 6.91,
+    "perdida_usd": 12.68
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": -0.57,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.55,
+    "max_dd_pct": 1.21,
+    "expectativa_usd": -1.14,
+    "comisiones_usd": 2.79,
+    "ganancia_usd": 7.0,
+    "perdida_usd": 12.68
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": 0.02,
+    "ops": 5,
+    "win_rate": 60.0,
+    "profit_factor": 1.03,
+    "max_dd_pct": 1.22,
+    "expectativa_usd": 0.04,
+    "comisiones_usd": 2.8,
+    "ganancia_usd": 7.54,
+    "perdida_usd": 7.33
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": -1.73,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.28,
+    "max_dd_pct": 2.09,
+    "expectativa_usd": -3.48,
+    "comisiones_usd": 2.75,
+    "ganancia_usd": 6.91,
+    "perdida_usd": 24.31
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": -1.72,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.29,
+    "max_dd_pct": 2.08,
+    "expectativa_usd": -3.46,
+    "comisiones_usd": 2.75,
+    "ganancia_usd": 7.0,
+    "perdida_usd": 24.31
+   },
+   "tiempo_10velas": {
+    "retorno_pct": -0.95,
+    "ops": 5,
+    "win_rate": 20.0,
+    "profit_factor": 0.48,
+    "max_dd_pct": 1.06,
+    "expectativa_usd": -1.91,
+    "comisiones_usd": 2.77,
+    "ganancia_usd": 8.89,
+    "perdida_usd": 18.43
+   },
+   "sin_salida_macd": {
+    "retorno_pct": -3.2,
+    "ops": 4,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 2.79,
+    "expectativa_usd": -8.04,
+    "comisiones_usd": 2.14,
+    "ganancia_usd": 0,
+    "perdida_usd": 32.16
+   },
+   "trailing_atr3": {
+    "retorno_pct": -1.77,
+    "ops": 5,
+    "win_rate": 20.0,
+    "profit_factor": 0.01,
+    "max_dd_pct": 1.68,
+    "expectativa_usd": -3.56,
+    "comisiones_usd": 2.74,
+    "ganancia_usd": 0.21,
+    "perdida_usd": 18.01
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": -1.8,
+    "ops": 5,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 1.71,
+    "expectativa_usd": -3.6,
+    "comisiones_usd": 2.74,
+    "ganancia_usd": 0,
+    "perdida_usd": 18.02
+   },
+   "pullback": {
+    "retorno_pct": -0.8,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.2,
+    "max_dd_pct": 1.38,
+    "expectativa_usd": -2.65,
+    "comisiones_usd": 1.65,
+    "ganancia_usd": 1.94,
+    "perdida_usd": 9.89
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": 0.09,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 1.2,
+    "max_dd_pct": 0.75,
+    "expectativa_usd": 0.29,
+    "comisiones_usd": 1.68,
+    "ganancia_usd": 5.39,
+    "perdida_usd": 4.51
+   },
+   "reversion_rsi2": {
+    "retorno_pct": -1.04,
+    "ops": 4,
+    "win_rate": 50.0,
+    "profit_factor": 0.36,
+    "max_dd_pct": 0.88,
+    "expectativa_usd": -2.6,
+    "comisiones_usd": 2.21,
+    "ganancia_usd": 5.79,
+    "perdida_usd": 16.21
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": -0.3,
+    "ops": 4,
+    "win_rate": 50.0,
+    "profit_factor": 0.49,
+    "max_dd_pct": 0.61,
+    "expectativa_usd": -0.75,
+    "comisiones_usd": 1.09,
+    "ganancia_usd": 2.88,
+    "perdida_usd": 5.89
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": -2.66,
+    "ops": 9,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 1.78,
+    "expectativa_usd": -2.97,
+    "comisiones_usd": 4.93,
+    "ganancia_usd": 0,
+    "perdida_usd": 26.77
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": -0.58,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.54,
+    "max_dd_pct": 1.22,
+    "expectativa_usd": -1.15,
+    "comisiones_usd": 2.79,
+    "ganancia_usd": 6.91,
+    "perdida_usd": 12.68
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": -0.58,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.54,
+    "max_dd_pct": 1.22,
+    "expectativa_usd": -1.15,
+    "comisiones_usd": 2.79,
+    "ganancia_usd": 6.91,
+    "perdida_usd": 12.68
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": -0.64,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.49,
+    "max_dd_pct": 1.25,
+    "expectativa_usd": -1.28,
+    "comisiones_usd": 2.78,
+    "ganancia_usd": 6.27,
+    "perdida_usd": 12.68
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": -0.25,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.81,
+    "max_dd_pct": 0.83,
+    "expectativa_usd": -0.5,
+    "comisiones_usd": 2.8,
+    "ganancia_usd": 10.57,
+    "perdida_usd": 13.08
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": -0.44,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.66,
+    "max_dd_pct": 0.81,
+    "expectativa_usd": -0.89,
+    "comisiones_usd": 2.79,
+    "ganancia_usd": 8.64,
+    "perdida_usd": 13.07
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": -0.79,
+    "ops": 5,
+    "win_rate": 20.0,
+    "profit_factor": 0.57,
+    "max_dd_pct": 1.06,
+    "expectativa_usd": -1.58,
+    "comisiones_usd": 2.77,
+    "ganancia_usd": 10.55,
+    "perdida_usd": 18.45
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": -0.17,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.87,
+    "max_dd_pct": 0.81,
+    "expectativa_usd": -0.34,
+    "comisiones_usd": 2.8,
+    "ganancia_usd": 11.38,
+    "perdida_usd": 13.09
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": -0.58,
+    "ops": 5,
+    "win_rate": 40.0,
+    "profit_factor": 0.54,
+    "max_dd_pct": 1.22,
+    "expectativa_usd": -1.15,
+    "comisiones_usd": 2.79,
+    "ganancia_usd": 6.91,
+    "perdida_usd": 12.68
+   }
+  },
+  "PEPE/USD": {
+   "actual": {
+    "retorno_pct": -0.92,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.13,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -3.08,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 1.43,
+    "perdida_usd": 10.68
+   },
+   "tp_2r": {
+    "retorno_pct": -0.92,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.13,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -3.08,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 1.43,
+    "perdida_usd": 10.68
+   },
+   "tp_1.5r": {
+    "retorno_pct": -0.36,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.66,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -1.2,
+    "comisiones_usd": 0.97,
+    "ganancia_usd": 7.08,
+    "perdida_usd": 10.68
+   },
+   "tp_1r": {
+    "retorno_pct": -0.61,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.43,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.03,
+    "comisiones_usd": 0.96,
+    "ganancia_usd": 4.6,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": -0.77,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.28,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.55,
+    "comisiones_usd": 0.96,
+    "ganancia_usd": 3.02,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": -0.77,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.28,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.55,
+    "comisiones_usd": 0.96,
+    "ganancia_usd": 3.02,
+    "perdida_usd": 10.68
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": -0.17,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 0.68,
+    "max_dd_pct": 0.55,
+    "expectativa_usd": -0.57,
+    "comisiones_usd": 0.97,
+    "ganancia_usd": 3.64,
+    "perdida_usd": 5.34
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": -0.84,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.22,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.79,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 2.31,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": -0.84,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.22,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.79,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 2.31,
+    "perdida_usd": 10.68
+   },
+   "tiempo_10velas": {
+    "retorno_pct": -0.85,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.21,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.83,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 2.19,
+    "perdida_usd": 10.68
+   },
+   "sin_salida_macd": {
+    "retorno_pct": -1.59,
+    "ops": 3,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 1.07,
+    "expectativa_usd": -5.33,
+    "comisiones_usd": 0.93,
+    "ganancia_usd": 0,
+    "perdida_usd": 15.99
+   },
+   "trailing_atr3": {
+    "retorno_pct": -0.92,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.13,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -3.08,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 1.43,
+    "perdida_usd": 10.68
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": -0.92,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.13,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -3.08,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 1.43,
+    "perdida_usd": 10.68
+   },
+   "pullback": {
+    "retorno_pct": -0.98,
+    "ops": 3,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.53,
+    "expectativa_usd": -3.28,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 0,
+    "perdida_usd": 9.83
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": -0.98,
+    "ops": 3,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.53,
+    "expectativa_usd": -3.28,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 0,
+    "perdida_usd": 9.83
+   },
+   "reversion_rsi2": {
+    "retorno_pct": -1.1,
+    "ops": 6,
+    "win_rate": 33.3,
+    "profit_factor": 0.14,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": -1.84,
+    "comisiones_usd": 1.92,
+    "ganancia_usd": 1.87,
+    "perdida_usd": 12.94
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": -0.22,
+    "ops": 6,
+    "win_rate": 33.3,
+    "profit_factor": 0.26,
+    "max_dd_pct": 0.22,
+    "expectativa_usd": -0.37,
+    "comisiones_usd": 0.89,
+    "ganancia_usd": 0.77,
+    "perdida_usd": 3.0
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": -1.11,
+    "ops": 11,
+    "win_rate": 36.4,
+    "profit_factor": 0.33,
+    "max_dd_pct": 0.89,
+    "expectativa_usd": -1.01,
+    "comisiones_usd": 3.55,
+    "ganancia_usd": 5.48,
+    "perdida_usd": 16.57
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": -0.77,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.28,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.55,
+    "comisiones_usd": 0.96,
+    "ganancia_usd": 3.02,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": -0.77,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.28,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.55,
+    "comisiones_usd": 0.96,
+    "ganancia_usd": 3.02,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": -0.77,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.28,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.55,
+    "comisiones_usd": 0.96,
+    "ganancia_usd": 3.02,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": -0.85,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.21,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.83,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 2.19,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": -0.85,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.21,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.83,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 2.19,
+    "perdida_usd": 10.68
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": -0.85,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.21,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.83,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 2.19,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": -0.85,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.21,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.83,
+    "comisiones_usd": 0.95,
+    "ganancia_usd": 2.19,
+    "perdida_usd": 10.68
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": -0.77,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.28,
+    "max_dd_pct": 0.72,
+    "expectativa_usd": -2.55,
+    "comisiones_usd": 0.96,
+    "ganancia_usd": 3.02,
+    "perdida_usd": 10.68
+   }
+  },
+  "AVAX/USD": {
+   "actual": {
+    "retorno_pct": 6.51,
+    "ops": 30,
+    "win_rate": 40.0,
+    "profit_factor": 2.11,
+    "max_dd_pct": 1.64,
+    "expectativa_usd": 2.13,
+    "comisiones_usd": 12.26,
+    "ganancia_usd": 121.15,
+    "perdida_usd": 57.39
+   },
+   "tp_2r": {
+    "retorno_pct": 5.7,
+    "ops": 30,
+    "win_rate": 40.0,
+    "profit_factor": 1.98,
+    "max_dd_pct": 1.64,
+    "expectativa_usd": 1.87,
+    "comisiones_usd": 12.24,
+    "ganancia_usd": 113.42,
+    "perdida_usd": 57.38
+   },
+   "tp_1.5r": {
+    "retorno_pct": 6.48,
+    "ops": 31,
+    "win_rate": 41.9,
+    "profit_factor": 2.11,
+    "max_dd_pct": 1.64,
+    "expectativa_usd": 2.05,
+    "comisiones_usd": 12.59,
+    "ganancia_usd": 120.9,
+    "perdida_usd": 57.38
+   },
+   "tp_1r": {
+    "retorno_pct": 6.77,
+    "ops": 32,
+    "win_rate": 46.9,
+    "profit_factor": 2.13,
+    "max_dd_pct": 1.38,
+    "expectativa_usd": 2.06,
+    "comisiones_usd": 12.95,
+    "ganancia_usd": 124.55,
+    "perdida_usd": 58.47
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": 6.39,
+    "ops": 30,
+    "win_rate": 46.7,
+    "profit_factor": 2.13,
+    "max_dd_pct": 1.38,
+    "expectativa_usd": 2.08,
+    "comisiones_usd": 12.27,
+    "ganancia_usd": 118.09,
+    "perdida_usd": 55.55
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": 6.39,
+    "ops": 30,
+    "win_rate": 46.7,
+    "profit_factor": 2.13,
+    "max_dd_pct": 1.38,
+    "expectativa_usd": 2.08,
+    "comisiones_usd": 12.27,
+    "ganancia_usd": 118.09,
+    "perdida_usd": 55.55
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": 4.84,
+    "ops": 31,
+    "win_rate": 48.4,
+    "profit_factor": 1.86,
+    "max_dd_pct": 1.38,
+    "expectativa_usd": 1.54,
+    "comisiones_usd": 12.54,
+    "ganancia_usd": 103.2,
+    "perdida_usd": 55.49
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": 2.83,
+    "ops": 24,
+    "win_rate": 58.3,
+    "profit_factor": 1.27,
+    "max_dd_pct": 2.34,
+    "expectativa_usd": 1.19,
+    "comisiones_usd": 8.98,
+    "ganancia_usd": 132.69,
+    "perdida_usd": 104.18
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": 3.0,
+    "ops": 24,
+    "win_rate": 58.3,
+    "profit_factor": 1.29,
+    "max_dd_pct": 2.34,
+    "expectativa_usd": 1.26,
+    "comisiones_usd": 8.99,
+    "ganancia_usd": 134.42,
+    "perdida_usd": 104.2
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 5.08,
+    "ops": 35,
+    "win_rate": 48.6,
+    "profit_factor": 1.72,
+    "max_dd_pct": 1.6,
+    "expectativa_usd": 1.44,
+    "comisiones_usd": 14.21,
+    "ganancia_usd": 120.42,
+    "perdida_usd": 70.16
+   },
+   "sin_salida_macd": {
+    "retorno_pct": 6.6,
+    "ops": 21,
+    "win_rate": 52.4,
+    "profit_factor": 1.62,
+    "max_dd_pct": 2.62,
+    "expectativa_usd": 3.09,
+    "comisiones_usd": 7.86,
+    "ganancia_usd": 169.48,
+    "perdida_usd": 104.65
+   },
+   "trailing_atr3": {
+    "retorno_pct": 4.43,
+    "ops": 31,
+    "win_rate": 38.7,
+    "profit_factor": 1.72,
+    "max_dd_pct": 1.64,
+    "expectativa_usd": 1.42,
+    "comisiones_usd": 12.53,
+    "ganancia_usd": 104.77,
+    "perdida_usd": 60.87
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": 1.37,
+    "ops": 13,
+    "win_rate": 23.1,
+    "profit_factor": 1.52,
+    "max_dd_pct": 1.2,
+    "expectativa_usd": 1.06,
+    "comisiones_usd": 5.66,
+    "ganancia_usd": 39.98,
+    "perdida_usd": 26.26
+   },
+   "pullback": {
+    "retorno_pct": 1.47,
+    "ops": 7,
+    "win_rate": 28.6,
+    "profit_factor": 2.24,
+    "max_dd_pct": 1.09,
+    "expectativa_usd": 2.11,
+    "comisiones_usd": 2.97,
+    "ganancia_usd": 26.64,
+    "perdida_usd": 11.88
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": 1.59,
+    "ops": 7,
+    "win_rate": 42.9,
+    "profit_factor": 2.36,
+    "max_dd_pct": 0.92,
+    "expectativa_usd": 2.27,
+    "comisiones_usd": 2.98,
+    "ganancia_usd": 27.56,
+    "perdida_usd": 11.66
+   },
+   "reversion_rsi2": {
+    "retorno_pct": -1.46,
+    "ops": 30,
+    "win_rate": 53.3,
+    "profit_factor": 0.78,
+    "max_dd_pct": 1.15,
+    "expectativa_usd": -0.36,
+    "comisiones_usd": 10.24,
+    "ganancia_usd": 37.91,
+    "perdida_usd": 48.6
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": -1.46,
+    "ops": 30,
+    "win_rate": 53.3,
+    "profit_factor": 0.78,
+    "max_dd_pct": 1.15,
+    "expectativa_usd": -0.36,
+    "comisiones_usd": 10.24,
+    "ganancia_usd": 37.91,
+    "perdida_usd": 48.6
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": 6.13,
+    "ops": 60,
+    "win_rate": 41.7,
+    "profit_factor": 1.71,
+    "max_dd_pct": 2.23,
+    "expectativa_usd": 1.01,
+    "comisiones_usd": 21.65,
+    "ganancia_usd": 145.55,
+    "perdida_usd": 85.2
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": 1.92,
+    "ops": 13,
+    "win_rate": 38.5,
+    "profit_factor": 1.79,
+    "max_dd_pct": 1.2,
+    "expectativa_usd": 1.48,
+    "comisiones_usd": 5.67,
+    "ganancia_usd": 43.59,
+    "perdida_usd": 24.36
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": 5.98,
+    "ops": 30,
+    "win_rate": 46.7,
+    "profit_factor": 2.06,
+    "max_dd_pct": 1.38,
+    "expectativa_usd": 1.96,
+    "comisiones_usd": 12.25,
+    "ganancia_usd": 114.23,
+    "perdida_usd": 55.55
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": 6.33,
+    "ops": 30,
+    "win_rate": 46.7,
+    "profit_factor": 2.11,
+    "max_dd_pct": 1.38,
+    "expectativa_usd": 2.06,
+    "comisiones_usd": 12.26,
+    "ganancia_usd": 117.48,
+    "perdida_usd": 55.55
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": 4.91,
+    "ops": 35,
+    "win_rate": 48.6,
+    "profit_factor": 1.69,
+    "max_dd_pct": 1.6,
+    "expectativa_usd": 1.39,
+    "comisiones_usd": 14.2,
+    "ganancia_usd": 118.72,
+    "perdida_usd": 70.15
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": 4.82,
+    "ops": 35,
+    "win_rate": 48.6,
+    "profit_factor": 1.68,
+    "max_dd_pct": 1.6,
+    "expectativa_usd": 1.36,
+    "comisiones_usd": 14.2,
+    "ganancia_usd": 117.85,
+    "perdida_usd": 70.16
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 5.02,
+    "ops": 35,
+    "win_rate": 48.6,
+    "profit_factor": 1.71,
+    "max_dd_pct": 1.6,
+    "expectativa_usd": 1.42,
+    "comisiones_usd": 14.2,
+    "ganancia_usd": 119.84,
+    "perdida_usd": 70.16
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": 4.82,
+    "ops": 35,
+    "win_rate": 48.6,
+    "profit_factor": 1.68,
+    "max_dd_pct": 1.6,
+    "expectativa_usd": 1.36,
+    "comisiones_usd": 14.2,
+    "ganancia_usd": 117.85,
+    "perdida_usd": 70.16
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": 6.83,
+    "ops": 31,
+    "win_rate": 51.6,
+    "profit_factor": 2.26,
+    "max_dd_pct": 1.3,
+    "expectativa_usd": 2.15,
+    "comisiones_usd": 12.61,
+    "ganancia_usd": 119.79,
+    "perdida_usd": 53.11
+   }
+  },
+  "ADA/USD": {
+   "actual": {
+    "retorno_pct": 20.85,
+    "ops": 34,
+    "win_rate": 44.1,
+    "profit_factor": 2.18,
+    "max_dd_pct": 4.99,
+    "expectativa_usd": 5.9,
+    "comisiones_usd": 36.5,
+    "ganancia_usd": 369.93,
+    "perdida_usd": 169.36
+   },
+   "tp_2r": {
+    "retorno_pct": 13.13,
+    "ops": 36,
+    "win_rate": 47.2,
+    "profit_factor": 1.72,
+    "max_dd_pct": 4.54,
+    "expectativa_usd": 3.56,
+    "comisiones_usd": 38.22,
+    "ganancia_usd": 306.75,
+    "perdida_usd": 178.73
+   },
+   "tp_1.5r": {
+    "retorno_pct": 17.51,
+    "ops": 38,
+    "win_rate": 60.5,
+    "profit_factor": 2.15,
+    "max_dd_pct": 4.12,
+    "expectativa_usd": 4.36,
+    "comisiones_usd": 40.51,
+    "ganancia_usd": 310.47,
+    "perdida_usd": 144.62
+   },
+   "tp_1r": {
+    "retorno_pct": 6.81,
+    "ops": 40,
+    "win_rate": 60.0,
+    "profit_factor": 1.47,
+    "max_dd_pct": 4.12,
+    "expectativa_usd": 1.7,
+    "comisiones_usd": 42.08,
+    "ganancia_usd": 212.99,
+    "perdida_usd": 144.99
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": 10.38,
+    "ops": 35,
+    "win_rate": 62.9,
+    "profit_factor": 1.84,
+    "max_dd_pct": 3.95,
+    "expectativa_usd": 2.9,
+    "comisiones_usd": 36.99,
+    "ganancia_usd": 223.01,
+    "perdida_usd": 121.42
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": 9.41,
+    "ops": 34,
+    "win_rate": 61.8,
+    "profit_factor": 1.76,
+    "max_dd_pct": 3.95,
+    "expectativa_usd": 2.71,
+    "comisiones_usd": 35.84,
+    "ganancia_usd": 213.26,
+    "perdida_usd": 121.26
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": 6.42,
+    "ops": 35,
+    "win_rate": 65.7,
+    "profit_factor": 1.58,
+    "max_dd_pct": 3.95,
+    "expectativa_usd": 1.83,
+    "comisiones_usd": 36.89,
+    "ganancia_usd": 174.43,
+    "perdida_usd": 110.48
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": 10.68,
+    "ops": 34,
+    "win_rate": 67.6,
+    "profit_factor": 1.87,
+    "max_dd_pct": 4.89,
+    "expectativa_usd": 3.12,
+    "comisiones_usd": 35.87,
+    "ganancia_usd": 228.02,
+    "perdida_usd": 121.79
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": 15.66,
+    "ops": 33,
+    "win_rate": 66.7,
+    "profit_factor": 2.26,
+    "max_dd_pct": 4.89,
+    "expectativa_usd": 4.64,
+    "comisiones_usd": 34.88,
+    "ganancia_usd": 275.04,
+    "perdida_usd": 121.84
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 21.46,
+    "ops": 35,
+    "win_rate": 48.6,
+    "profit_factor": 2.23,
+    "max_dd_pct": 4.54,
+    "expectativa_usd": 5.85,
+    "comisiones_usd": 37.57,
+    "ganancia_usd": 371.94,
+    "perdida_usd": 167.05
+   },
+   "sin_salida_macd": {
+    "retorno_pct": 22.05,
+    "ops": 30,
+    "win_rate": 46.7,
+    "profit_factor": 2.19,
+    "max_dd_pct": 5.1,
+    "expectativa_usd": 7.07,
+    "comisiones_usd": 32.18,
+    "ganancia_usd": 390.62,
+    "perdida_usd": 178.55
+   },
+   "trailing_atr3": {
+    "retorno_pct": 21.56,
+    "ops": 34,
+    "win_rate": 44.1,
+    "profit_factor": 2.28,
+    "max_dd_pct": 4.93,
+    "expectativa_usd": 6.07,
+    "comisiones_usd": 36.52,
+    "ganancia_usd": 368.25,
+    "perdida_usd": 161.71
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": 20.85,
+    "ops": 34,
+    "win_rate": 44.1,
+    "profit_factor": 2.18,
+    "max_dd_pct": 4.99,
+    "expectativa_usd": 5.9,
+    "comisiones_usd": 36.5,
+    "ganancia_usd": 369.93,
+    "perdida_usd": 169.36
+   },
+   "pullback": {
+    "retorno_pct": 6.86,
+    "ops": 20,
+    "win_rate": 40.0,
+    "profit_factor": 2.08,
+    "max_dd_pct": 2.57,
+    "expectativa_usd": 3.37,
+    "comisiones_usd": 21.23,
+    "ganancia_usd": 130.2,
+    "perdida_usd": 62.74
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": 3.83,
+    "ops": 20,
+    "win_rate": 50.0,
+    "profit_factor": 1.82,
+    "max_dd_pct": 2.55,
+    "expectativa_usd": 1.9,
+    "comisiones_usd": 21.02,
+    "ganancia_usd": 84.63,
+    "perdida_usd": 46.55
+   },
+   "reversion_rsi2": {
+    "retorno_pct": -11.64,
+    "ops": 49,
+    "win_rate": 44.9,
+    "profit_factor": 0.57,
+    "max_dd_pct": 3.73,
+    "expectativa_usd": -2.49,
+    "comisiones_usd": 50.63,
+    "ganancia_usd": 160.72,
+    "perdida_usd": 282.73
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": -1.28,
+    "ops": 47,
+    "win_rate": 57.4,
+    "profit_factor": 0.81,
+    "max_dd_pct": 1.78,
+    "expectativa_usd": -0.27,
+    "comisiones_usd": 15.56,
+    "ganancia_usd": 53.36,
+    "perdida_usd": 66.03
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": 9.11,
+    "ops": 85,
+    "win_rate": 36.5,
+    "profit_factor": 1.26,
+    "max_dd_pct": 5.0,
+    "expectativa_usd": 1.12,
+    "comisiones_usd": 89.64,
+    "ganancia_usd": 469.63,
+    "perdida_usd": 374.04
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": 10.38,
+    "ops": 35,
+    "win_rate": 62.9,
+    "profit_factor": 1.84,
+    "max_dd_pct": 3.95,
+    "expectativa_usd": 2.9,
+    "comisiones_usd": 36.99,
+    "ganancia_usd": 223.01,
+    "perdida_usd": 121.42
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": 7.76,
+    "ops": 37,
+    "win_rate": 59.5,
+    "profit_factor": 1.53,
+    "max_dd_pct": 4.12,
+    "expectativa_usd": 2.07,
+    "comisiones_usd": 39.03,
+    "ganancia_usd": 220.67,
+    "perdida_usd": 143.96
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": 12.82,
+    "ops": 35,
+    "win_rate": 62.9,
+    "profit_factor": 2.03,
+    "max_dd_pct": 4.01,
+    "expectativa_usd": 3.58,
+    "comisiones_usd": 37.15,
+    "ganancia_usd": 246.94,
+    "perdida_usd": 121.58
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": 12.56,
+    "ops": 35,
+    "win_rate": 62.9,
+    "profit_factor": 2.0,
+    "max_dd_pct": 3.48,
+    "expectativa_usd": 3.46,
+    "comisiones_usd": 37.09,
+    "ganancia_usd": 241.92,
+    "perdida_usd": 120.68
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": 14.4,
+    "ops": 35,
+    "win_rate": 51.4,
+    "profit_factor": 2.11,
+    "max_dd_pct": 3.4,
+    "expectativa_usd": 3.98,
+    "comisiones_usd": 37.21,
+    "ganancia_usd": 264.47,
+    "perdida_usd": 125.19
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 16.4,
+    "ops": 38,
+    "win_rate": 60.5,
+    "profit_factor": 2.09,
+    "max_dd_pct": 4.12,
+    "expectativa_usd": 4.1,
+    "comisiones_usd": 40.46,
+    "ganancia_usd": 299.46,
+    "perdida_usd": 143.51
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": 11.3,
+    "ops": 35,
+    "win_rate": 62.9,
+    "profit_factor": 1.91,
+    "max_dd_pct": 3.4,
+    "expectativa_usd": 3.13,
+    "comisiones_usd": 37.03,
+    "ganancia_usd": 230.05,
+    "perdida_usd": 120.54
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": 11.38,
+    "ops": 35,
+    "win_rate": 62.9,
+    "profit_factor": 1.91,
+    "max_dd_pct": 3.95,
+    "expectativa_usd": 3.15,
+    "comisiones_usd": 37.03,
+    "ganancia_usd": 231.86,
+    "perdida_usd": 121.52
+   }
+  },
+  "SHIB/USD": {
+   "actual": {
+    "retorno_pct": 0.45,
+    "ops": 22,
+    "win_rate": 40.9,
+    "profit_factor": 1.1,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.22,
+    "comisiones_usd": 7.2,
+    "ganancia_usd": 51.27,
+    "perdida_usd": 46.4
+   },
+   "tp_2r": {
+    "retorno_pct": 1.1,
+    "ops": 23,
+    "win_rate": 43.5,
+    "profit_factor": 1.25,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.5,
+    "comisiones_usd": 7.54,
+    "ganancia_usd": 57.82,
+    "perdida_usd": 46.39
+   },
+   "tp_1.5r": {
+    "retorno_pct": 1.01,
+    "ops": 24,
+    "win_rate": 45.8,
+    "profit_factor": 1.21,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.43,
+    "comisiones_usd": 7.87,
+    "ganancia_usd": 59.84,
+    "perdida_usd": 49.55
+   },
+   "tp_1r": {
+    "retorno_pct": -0.57,
+    "ops": 24,
+    "win_rate": 45.8,
+    "profit_factor": 0.89,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.23,
+    "comisiones_usd": 7.82,
+    "ganancia_usd": 43.94,
+    "perdida_usd": 49.5
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": -0.74,
+    "ops": 23,
+    "win_rate": 43.5,
+    "profit_factor": 0.85,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.31,
+    "comisiones_usd": 7.49,
+    "ganancia_usd": 42.27,
+    "perdida_usd": 49.51
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": -0.96,
+    "ops": 23,
+    "win_rate": 43.5,
+    "profit_factor": 0.81,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.41,
+    "comisiones_usd": 7.48,
+    "ganancia_usd": 40.04,
+    "perdida_usd": 49.5
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": 0.04,
+    "ops": 23,
+    "win_rate": 52.2,
+    "profit_factor": 1.02,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.03,
+    "comisiones_usd": 7.51,
+    "ganancia_usd": 41.9,
+    "perdida_usd": 41.23
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": -1.36,
+    "ops": 19,
+    "win_rate": 42.1,
+    "profit_factor": 0.7,
+    "max_dd_pct": 1.59,
+    "expectativa_usd": -0.92,
+    "comisiones_usd": 6.41,
+    "ganancia_usd": 41.5,
+    "perdida_usd": 58.92
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": -1.58,
+    "ops": 20,
+    "win_rate": 45.0,
+    "profit_factor": 0.73,
+    "max_dd_pct": 1.59,
+    "expectativa_usd": -0.78,
+    "comisiones_usd": 6.49,
+    "ganancia_usd": 43.22,
+    "perdida_usd": 58.9
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 1.09,
+    "ops": 24,
+    "win_rate": 41.7,
+    "profit_factor": 1.23,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.47,
+    "comisiones_usd": 7.88,
+    "ganancia_usd": 59.91,
+    "perdida_usd": 48.71
+   },
+   "sin_salida_macd": {
+    "retorno_pct": -2.07,
+    "ops": 17,
+    "win_rate": 23.5,
+    "profit_factor": 0.66,
+    "max_dd_pct": 1.82,
+    "expectativa_usd": -1.41,
+    "comisiones_usd": 5.65,
+    "ganancia_usd": 45.68,
+    "perdida_usd": 69.6
+   },
+   "trailing_atr3": {
+    "retorno_pct": -1.23,
+    "ops": 23,
+    "win_rate": 34.8,
+    "profit_factor": 0.79,
+    "max_dd_pct": 1.53,
+    "expectativa_usd": -0.53,
+    "comisiones_usd": 7.48,
+    "ganancia_usd": 44.47,
+    "perdida_usd": 56.57
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": 0.45,
+    "ops": 22,
+    "win_rate": 40.9,
+    "profit_factor": 1.1,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.22,
+    "comisiones_usd": 7.2,
+    "ganancia_usd": 51.27,
+    "perdida_usd": 46.4
+   },
+   "pullback": {
+    "retorno_pct": 1.86,
+    "ops": 9,
+    "win_rate": 44.4,
+    "profit_factor": 3.21,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 2.06,
+    "comisiones_usd": 2.99,
+    "ganancia_usd": 26.96,
+    "perdida_usd": 8.39
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": 1.83,
+    "ops": 9,
+    "win_rate": 55.6,
+    "profit_factor": 3.8,
+    "max_dd_pct": 0.5,
+    "expectativa_usd": 2.03,
+    "comisiones_usd": 2.99,
+    "ganancia_usd": 24.83,
+    "perdida_usd": 6.54
+   },
+   "reversion_rsi2": {
+    "retorno_pct": -3.1,
+    "ops": 27,
+    "win_rate": 48.1,
+    "profit_factor": 0.38,
+    "max_dd_pct": 1.77,
+    "expectativa_usd": -1.16,
+    "comisiones_usd": 8.69,
+    "ganancia_usd": 18.93,
+    "perdida_usd": 50.25
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": -0.87,
+    "ops": 26,
+    "win_rate": 53.8,
+    "profit_factor": 0.54,
+    "max_dd_pct": 0.67,
+    "expectativa_usd": -0.33,
+    "comisiones_usd": 4.14,
+    "ganancia_usd": 10.23,
+    "perdida_usd": 18.93
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": -1.11,
+    "ops": 50,
+    "win_rate": 36.0,
+    "profit_factor": 0.85,
+    "max_dd_pct": 1.96,
+    "expectativa_usd": -0.22,
+    "comisiones_usd": 16.29,
+    "ganancia_usd": 62.07,
+    "perdida_usd": 72.94
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": -0.74,
+    "ops": 23,
+    "win_rate": 43.5,
+    "profit_factor": 0.85,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.31,
+    "comisiones_usd": 7.49,
+    "ganancia_usd": 42.27,
+    "perdida_usd": 49.51
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": -0.39,
+    "ops": 24,
+    "win_rate": 45.8,
+    "profit_factor": 0.92,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.16,
+    "comisiones_usd": 7.83,
+    "ganancia_usd": 45.76,
+    "perdida_usd": 49.52
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": -0.79,
+    "ops": 23,
+    "win_rate": 43.5,
+    "profit_factor": 0.84,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.34,
+    "comisiones_usd": 7.49,
+    "ganancia_usd": 41.71,
+    "perdida_usd": 49.51
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": -0.05,
+    "ops": 24,
+    "win_rate": 45.8,
+    "profit_factor": 0.99,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.01,
+    "comisiones_usd": 7.84,
+    "ganancia_usd": 46.55,
+    "perdida_usd": 46.85
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": 0.25,
+    "ops": 24,
+    "win_rate": 45.8,
+    "profit_factor": 1.06,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.11,
+    "comisiones_usd": 7.85,
+    "ganancia_usd": 49.56,
+    "perdida_usd": 46.85
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 1.67,
+    "ops": 25,
+    "win_rate": 48.0,
+    "profit_factor": 1.36,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": 0.67,
+    "comisiones_usd": 8.22,
+    "ganancia_usd": 63.72,
+    "perdida_usd": 46.86
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": -0.19,
+    "ops": 24,
+    "win_rate": 45.8,
+    "profit_factor": 0.96,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.07,
+    "comisiones_usd": 7.84,
+    "ganancia_usd": 45.15,
+    "perdida_usd": 46.82
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": -0.13,
+    "ops": 23,
+    "win_rate": 43.5,
+    "profit_factor": 0.98,
+    "max_dd_pct": 1.35,
+    "expectativa_usd": -0.05,
+    "comisiones_usd": 7.51,
+    "ganancia_usd": 45.65,
+    "perdida_usd": 46.81
+   }
+  },
+  "ENA/USD": {
+   "actual": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "tp_2r": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "tp_1.5r": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "tp_1r": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": -0.81,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.87,
+    "expectativa_usd": -8.09,
+    "comisiones_usd": 0.54,
+    "ganancia_usd": 0,
+    "perdida_usd": 8.09
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": -0.81,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.87,
+    "expectativa_usd": -8.09,
+    "comisiones_usd": 0.54,
+    "ganancia_usd": 0,
+    "perdida_usd": 8.09
+   },
+   "tiempo_10velas": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "sin_salida_macd": {
+    "retorno_pct": -0.81,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.87,
+    "expectativa_usd": -8.09,
+    "comisiones_usd": 0.54,
+    "ganancia_usd": 0,
+    "perdida_usd": 8.09
+   },
+   "trailing_atr3": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "pullback": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "reversion_rsi2": {
+    "retorno_pct": 0.46,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 58.88,
+    "max_dd_pct": 0.3,
+    "expectativa_usd": 1.54,
+    "comisiones_usd": 1.69,
+    "ganancia_usd": 4.71,
+    "perdida_usd": 0.08
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": 0.13,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 44.0,
+    "max_dd_pct": 0.1,
+    "expectativa_usd": 0.43,
+    "comisiones_usd": 0.5,
+    "ganancia_usd": 1.32,
+    "perdida_usd": 0.03
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": -0.25,
+    "ops": 3,
+    "win_rate": 33.3,
+    "profit_factor": 0.51,
+    "max_dd_pct": 0.61,
+    "expectativa_usd": -0.85,
+    "comisiones_usd": 1.66,
+    "ganancia_usd": 2.63,
+    "perdida_usd": 5.18
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": -0.37,
+    "ops": 1,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.42,
+    "expectativa_usd": -3.66,
+    "comisiones_usd": 0.55,
+    "ganancia_usd": 0,
+    "perdida_usd": 3.66
+   }
+  },
+  "MNT/USD": {
+   "actual": {
+    "retorno_pct": 0.64,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.23,
+    "max_dd_pct": 0.71,
+    "expectativa_usd": 3.2,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 9.25,
+    "perdida_usd": 2.86
+   },
+   "tp_2r": {
+    "retorno_pct": 1.14,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 5.0,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 5.72,
+    "comisiones_usd": 1.15,
+    "ganancia_usd": 14.3,
+    "perdida_usd": 2.86
+   },
+   "tp_1.5r": {
+    "retorno_pct": 0.77,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.7,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 3.86,
+    "comisiones_usd": 1.14,
+    "ganancia_usd": 10.57,
+    "perdida_usd": 2.86
+   },
+   "tp_1r": {
+    "retorno_pct": 0.4,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.4,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 1.99,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 6.85,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": 0.52,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.81,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 2.6,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 8.05,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": 0.52,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.81,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 2.6,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 8.05,
+    "perdida_usd": 2.86
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": -0.04,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 0.88,
+    "max_dd_pct": 0.32,
+    "expectativa_usd": -0.18,
+    "comisiones_usd": 1.11,
+    "ganancia_usd": 2.51,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": 0.64,
+    "ops": 2,
+    "win_rate": 100.0,
+    "profit_factor": Infinity,
+    "max_dd_pct": 0.81,
+    "expectativa_usd": 3.22,
+    "comisiones_usd": 1.14,
+    "ganancia_usd": 6.44,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": 0.92,
+    "ops": 2,
+    "win_rate": 100.0,
+    "profit_factor": Infinity,
+    "max_dd_pct": 0.54,
+    "expectativa_usd": 4.58,
+    "comisiones_usd": 1.14,
+    "ganancia_usd": 9.16,
+    "perdida_usd": 0
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 0.62,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.17,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 3.1,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 9.06,
+    "perdida_usd": 2.86
+   },
+   "sin_salida_macd": {
+    "retorno_pct": 1.36,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.64,
+    "max_dd_pct": 2.42,
+    "expectativa_usd": 6.78,
+    "comisiones_usd": 1.16,
+    "ganancia_usd": 21.82,
+    "perdida_usd": 8.26
+   },
+   "trailing_atr3": {
+    "retorno_pct": 0.64,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.23,
+    "max_dd_pct": 0.71,
+    "expectativa_usd": 3.2,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 9.25,
+    "perdida_usd": 2.86
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": 0.64,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.23,
+    "max_dd_pct": 0.71,
+    "expectativa_usd": 3.2,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 9.25,
+    "perdida_usd": 2.86
+   },
+   "pullback": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "reversion_rsi2": {
+    "retorno_pct": 0.29,
+    "ops": 1,
+    "win_rate": 100.0,
+    "profit_factor": Infinity,
+    "max_dd_pct": 0.1,
+    "expectativa_usd": 2.9,
+    "comisiones_usd": 0.57,
+    "ganancia_usd": 2.9,
+    "perdida_usd": 0
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": 0.17,
+    "ops": 1,
+    "win_rate": 100.0,
+    "profit_factor": Infinity,
+    "max_dd_pct": 0.06,
+    "expectativa_usd": 1.69,
+    "comisiones_usd": 0.33,
+    "ganancia_usd": 1.69,
+    "perdida_usd": 0
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": 0.67,
+    "ops": 3,
+    "win_rate": 66.7,
+    "profit_factor": 3.35,
+    "max_dd_pct": 0.74,
+    "expectativa_usd": 2.24,
+    "comisiones_usd": 1.7,
+    "ganancia_usd": 9.58,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": 0.52,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.81,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 2.6,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 8.05,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": 0.77,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.7,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 3.86,
+    "comisiones_usd": 1.14,
+    "ganancia_usd": 10.57,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": 0.52,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.81,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 2.6,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 8.05,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": 0.55,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.91,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 2.74,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 8.33,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": 0.51,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.78,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 7.95,
+    "perdida_usd": 2.86
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 0.77,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 3.7,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 3.86,
+    "comisiones_usd": 1.14,
+    "ganancia_usd": 10.57,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": 0.51,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 2.78,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 2.54,
+    "comisiones_usd": 1.13,
+    "ganancia_usd": 7.95,
+    "perdida_usd": 2.86
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": 0.86,
+    "ops": 2,
+    "win_rate": 50.0,
+    "profit_factor": 4.0,
+    "max_dd_pct": 0.66,
+    "expectativa_usd": 4.29,
+    "comisiones_usd": 1.14,
+    "ganancia_usd": 11.45,
+    "perdida_usd": 2.86
+   }
+  },
+  "BONK/USD": {
+   "actual": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "tp_2r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "tp_1.5r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "tp_1r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_tp3r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_trailing3atr": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_0.75r_be_tp3r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_tp3r_sin_macd": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_trail_sin_macd": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "tiempo_10velas": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "sin_salida_macd": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "trailing_atr3": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "sin_extension_2atr": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "pullback": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "pullback_parcial_1r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "reversion_rsi2": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "reversion_rsi2_stop_ancho": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "mixto_cruce_reversion": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_tp3r_ext2atr": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_tp2r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be0_tp3r": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_frac33_tp3r_tiempo10": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_sinbe_tp3r_tiempo10": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "tp_1.5r_tiempo10": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_tp3r_tiempo10": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   },
+   "parcial_1r_be_tp3r_tiempo14": {
+    "retorno_pct": 0.0,
+    "ops": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "max_dd_pct": 0.0,
+    "expectativa_usd": 0.0,
+    "comisiones_usd": 0.0,
+    "ganancia_usd": 0,
+    "perdida_usd": 0
+   }
+  },
+  "WLFI/USD": {
+   "actual": null,
+   "tp_2r": null,
+   "tp_1.5r": null,
+   "tp_1r": null,
+   "parcial_1r_be_tp3r": null,
+   "parcial_1r_be_trailing3atr": null,
+   "parcial_0.75r_be_tp3r": null,
+   "parcial_1r_be_tp3r_sin_macd": null,
+   "parcial_1r_be_trail_sin_macd": null,
+   "tiempo_10velas": null,
+   "sin_salida_macd": null,
+   "trailing_atr3": null,
+   "sin_extension_2atr": null,
+   "pullback": null,
+   "pullback_parcial_1r": null,
+   "reversion_rsi2": null,
+   "reversion_rsi2_stop_ancho": null,
+   "mixto_cruce_reversion": null,
+   "parcial_1r_be_tp3r_ext2atr": null,
+   "parcial_1r_be_tp2r": null,
+   "parcial_1r_be0_tp3r": null,
+   "parcial_1r_frac33_tp3r_tiempo10": null,
+   "parcial_1r_sinbe_tp3r_tiempo10": null,
+   "tp_1.5r_tiempo10": null,
+   "parcial_1r_be_tp3r_tiempo10": null,
+   "parcial_1r_be_tp3r_tiempo14": null
+  }
+ },
+ "variantes": {
+  "actual": {},
+  "tp_2r": {
+   "riesgo": {
+    "take_profit_r": 2.0
+   }
+  },
+  "tp_1.5r": {
+   "riesgo": {
+    "take_profit_r": 1.5
+   }
+  },
+  "tp_1r": {
+   "riesgo": {
+    "take_profit_r": 1.0
+   }
+  },
+  "parcial_1r_be_tp3r": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6
+   }
+  },
+  "parcial_1r_be_trailing3atr": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6,
+    "take_profit_r": null,
+    "trailing_atr_mult": 3.0,
+    "trailing_solo_tras_parcial": true
+   }
+  },
+  "parcial_0.75r_be_tp3r": {
+   "riesgo": {
+    "tp_parcial_r": 0.75,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6
+   }
+  },
+  "parcial_1r_be_tp3r_sin_macd": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6
+   },
+   "estrategia": {
+    "salida_macd": false
+   }
+  },
+  "parcial_1r_be_trail_sin_macd": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6,
+    "take_profit_r": null,
+    "trailing_atr_mult": 3.0,
+    "trailing_solo_tras_parcial": true
+   },
+   "estrategia": {
+    "salida_macd": false
+   }
+  },
+  "tiempo_10velas": {
+   "riesgo": {
+    "max_velas_posicion": 10
+   }
+  },
+  "sin_salida_macd": {
+   "estrategia": {
+    "salida_macd": false
+   }
+  },
+  "trailing_atr3": {
+   "riesgo": {
+    "trailing_atr_mult": 3.0
+   }
+  },
+  "sin_extension_2atr": {
+   "estrategia": {
+    "max_extension_atr": 2.0
+   }
+  },
+  "pullback": {
+   "estrategia": {
+    "modo_entrada": "pullback"
+   }
+  },
+  "pullback_parcial_1r": {
+   "estrategia": {
+    "modo_entrada": "pullback"
+   },
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6
+   }
+  },
+  "reversion_rsi2": {
+   "estrategia": {
+    "modo_entrada": "reversion"
+   },
+   "riesgo": {
+    "take_profit_r": null,
+    "max_velas_posicion": 10
+   }
+  },
+  "reversion_rsi2_stop_ancho": {
+   "estrategia": {
+    "modo_entrada": "reversion"
+   },
+   "riesgo": {
+    "take_profit_r": null,
+    "max_velas_posicion": 10,
+    "stop_modo": "atr",
+    "stop_atr_mult": 3.0
+   }
+  },
+  "mixto_cruce_reversion": {
+   "estrategia": {
+    "modo_entrada": "mixto"
+   }
+  },
+  "parcial_1r_be_tp3r_ext2atr": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6
+   },
+   "estrategia": {
+    "max_extension_atr": 2.0
+   }
+  },
+  "parcial_1r_be_tp2r": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6,
+    "take_profit_r": 2.0
+   }
+  },
+  "parcial_1r_be0_tp3r": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.0
+   }
+  },
+  "parcial_1r_frac33_tp3r_tiempo10": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.33,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6,
+    "max_velas_posicion": 10
+   }
+  },
+  "parcial_1r_sinbe_tp3r_tiempo10": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": false,
+    "breakeven_offset_pct": 0.6,
+    "max_velas_posicion": 10
+   }
+  },
+  "tp_1.5r_tiempo10": {
+   "riesgo": {
+    "take_profit_r": 1.5,
+    "max_velas_posicion": 10
+   }
+  },
+  "parcial_1r_be_tp3r_tiempo10": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6,
+    "max_velas_posicion": 10
+   }
+  },
+  "parcial_1r_be_tp3r_tiempo14": {
+   "riesgo": {
+    "tp_parcial_r": 1.0,
+    "tp_parcial_frac": 0.5,
+    "breakeven_tras_parcial": true,
+    "breakeven_offset_pct": 0.6,
+    "max_velas_posicion": 14
+   }
+  }
+ },
+ "generado": "2026-10-13 03:55:33.927616+00:00"
+}
