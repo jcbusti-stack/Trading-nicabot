@@ -7,6 +7,7 @@ import pandas as pd
 
 from . import datos, estado as est, notificador
 from .guardia import revisar_entrada
+from .filtro_btc import regimen_btc
 from .config import cargar_config, config_par
 from .ejecucion import crear_ejecutor
 from .estrategia import evaluar_senales
@@ -46,7 +47,11 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
     if dfs is None:
         exchange = exchange or datos.crear_exchange_publico(cfg.get('exchange', 'kraken'))
         dfs = {}
-        for par in pares_disponibles(exchange, cfg['pares']):
+        fb = cfg.get('filtro_btc', {})
+        lista = list(cfg['pares'])
+        if fb.get('enabled', True) and fb.get('par', 'BTC/USD') not in lista:
+            lista.append(fb.get('par', 'BTC/USD'))  # solo para el filtro
+        for par in pares_disponibles(exchange, lista):
             try:
                 df = datos.descargar_velas(exchange, par, cfg['timeframe'], cfg['velas'],
                                            dir_cache=cfg.get('dir_cache_velas'))
@@ -72,6 +77,14 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
             log.warning('%s: solo %d velas (< min_velas_ema=%d): no abre posiciones nuevas hasta tener mas historia.',
                         par, n_velas[par], ce['min_velas_ema'])
         ind[par] = d
+
+    fb = cfg.get('filtro_btc', {})
+    par_btc = fb.get('par', 'BTC/USD')
+    d_btc = ind.get(par_btc)
+    if par_btc not in cfg['pares']:
+        ind.pop(par_btc, None)  # BTC solo como filtro, no se opera
+    ok_btc, motivo_btc, _ = regimen_btc(d_btc, None, fb)
+    log.info('Regimen BTC actual: %s', motivo_btc)
 
     vivos_cache = dict(precios_vivos or {})
 
@@ -99,7 +112,10 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
             precio_entrada = None
             if sen['entrada'] and par not in posiciones(estado):
                 bloqueo = None
-                if n_velas.get(par, 0) < cp['estrategia'].get('min_velas_ema', 0):
+                ok_r, motivo_r, _ = regimen_btc(d_btc, fecha, fb)
+                if not ok_r:
+                    bloqueo = motivo_r
+                elif n_velas.get(par, 0) < cp['estrategia'].get('min_velas_ema', 0):
                     bloqueo = f"historia insuficiente ({n_velas[par]} < {cp['estrategia']['min_velas_ema']} velas)"
                 else:
                     ok_e, motivo = revisar_entrada(fecha, float(fila['close']), None, ahora,
@@ -137,7 +153,7 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
                 log.error('Fallo orden real %s %s: %s', e['tipo'], e.get('par'), ex)
 
     est.guardar(cfg['ruta_estado'], estado)
-    resumen = construir_resumen(cfg, estado, ind, precios, eventos_recientes, bool(ejecutor))
+    resumen = construir_resumen(cfg, estado, ind, precios, eventos_recientes, bool(ejecutor), motivo_btc)
     print(resumen)
     nombre = cfg['drive']['nombre_resumen']
     with open(nombre, 'w', encoding='utf-8') as f:
@@ -152,7 +168,7 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, 
     return estado, resumen
 
 
-def construir_resumen(cfg, estado, ind, precios, eventos, live):
+def construir_resumen(cfg, estado, ind, precios, eventos, live, regimen_btc_txt=None):
     ok = lambda b: 'OK' if b else 'NO'
     eq = equity(estado, precios)
     dd = (estado['pico_capital'] - eq) / estado['pico_capital'] * 100 if estado['pico_capital'] > 0 else 0
@@ -161,6 +177,7 @@ def construir_resumen(cfg, estado, ind, precios, eventos, live):
          f"Capital simulado (equity): ${eq:.2f} | efectivo ${estado['cash']:.2f} | posiciones abiertas: {len(posiciones(estado))}",
          'Kill switch: ' + (f"ACTIVO desde {estado['kill_switch_fecha']} - entradas nuevas bloqueadas" if estado['kill_switch_activo']
                             else f"inactivo (caida actual: {dd:.1f}% de {cfg['riesgo']['kill_switch_pct']:.0f}% umbral)"),
+         f"Regimen BTC: {regimen_btc_txt or '-'}",
          f"Comisiones acumuladas: ${estado.get('comisiones_totales', 0):.2f} | Operaciones cerradas: {len(estado['historial'])}", '']
     # Bloque SOL primero: gestion_riesgo.py busca 'Precio SOL:' y 'Señal de entrada completa:'
     orden = sorted(ind, key=lambda p: (p.split('/')[0] != 'SOL', p))

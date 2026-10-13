@@ -31,6 +31,25 @@ Cada 12 horas (GitHub Actions, 4:00 y 16:00 hora CDMX):
   pico, se bloquean entradas nuevas. Para reactivarlo: workflow "Reactivar Bot".
 - **Costos:** comisión de Kraken 0.26% (taker) + deslizamiento 0.05% por lado.
 
+### Filtro de Bitcoin (régimen de mercado)
+Antes de abrir **cualquier posición nueva** (en cualquier par, incluido BTC), el bot
+revisa BTC/USD en velas de 12h (las mismas de Kraken, con la historia de semilla 1d):
+- Cierre de BTC **>** EMA200, **y**
+- EMA9 de BTC **>** EMA21.
+
+Si BTC está bajista, **no se compra nada** y el log/resumen dice el motivo
+(`filtro BTC bajista: ...`). Las **salidas, stops y take-profit no cambian**.
+Se configura en `config.json` → `filtro_btc`:
+
+| Clave | Qué es |
+|---|---|
+| `enabled` | `true` = filtro activo, `false` = apagado |
+| `par` | Par de referencia (por defecto `BTC/USD`) |
+| `precio_sobre_ema200` | Exigir cierre de BTC > EMA200 |
+| `ema9_sobre_ema21` | Exigir EMA9 > EMA21 de BTC |
+
+El resumen (`senal_multi.txt`) muestra una línea `Regimen BTC:` con el estado actual.
+
 ## Pares
 
 BTC, ONDO, KAS, ETH, SOL, SUI, PEPE, AVAX, ADA, SHIB, ENA, DOGE, XRP, MNT, BONK, WLFI

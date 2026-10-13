@@ -216,8 +216,10 @@ def test_compra_al_precio_vivo(cfg):
     assert P(s)['atr'] == 2.0
 
 
-def _bot_un_paso(cfg, tmp_path, monkeypatch, vivo, min_velas=0, horas=1):
+def _bot_un_paso(cfg, tmp_path, monkeypatch, vivo, min_velas=0, horas=1, btc=None):
     monkeypatch.chdir(tmp_path)
+    if btc is None:
+        cfg['filtro_btc']['enabled'] = False
     monkeypatch.delenv('MODO', raising=False)
     cfg['ruta_estado'] = str(tmp_path / 'estado.json')
     cfg['pares'] = ['SOL/USD']
@@ -228,7 +230,10 @@ def _bot_un_paso(cfg, tmp_path, monkeypatch, vivo, min_velas=0, horas=1):
     monkeypatch.setattr(bot, 'evaluar_senales', lambda f, c: {'entrada': True, 'salida': False, 'trend_up': True,
                                                                'momentum_ok': True, 'rsi_ok': True, 'macd_bullish': True})
     ahora = df.index[-1] + pd.Timedelta(hours=12 + horas)
-    estado, _ = bot.ejecutar(cfg, dfs={'SOL/USD': df}, subir=False, precios_vivos={'SOL/USD': vivo}, ahora=ahora)
+    dfs = {'SOL/USD': df}
+    if btc is not None:
+        dfs['BTC/USD'] = velas(btc)  # BTC solo como filtro (no esta en pares)
+    estado, _ = bot.ejecutar(cfg, dfs=dfs, subir=False, precios_vivos={'SOL/USD': vivo}, ahora=ahora)
     return estado, float(df['close'].iloc[-1])
 
 
@@ -307,3 +312,66 @@ def test_drive_403_no_fatal(monkeypatch, tmp_path, caplog):
     assert notificador.subir_texto('hola', 'x.txt', 'folder') is False
     assert (tmp_path / 'x.txt').exists()
     assert 'Unidad compartida' in caplog.text
+
+
+# ---- Filtro de regimen BTC ----
+from nicabot.filtro_btc import regimen_btc
+
+
+def _ind_btc(precios):
+    return calcular_indicadores(velas(precios))
+
+
+def test_regimen_btc_alcista_y_bajista():
+    ok, _, d = regimen_btc(_ind_btc(np.linspace(50000, 100000, 300)), None, {'enabled': True})
+    assert ok and d['close'] > d['ema200'] and d['ema9'] > d['ema21']
+    ok, m, _ = regimen_btc(_ind_btc(np.linspace(100000, 50000, 300)), None, {'enabled': True})
+    assert not ok and 'bajista' in m and 'EMA200' in m and 'EMA21' in m
+
+
+def test_regimen_btc_solo_ema_corta_bajista():
+    p = list(np.linspace(50000, 100000, 280)) + list(np.linspace(100000, 92000, 20))
+    ok, m, d = regimen_btc(_ind_btc(p), None, {'enabled': True})
+    assert d['close'] > d['ema200'] and not ok and 'EMA9' in m and 'EMA200' not in m
+    assert regimen_btc(_ind_btc(p), None, {'enabled': True, 'ema9_sobre_ema21': False})[0]
+
+
+def test_regimen_btc_apagado_y_sin_datos():
+    assert regimen_btc(None, None, {'enabled': False})[0]
+    assert not regimen_btc(None, None, {'enabled': True})[0]
+
+
+def test_regimen_btc_usa_vela_de_la_fecha():
+    p = list(np.linspace(50000, 100000, 280)) + list(np.linspace(100000, 40000, 20))
+    d = _ind_btc(p)
+    assert not regimen_btc(d, None, {})[0]
+    assert regimen_btc(d, d.index[-25], {})[0]
+
+
+def test_bot_filtro_btc_bajista_bloquea_entrada(cfg, tmp_path, monkeypatch):
+    estado, _ = _bot_un_paso(cfg, tmp_path, monkeypatch, vivo=300.0, btc=np.linspace(100000, 50000, 300))
+    assert 'SOL/USD' not in estado['posiciones']
+
+
+def test_bot_filtro_btc_alcista_permite_entrada(cfg, tmp_path, monkeypatch):
+    estado, _ = _bot_un_paso(cfg, tmp_path, monkeypatch, vivo=300.0, btc=np.linspace(50000, 100000, 300))
+    assert 'SOL/USD' in estado['posiciones']
+
+
+def test_filtro_btc_no_afecta_salidas(cfg, tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.delenv('MODO', raising=False)
+    cfg['ruta_estado'] = str(tmp_path / 'estado.json')
+    cfg['pares'] = ['SOL/USD']
+    df = velas(np.linspace(100, 300, 300))
+    s = est.estado_inicial(1000.0)
+    procesar_vela(s, 'SOL/USD', fila(300, 301, 299, 300), str(df.index[-2]), ENTRA, cfg)
+    s['ultima_vela'] = {'SOL/USD': str(df.index[-2])}
+    est.guardar(cfg['ruta_estado'], s)
+    monkeypatch.setattr(bot, 'evaluar_senales', lambda f, c: {'entrada': False, 'salida': True, 'trend_up': True,
+                                                               'momentum_ok': True, 'rsi_ok': True, 'macd_bullish': False})
+    dfs = {'SOL/USD': df, 'BTC/USD': velas(np.linspace(100000, 50000, 300))}
+    estado, resumen = bot.ejecutar(cfg, dfs=dfs, subir=False)
+    assert 'SOL/USD' not in estado['posiciones'] and estado['historial']
+    assert 'BTC/USD' not in resumen.split('Regimen BTC')[1].split('\n', 1)[1]  # BTC no se opera si no esta en pares
+    assert 'bajista' in resumen
