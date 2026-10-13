@@ -10,7 +10,17 @@ Orden dentro de cada vela de un par (conservador):
 El kill switch (drawdown sobre equity total) se revisa con revisar_kill_switch().
 Todas las ejecuciones aplican slippage y comision.
 """
+import math
+
 from . import riesgo as R
+
+
+def _num(x):
+    try:
+        x = float(x)
+        return None if math.isnan(x) else x
+    except (TypeError, ValueError):
+        return None
 
 
 def posiciones(estado):
@@ -48,9 +58,10 @@ def _cerrar(estado, par, precio_bruto, fecha, motivo, cfg):
             'motivo': motivo, 'pnl_usd': pnl_usd}
 
 
-def procesar_vela(estado, par, fila, fecha, senales, cfg, precios=None):
+def procesar_vela(estado, par, fila, fecha, senales, cfg, precios=None, precio_entrada=None):
     """Avanza un par una vela. cfg = config efectiva del par (config_par).
-    precios: ultimos precios conocidos de todos los pares (para el equity)."""
+    precios: ultimos precios conocidos de todos los pares (para el equity).
+    precio_entrada: si se da (precio vivo del ticker), la compra se llena ahi y no al cierre."""
     rc, c, pf = cfg['riesgo'], cfg['costos'], cfg['portafolio']
     eventos = []
     fecha = str(fecha)
@@ -74,9 +85,10 @@ def procesar_vela(estado, par, fila, fecha, senales, cfg, precios=None):
         elif len(posiciones(estado)) >= pf['max_posiciones_abiertas']:
             eventos.append({'tipo': 'entrada_bloqueada', 'par': par, 'motivo': 'max posiciones'})
         else:
-            precio = R.precio_con_slippage(fila['close'], 'compra', c['slippage_pct'])
+            ref = float(precio_entrada) if precio_entrada else float(fila['close'])
+            precio = R.precio_con_slippage(ref, 'compra', c['slippage_pct'])
             stop = R.precio_stop(precio, fila.get('ATR'), rc)
-            pr = dict(precios or {}); pr[par] = float(fila['close'])
+            pr = dict(precios or {}); pr[par] = ref
             eq = equity(estado, pr)
             max_activo = min(pf['max_por_activo_pct'], rc.get('max_por_activo_pct', 100.0), rc['max_exposicion_pct'])
             libre_total = max(0.0, eq * pf['max_exposicion_total_pct'] / 100 - exposicion(estado))
@@ -91,7 +103,8 @@ def procesar_vela(estado, par, fila, fecha, senales, cfg, precios=None):
                 posiciones(estado)[par] = {
                     'precio_entrada': precio, 'fecha_entrada': fecha, 'cantidad': qty, 'stop': stop,
                     'precio_maximo': precio, 'take_profit': R.precio_take_profit(precio, stop, rc),
-                    'costo_entrada': nocional + comision, 'ultimo_precio': float(fila['close'])}
+                    'costo_entrada': nocional + comision, 'ultimo_precio': ref,
+                    'atr': _num(fila.get('ATR'))}
                 eventos.append({'tipo': 'compra', 'par': par, 'precio': precio, 'cantidad': qty, 'stop': stop,
                                 'take_profit': posiciones(estado)[par]['take_profit'], 'nocional': nocional})
             else:

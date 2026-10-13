@@ -5,7 +5,7 @@ on:
   schedule:
     # 3 veces al dia, hora CDMX: 7am, 12pm, 4pm
     # Horas UTC (CDMX = UTC-6): 13, 18, 22
-    - cron: '0 13,18,22 * * *'
+    - cron: '17 13,18,22 * * *'
 
 jobs:
   run-monitor:

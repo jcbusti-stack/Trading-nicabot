@@ -6,6 +6,7 @@ from collections import defaultdict
 import pandas as pd
 
 from . import datos, estado as est, notificador
+from .guardia import revisar_entrada
 from .config import cargar_config, config_par
 from .ejecucion import crear_ejecutor
 from .estrategia import evaluar_senales
@@ -36,25 +37,48 @@ def velas_pendientes(df, ultima_vela):
     return df.iloc[-1:]
 
 
-def ejecutar(cfg=None, exchange=None, dfs=None, subir=True):
-    """dfs: {par: DataFrame OHLCV} para pruebas sin red; si es None se descarga de Kraken."""
+def ejecutar(cfg=None, exchange=None, dfs=None, subir=True, precios_vivos=None, ahora=None):
+    """dfs: {par: DataFrame OHLCV} para pruebas sin red; si es None se descarga de Kraken.
+    precios_vivos: {par: precio} para pruebas; si es None se lee el ticker publico.
+    ahora: momento actual (pruebas)."""
+    ahora = pd.Timestamp(ahora) if ahora is not None else pd.Timestamp.now(tz='UTC')
     cfg = cfg or cargar_config()
     if dfs is None:
         exchange = exchange or datos.crear_exchange_publico(cfg.get('exchange', 'kraken'))
         dfs = {}
         for par in pares_disponibles(exchange, cfg['pares']):
             try:
-                dfs[par] = datos.descargar_velas(exchange, par, cfg['timeframe'], cfg['velas'],
-                                                 dir_cache=cfg.get('dir_cache_velas'))
+                df = datos.descargar_velas(exchange, par, cfg['timeframe'], cfg['velas'],
+                                           dir_cache=cfg.get('dir_cache_velas'))
+                if cfg['estrategia'].get('semilla_1d') and len(df) < cfg['estrategia'].get('min_velas_ema', 0):
+                    df = datos.con_semilla(df, datos.descargar_semilla_1d(exchange, par))
+                dfs[par] = df
             except Exception as e:
                 log.error('No se pudieron descargar velas de %s: %s (se omite este paso)', par, e)
-    ind = {}
+    ind, n_velas = {}, {}
     for par, df in dfs.items():
-        d = calcular_indicadores(df, config_par(cfg, par)['estrategia'])
+        ce = config_par(cfg, par)['estrategia']
+        n_velas[par] = len(df)
+        n_sint = int(df['sintetica'].sum()) if 'sintetica' in df else 0
+        if n_sint:
+            log.info('%s: %d velas 12h reales + %d aproximadas desde 1d para calentar la EMA.', par, len(df) - n_sint, n_sint)
+        d = calcular_indicadores(df.drop(columns='sintetica', errors='ignore'), ce)
+        if 'sintetica' in df:
+            d = d[~df['sintetica'].reindex(d.index).fillna(False).astype(bool)]
         if d.empty:
             log.warning('%s: historia insuficiente para indicadores (EMA200), se omite.', par)
             continue
+        if n_velas[par] < ce.get('min_velas_ema', 0):
+            log.warning('%s: solo %d velas (< min_velas_ema=%d): no abre posiciones nuevas hasta tener mas historia.',
+                        par, n_velas[par], ce['min_velas_ema'])
         ind[par] = d
+
+    vivos_cache = dict(precios_vivos or {})
+
+    def vivo(par):
+        if par not in vivos_cache:
+            vivos_cache[par] = datos.precio_vivo(exchange, par) if exchange is not None else None
+        return vivos_cache[par]
 
     estado = est.cargar(cfg['ruta_estado'], cfg)
     ejecutor = crear_ejecutor(cfg)
@@ -70,12 +94,33 @@ def ejecutar(cfg=None, exchange=None, dfs=None, subir=True):
         for par, fila in por_fecha[fecha]:
             precios[par] = float(fila['close'])
         for par, fila in sorted(por_fecha[fecha], key=lambda x: x[0]):
-            ev = procesar_vela(estado, par, fila, fecha, evaluar_senales(fila, config_par(cfg, par)['estrategia']),
-                               config_par(cfg, par), precios)
+            cp = config_par(cfg, par)
+            sen = evaluar_senales(fila, cp['estrategia'])
+            precio_entrada = None
+            if sen['entrada'] and par not in posiciones(estado):
+                bloqueo = None
+                if n_velas.get(par, 0) < cp['estrategia'].get('min_velas_ema', 0):
+                    bloqueo = f"historia insuficiente ({n_velas[par]} < {cp['estrategia']['min_velas_ema']} velas)"
+                else:
+                    ok_e, motivo = revisar_entrada(fecha, float(fila['close']), None, ahora,
+                                                   dict(cp['entrada'], usar_precio_vivo=False), cfg['timeframe'])
+                    if ok_e and cp['entrada'].get('usar_precio_vivo', True):
+                        pv = vivo(par)
+                        ok_e, motivo = revisar_entrada(fecha, float(fila['close']), pv, ahora, cp['entrada'], cfg['timeframe'])
+                        precio_entrada = pv
+                    if not ok_e:
+                        bloqueo = motivo
+                if bloqueo:
+                    sen = dict(sen, entrada=False)
+                    e = {'tipo': 'entrada_bloqueada', 'par': par, 'motivo': bloqueo}
+                    log.info('%s %s', fecha, e)
+                    if fecha == ind[par].index[-1]:
+                        eventos_recientes.append(dict(e, precio_ref=float(fila['close'])))
+            ev = procesar_vela(estado, par, fila, fecha, sen, cp, precios, precio_entrada=precio_entrada)
             for e in ev:
                 log.info('%s %s', fecha, e)
             if fecha == ind[par].index[-1]:
-                eventos_recientes += [dict(e, precio_ref=float(fila['close'])) for e in ev]
+                eventos_recientes += [dict(e, precio_ref=float(e.get('precio') or fila['close'])) for e in ev]
         ev_ks, _ = revisar_kill_switch(estado, precios, fecha, cfg)
         for e in ev_ks:
             log.warning('%s %s', fecha, e)

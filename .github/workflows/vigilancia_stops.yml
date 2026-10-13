@@ -1,0 +1,51 @@
+name: Vigilancia de Stops (paper)
+
+on:
+  schedule:
+    # Cada 20 min en minutos no redondos (GitHub retrasa los crons en :00).
+    - cron: '7,27,47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: estado-json   # mismo grupo que paper_trading.yml: nunca escriben estado.json a la vez
+  cancel-in-progress: false
+
+jobs:
+  vigilar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Revisar stops / TP / trailing con precio vivo (PAPER, sin dinero real)
+        env:
+          MODO: paper   # este paso nunca envia ordenes reales
+        run: python vigilancia_stops.py
+
+      - name: Commit estado.json
+        run: |
+          git config user.name "bot-trading"
+          git config user.email "bot@trading.local"
+          git add estado.json
+          git diff --quiet --cached && exit 0
+          git commit -m "Vigilancia de stops: actualizar estado"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "Push rechazado (intento $i), rebase y reintento..."
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || { git rebase --abort; exit 1; }
+            sleep $((i * 5))
+          done
+          exit 1

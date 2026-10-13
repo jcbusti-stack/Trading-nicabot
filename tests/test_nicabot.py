@@ -185,3 +185,125 @@ def test_agregar_4h_a_12h():
     out = agregar(df, '12h', 3)
     assert list(out.index.hour) == [12, 0]  # 00:00 incompleta se descarta
     assert out.iloc[0]['open'] == 2 and out.iloc[0]['close'] == 4 and out.iloc[0]['volume'] == 3
+
+
+# ---- Guardia de entrada, vigilancia, semilla, Drive ----
+from nicabot.guardia import revisar_entrada
+from nicabot import vigilancia, notificador, datos as D
+
+ENT = {'usar_precio_vivo': True, 'max_horas_desde_cierre': 3.0, 'max_caida_pct': 2.0, 'max_subida_pct': 3.0}
+T0 = pd.Timestamp('2026-01-01 00:00', tz='UTC')  # apertura; cierra 12:00
+
+
+def test_guardia_ok_y_vieja():
+    assert revisar_entrada(T0, 100, 101, T0 + pd.Timedelta(hours=13), ENT)[0]
+    ok, m = revisar_entrada(T0, 100, 101, T0 + pd.Timedelta(hours=16), ENT)
+    assert not ok and 'vieja' in m
+
+
+def test_guardia_movimiento():
+    ahora = T0 + pd.Timedelta(hours=12, minutes=5)
+    assert not revisar_entrada(T0, 100, 97.9, ahora, ENT)[0]
+    assert not revisar_entrada(T0, 100, 103.5, ahora, ENT)[0]
+    assert revisar_entrada(T0, 100, 102.9, ahora, ENT)[0]
+    assert not revisar_entrada(T0, 100, None, ahora, ENT)[0]
+
+
+def test_compra_al_precio_vivo(cfg):
+    s = est.estado_inicial(1000.0)
+    procesar_vela(s, 'SOL/USD', fila(100, 101, 99, 100), 'f', ENTRA, cfg, precio_entrada=101.0)
+    assert P(s)['precio_entrada'] == pytest.approx(101.0 * 1.0005)
+    assert P(s)['atr'] == 2.0
+
+
+def _bot_un_paso(cfg, tmp_path, monkeypatch, vivo, min_velas=0, horas=1):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.delenv('MODO', raising=False)
+    cfg['ruta_estado'] = str(tmp_path / 'estado.json')
+    cfg['pares'] = ['SOL/USD']
+    cfg['estrategia']['min_velas_ema'] = min_velas
+    cfg['estrategia']['rsi_max_entrada'] = 101
+    df = velas(np.linspace(100, 300, 300))
+    est.guardar(cfg['ruta_estado'], dict(est.estado_inicial(1000.0), ultima_vela={'SOL/USD': str(df.index[-2])}))
+    monkeypatch.setattr(bot, 'evaluar_senales', lambda f, c: {'entrada': True, 'salida': False, 'trend_up': True,
+                                                               'momentum_ok': True, 'rsi_ok': True, 'macd_bullish': True})
+    ahora = df.index[-1] + pd.Timedelta(hours=12 + horas)
+    estado, _ = bot.ejecutar(cfg, dfs={'SOL/USD': df}, subir=False, precios_vivos={'SOL/USD': vivo}, ahora=ahora)
+    return estado, float(df['close'].iloc[-1])
+
+
+def test_bot_entra_a_precio_vivo(cfg, tmp_path, monkeypatch):
+    estado, close = _bot_un_paso(cfg, tmp_path, monkeypatch, vivo=303.0)
+    assert estado['posiciones']['SOL/USD']['precio_entrada'] == pytest.approx(303 * 1.0005)
+
+
+def test_bot_salta_si_precio_se_movio(cfg, tmp_path, monkeypatch):
+    estado, _ = _bot_un_paso(cfg, tmp_path, monkeypatch, vivo=290.0)
+    assert 'SOL/USD' not in estado['posiciones']
+
+
+def test_bot_salta_senal_vieja(cfg, tmp_path, monkeypatch):
+    estado, _ = _bot_un_paso(cfg, tmp_path, monkeypatch, vivo=300.0, horas=5)
+    assert 'SOL/USD' not in estado['posiciones']
+
+
+def test_bot_min_velas_ema(cfg, tmp_path, monkeypatch):
+    estado, _ = _bot_un_paso(cfg, tmp_path, monkeypatch, vivo=300.0, min_velas=500)
+    assert 'SOL/USD' not in estado['posiciones']
+
+
+def _con_posicion(cfg, tmp_path):
+    cfg['ruta_estado'] = str(tmp_path / 'estado.json')
+    cfg['riesgo']['trailing_atr_mult'] = 2.0
+    s = est.estado_inicial(1000.0)
+    procesar_vela(s, 'SOL/USD', fila(100, 101, 99, 100), 'f', ENTRA, cfg)
+    est.guardar(cfg['ruta_estado'], s)
+    return P(s)
+
+
+def test_vigilancia_stop_al_precio_vivo(cfg, tmp_path):
+    p = _con_posicion(cfg, tmp_path)
+    s, ev = vigilancia.ejecutar(cfg, precios_vivos={'SOL/USD': p['stop'] - 1})
+    assert 'SOL/USD' not in s['posiciones']
+    assert ev[0]['motivo'].startswith('stop-loss')
+    assert ev[0]['precio'] == pytest.approx((p['stop'] - 1) * (1 - 0.0005))  # precio vivo, no el stop
+    assert json.load(open(cfg['ruta_estado']))['historial']
+
+
+def test_vigilancia_take_profit_y_trailing(cfg, tmp_path):
+    p = _con_posicion(cfg, tmp_path)
+    s, ev = vigilancia.ejecutar(cfg, precios_vivos={'SOL/USD': p['precio_entrada'] * 1.04})
+    assert not ev and P(s)['stop'] > p['stop'] and P(s)['trailing_movido']
+    s, ev = vigilancia.ejecutar(cfg, precios_vivos={'SOL/USD': P(s)['stop'] * 0.999})
+    assert ev[0]['motivo'].startswith('trailing-stop')
+    p = _con_posicion(cfg, tmp_path)
+    s, ev = vigilancia.ejecutar(cfg, precios_vivos={'SOL/USD': p['take_profit'] + 1})
+    assert ev[0]['motivo'].startswith('take-profit')
+
+
+def test_vigilancia_sin_precio_no_toca(cfg, tmp_path):
+    _con_posicion(cfg, tmp_path)
+    s, ev = vigilancia.ejecutar(cfg, precios_vivos={'SOL/USD': None})
+    assert 'SOL/USD' in s['posiciones'] and not ev
+
+
+def test_semilla_diaria():
+    idx = pd.date_range('2025-01-01', periods=10, freq='D', tz='UTC')
+    d1 = pd.DataFrame({'open': 1.0, 'high': 3.0, 'low': 0.5, 'close': 2.0, 'volume': 10.0}, index=idx)
+    real = velas([5.0] * 4).set_axis(pd.date_range('2025-01-08', periods=4, freq='12h', tz='UTC'))
+    out = D.con_semilla(real, d1)
+    assert out['sintetica'].sum() == 14 and not out.index.duplicated().any()
+    assert out.loc[pd.Timestamp('2025-01-01 00:00', tz='UTC'), 'close'] == 1.5 and out.loc[pd.Timestamp('2025-01-01 12:00', tz='UTC'), 'close'] == 2.0
+
+
+def test_drive_403_no_fatal(monkeypatch, tmp_path, caplog):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv('GCP_SA_KEY', '{"type": "service_account"}')
+    import google.oauth2.service_account as sa
+
+    def falla(*a, **k):
+        raise Exception('<HttpError 403 "Service Accounts do not have storage quota." storageQuotaExceeded>')
+    monkeypatch.setattr(sa.Credentials, 'from_service_account_info', falla)
+    assert notificador.subir_texto('hola', 'x.txt', 'folder') is False
+    assert (tmp_path / 'x.txt').exists()
+    assert 'Unidad compartida' in caplog.text

@@ -29,15 +29,26 @@ def subir_texto(texto, nombre, folder_id):
             json.loads(m.group(0)), scopes=[os.environ.get('DRIVE_SCOPE') or SCOPE_DEFECTO])
         service = build('drive', 'v3', credentials=creds, cache_discovery=False)
         q = f"name = '{nombre}' and '{folder_id}' in parents and trashed = false"
-        files = service.files().list(q=q, fields='files(id)', pageSize=1).execute().get('files', [])
+        files = service.files().list(q=q, fields='files(id)', pageSize=1, supportsAllDrives=True,
+                                     includeItemsFromAllDrives=True).execute().get('files', [])
         media = MediaFileUpload(nombre, mimetype='text/plain')
         if files:
-            service.files().update(fileId=files[0]['id'], media_body=media).execute()
+            service.files().update(fileId=files[0]['id'], media_body=media, supportsAllDrives=True).execute()
         else:
             service.files().create(body={'name': nombre, 'mimeType': 'text/plain', 'parents': [folder_id]},
-                                   media_body=media, fields='id').execute()
+                                   media_body=media, fields='id', supportsAllDrives=True).execute()
         log.info('%s subido a Drive.', nombre)
         return True
     except Exception as e:  # no tumbar el bot por Drive
-        log.error('No se pudo subir a Drive: %s', e)
+        if es_error_cuota(e):
+            log.warning('Drive rechazo la subida de %s (403: las cuentas de servicio no tienen cuota de '
+                        'almacenamiento). NO es fatal: el archivo queda local y en el repo. Solucion: usar una '
+                        'Unidad compartida (Shared Drive) o OAuth de usuario; ver README, seccion Google Drive.', nombre)
+        else:
+            log.warning('No se pudo subir %s a Drive (no fatal): %s', nombre, e)
         return False
+
+
+def es_error_cuota(e):
+    t = str(e)
+    return 'storageQuotaExceeded' in t or 'do not have storage quota' in t

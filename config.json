@@ -12,7 +12,16 @@
     "rsi_periodo": 14,
     "rsi_max_entrada": 65,
     "rsi_salida": 75,
-    "atr_periodo": 14
+    "atr_periodo": 14,
+    "min_velas_ema": 250,
+    "semilla_1d": true
+  },
+  "entrada": {
+    "usar_precio_vivo": true,
+    "max_horas_desde_cierre": 3.0,
+    "max_caida_pct": 2.0,
+    "max_subida_pct": 3.0,
+    "_nota": "Antes de comprar se lee el precio vivo de Kraken. Se salta la entrada si la vela de la senal cerro hace mas de N horas o si el precio ya se movio mas de X% contra el cierre. La compra se llena al precio vivo."
   },
   "riesgo": {
     "riesgo_por_operacion_pct": 1.0,

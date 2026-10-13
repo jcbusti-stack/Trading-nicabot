@@ -6,6 +6,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: estado-json
+  cancel-in-progress: false
+
 jobs:
   reactivar:
     runs-on: ubuntu-latest
@@ -27,4 +31,4 @@ jobs:
           git config user.email "bot@trading.local"
           git add estado.json
           git diff --quiet --cached || git commit -m "Reactivar bot despues de kill switch"
-          git push
+          git push || (git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" && git push)

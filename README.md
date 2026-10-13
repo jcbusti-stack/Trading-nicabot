@@ -93,7 +93,52 @@ python -m nicabot.backtest   # backtest con el mismo motor
 
 ## Limitaciones conocidas
 
-- Kraken solo da las últimas 720 velas de 4h (~240 velas de 12h, unos 4 meses).
-  La EMA200 es poco precisa con tan poca historia; el caché `datos_velas/` crece
-  con cada corrida y mejora con el tiempo. El backtest también cubre poco tiempo.
+- Kraken solo da las últimas 720 velas de cada intervalo y **no permite paginar
+  más atrás** con el endpoint OHLC (el parámetro `since` no trae datos más
+  viejos). 720 velas de 4h = ~240 velas de 12h (unos 4 meses), menos que
+  `min_velas_ema` (250). Por eso:
+  - el caché `datos_velas/` crece con cada corrida;
+  - si hay menos de `min_velas_ema` velas reales y `semilla_1d` está activo, se
+    anteponen velas 12h **aproximadas** construidas desde velas de 1d (Kraken da
+    ~2 años de 1d). Solo sirven para calentar la EMA200; las señales y
+    operaciones usan solo velas reales;
+  - si aun así no hay `min_velas_ema` velas, el par NO abre posiciones nuevas
+    (sí gestiona salidas). El backtest también cubre poco tiempo.
 - Esto no es asesoría financiera. Los resultados pasados no garantizan nada.
+
+## Horarios (UTC) y vigilancia de stops
+
+- `paper_trading.yml`: `2 0,12 * * *`, 2 min después del cierre de cada vela de 12h.
+- `vigilancia_stops.yml`: `7,27,47 * * * *`. Revisa las posiciones abiertas con el
+  precio **vivo** del ticker público de Kraken y cierra en paper al tocar stop,
+  take-profit o trailing, al precio vivo (con comisión y slippage). No abre
+  posiciones ni manda órdenes reales.
+- Las dos (y `reactivar_bot.yml`) comparten el grupo de concurrencia `estado-json`,
+  así nunca escriben `estado.json` a la vez. El push reintenta con `git pull --rebase`.
+  Nota: GitHub solo deja una corrida *pendiente* por grupo; si se juntan, la más
+  vieja pendiente puede cancelarse (la siguiente vigilancia corre 20 min después).
+- Los demás workflows se movieron fuera de la hora en punto (:13, :17, :23, :41).
+
+## Guardia de entrada
+
+Antes de comprar se lee el precio vivo. Se salta la compra si la vela de la
+señal cerró hace más de `entrada.max_horas_desde_cierre` (3h) o si el precio
+cayó más de `max_caida_pct` (2%) o subió más de `max_subida_pct` (3%) respecto
+al cierre de la señal. La compra se llena al precio vivo.
+
+## Google Drive (error 403 "Service Accounts do not have storage quota")
+
+Las cuentas de servicio no tienen espacio propio en Drive, así que no pueden
+**crear** archivos en una carpeta de "Mi unidad". Ahora este error **no es fatal**:
+se registra un aviso claro y el bot sigue (el resumen queda local y en el repo).
+Para arreglarlo, elige una opción:
+
+1. **Unidad compartida (recomendado, requiere Google Workspace):** crea una
+   Unidad compartida, agrega el correo de la cuenta de servicio como
+   "Administrador de contenido" y pon el ID de una carpeta de esa unidad en
+   `DRIVE_FOLDER_ID` (o `drive.folder_id`). El código ya usa `supportsAllDrives`.
+2. **Archivos creados por ti:** crea tú mismo `senal_multi.txt` y `senal_sol.txt`
+   en la carpeta y compártelos con la cuenta de servicio como Editor; el bot solo
+   los *actualiza* (no gasta cuota de la cuenta de servicio).
+3. **OAuth de usuario:** usar credenciales OAuth de tu cuenta en vez de la cuenta
+   de servicio (requiere crear un secreto nuevo; no implementado aquí).
