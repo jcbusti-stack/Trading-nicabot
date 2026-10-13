@@ -31,4 +31,9 @@ jobs:
           git config user.email "bot@trading.local"
           git add estado.json
           git diff --quiet --cached || git commit -m "Reactivar bot despues de kill switch"
-          git push || (git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" && git push)
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || { git rebase --abort; exit 1; }
+            sleep $((i * 5))
+          done
+          exit 1

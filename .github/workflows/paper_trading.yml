@@ -5,7 +5,7 @@ on:
     # Mexico (CDMX) no usa horario de verano desde 2022, se mantiene en UTC-6 todo el año.
     # 2 min despues del cierre de cada vela de 12h de Kraken (00:00 y 12:00 UTC = 6:02 PM y 6:02 AM CDMX).
     # Va antes de la vigilancia (:07) porque GitHub solo deja UNA corrida pendiente por grupo de concurrencia.
-    - cron: '2 0,12 * * *'
+    - cron: '17 0,12 * * *'   # minuto 17: evita la hora en punto, cuando GitHub retrasa o descarta crons
   workflow_dispatch:
 
 permissions:
