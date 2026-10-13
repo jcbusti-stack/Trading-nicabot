@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "cash": 987.5109254956836,
+  "cash": 1096.4995089023473,
   "historial": [
     {
       "entrada": 108.22,
@@ -9,24 +9,24 @@
       "fecha_salida": "2026-09-28 12:00:00+00:00",
       "resultado_pct": 10.64,
       "par": "SOL/USD"
+    },
+    {
+      "par": "ONDO/USD",
+      "entrada": 0.50489232,
+      "salida": 0.46542717,
+      "fecha_entrada": "2026-10-12 00:00:00+00:00",
+      "fecha_salida": "2026-10-13 12:39:50.986584+00:00",
+      "resultado_pct": -7.82,
+      "pnl_usd": -9.86,
+      "cantidad": 234.77935851257195,
+      "motivo": "stop-loss (vigilancia)"
     }
   ],
   "pico_capital": 1106.3574200702274,
   "kill_switch_activo": false,
   "kill_switch_fecha": null,
-  "comisiones_totales": 0.3081995670195629,
-  "posiciones": {
-    "ONDO/USD": {
-      "precio_entrada": 0.50489232,
-      "fecha_entrada": "2026-10-12 00:00:00+00:00",
-      "cantidad": 234.77935851257195,
-      "stop": 0.4695498575999999,
-      "precio_maximo": 0.50489232,
-      "take_profit": 0.6109197072000001,
-      "costo_entrada": 118.84649457454374,
-      "ultimo_precio": 0.4779
-    }
-  },
+  "comisiones_totales": 0.5923085672775595,
+  "posiciones": {},
   "ultima_vela": {
     "ADA/USD": "2026-10-12 00:00:00+00:00",
     "AVAX/USD": "2026-10-12 00:00:00+00:00",
