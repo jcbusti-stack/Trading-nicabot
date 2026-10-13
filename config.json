@@ -14,7 +14,25 @@
     "rsi_salida": 75,
     "atr_periodo": 14,
     "min_velas_ema": 250,
-    "semilla_1d": true
+    "semilla_1d": true,
+    "filtros": {
+      "volumen": {
+        "enabled": true,
+        "periodo": 20,
+        "factor": 1.0
+      },
+      "volatilidad": {
+        "enabled": false,
+        "_nota": "atr_pct_max por par en ajustes_por_par (percentil 90 de ATR% de 3 anos). Apagado: en walk-forward no mejoro."
+      },
+      "multi_marco": {
+        "enabled": true,
+        "ema_diaria": 50,
+        "usar_diario": true,
+        "usar_macd_4h": true
+      },
+      "_nota": "Encendidos solo los que no empeoraron fuera de muestra (ver reportes/optimizacion.md)."
+    }
   },
   "entrada": {
     "usar_precio_vivo": true,
@@ -85,6 +103,13 @@
         "stop_pct": 8.0,
         "riesgo_por_operacion_pct": 0.5,
         "max_por_activo_pct": 10.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 9.6
+          }
+        }
       }
     },
     "SHIB/USD": {
@@ -92,6 +117,13 @@
         "stop_pct": 8.0,
         "riesgo_por_operacion_pct": 0.5,
         "max_por_activo_pct": 10.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 6.83
+          }
+        }
       }
     },
     "BONK/USD": {
@@ -99,6 +131,13 @@
         "stop_pct": 8.0,
         "riesgo_por_operacion_pct": 0.5,
         "max_por_activo_pct": 10.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 9.74
+          }
+        }
       }
     },
     "WLFI/USD": {
@@ -106,6 +145,13 @@
         "stop_pct": 8.0,
         "riesgo_por_operacion_pct": 0.5,
         "max_por_activo_pct": 10.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 6.11
+          }
+        }
       }
     },
     "DOGE/USD": {
@@ -113,6 +159,13 @@
         "stop_pct": 8.0,
         "riesgo_por_operacion_pct": 0.5,
         "max_por_activo_pct": 10.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 7.24
+          }
+        }
       }
     },
     "ONDO/USD": {
@@ -120,6 +173,13 @@
         "stop_pct": 7.0,
         "riesgo_por_operacion_pct": 0.75,
         "max_por_activo_pct": 15.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 7.26
+          }
+        }
       }
     },
     "KAS/USD": {
@@ -127,6 +187,13 @@
         "stop_pct": 7.0,
         "riesgo_por_operacion_pct": 0.75,
         "max_por_activo_pct": 15.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 7.9
+          }
+        }
       }
     },
     "SUI/USD": {
@@ -134,6 +201,13 @@
         "stop_pct": 7.0,
         "riesgo_por_operacion_pct": 0.75,
         "max_por_activo_pct": 15.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 8.03
+          }
+        }
       }
     },
     "ENA/USD": {
@@ -141,6 +215,13 @@
         "stop_pct": 7.0,
         "riesgo_por_operacion_pct": 0.75,
         "max_por_activo_pct": 15.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 10.06
+          }
+        }
       }
     },
     "MNT/USD": {
@@ -148,9 +229,95 @@
         "stop_pct": 7.0,
         "riesgo_por_operacion_pct": 0.75,
         "max_por_activo_pct": 15.0
+      },
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 6.62
+          }
+        }
+      }
+    },
+    "BTC/USD": {
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 3.45
+          }
+        }
+      }
+    },
+    "ETH/USD": {
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 4.94
+          }
+        },
+        "ema_rapida": 20,
+        "ema_lenta": 50,
+        "rsi_max_entrada": 70
+      },
+      "riesgo": {
+        "take_profit_r": 4.0,
+        "stop_modo": "pct",
+        "stop_pct": 4.0
+      },
+      "_optimizado": "walk-forward, ver reportes/optimizacion.md"
+    },
+    "SOL/USD": {
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 6.79
+          }
+        }
+      }
+    },
+    "AVAX/USD": {
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 7.27
+          }
+        },
+        "ema_rapida": 20,
+        "ema_lenta": 50,
+        "rsi_max_entrada": 70
+      },
+      "riesgo": {
+        "take_profit_r": 4.0,
+        "stop_modo": "atr",
+        "stop_atr_mult": 3.0
+      },
+      "_optimizado": "walk-forward, ver reportes/optimizacion.md"
+    },
+    "ADA/USD": {
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 6.97
+          }
+        }
+      }
+    },
+    "XRP/USD": {
+      "estrategia": {
+        "filtros": {
+          "volatilidad": {
+            "atr_pct_max": 6.27
+          }
+        }
       }
     }
   },
   "_comentario": "Datos y ordenes en Kraken (USD). Pares no listados se omiten con aviso. ajustes_por_par sobrescribe estrategia/riesgo/costos para ese par.",
-  "dir_cache_velas": "datos_velas"
+  "dir_cache_velas": "datos_velas",
+  "revision_mensual": {
+    "enabled": true,
+    "ultimas_n": 12,
+    "min_operaciones": 8,
+    "enfriamiento_dias": 60,
+    "_nota": "Dia 1 de cada mes: desactiva entradas nuevas de un par si sus ultimas N operaciones (min 8) tienen expectativa negativa; se reactiva tras el enfriamiento."
+  }
 }

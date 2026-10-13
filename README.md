@@ -161,3 +161,44 @@ Para arreglarlo, elige una opción:
    los *actualiza* (no gasta cuota de la cuenta de servicio).
 3. **OAuth de usuario:** usar credenciales OAuth de tu cuenta en vez de la cuenta
    de servicio (requiere crear un secreto nuevo; no implementado aquí).
+
+## Mejoras de precisión (walk-forward, filtros y revisión mensual)
+
+### Historia larga y optimización por moneda
+Kraken solo da 720 velas, así que para probar con años de datos se usa
+`nicabot/historia.py` (SOLO para backtest, nunca para operar):
+1. `data.binance.vision` (archivos públicos de Binance, par XXX/USDT, velas 4h desde 2019).
+2. KuCoin vía ccxt si Binance no tiene el par (KAS, MNT).
+3. Kraken (720 velas) como último recurso.
+USDT se usa como aproximación de USD. El cache queda en `datos_historia/` (no se sube a git).
+
+```bash
+python -m nicabot.optimizacion                    # solo reporte
+python -m nicabot.optimizacion --escribir-config  # además escribe config.json
+```
+También existe el workflow manual **Optimizacion Walk-Forward** (deja el reporte como artefacto, no cambia config).
+
+Método: velas 12h (desde 4h), entrenar 18 meses → probar los 6 meses siguientes
+(fuera de muestra), ventana rodante. Rejilla pequeña: stop (4/6/8% o 2/3×ATR),
+EMAs (9/21, 12/26, 20/50), RSI máx (60/65/70), TP (2/3/4 R). Mínimo 6 operaciones
+para elegir y la puntuación se promedia con las combinaciones vecinas (prefiere
+zonas estables). Comisión 0.26% + slippage 0.05% por lado y filtro BTC incluidos.
+Los parámetros ajustados de un par solo se escriben en `ajustes_por_par` si fuera de
+muestra ganan ≥1 punto de retorno, no bajan el PF y tienen ≥10 operaciones.
+Resultados: `reportes/optimizacion.md` (y `.json`).
+
+### Filtros de entrada (`estrategia.filtros` en config.json)
+Solo afectan entradas; si falta el dato no bloquean.
+- `volumen`: volumen de la vela > SMA(`periodo`) del volumen × `factor`. **Encendido** (mejoró fuera de muestra).
+- `multi_marco`: cierre diario > EMA50 diaria **y** MACD 4h > señal (con velas ya cerradas). **Encendido** (mejoró el PF).
+- `volatilidad`: no entra si ATR% > `atr_pct_max` del par (en `ajustes_por_par`). **Apagado** (no mejoró).
+- Stop por ATR: `riesgo.stop_modo: "atr"` + `stop_atr_mult` (se puede poner por par).
+
+### Revisión mensual (`revision_mensual` en config.json)
+El workflow **Revision Mensual por Moneda** corre el día 1 de cada mes (15:41 UTC = 9:41 AM CDMX),
+en el mismo grupo de concurrencia `estado-json`. Con el historial de `estado.json`:
+si un par tiene expectativa negativa en sus últimas `ultimas_n` operaciones
+(mínimo `min_operaciones`, 8), se desactivan sus entradas nuevas por
+`enfriamiento_dias` (60). Las posiciones abiertas siguen con su stop/TP. Al
+terminar el enfriamiento se reactiva y se cuenta de cero. Reporte en
+`reportes/revision_mensual.md`; el estado queda en `estado.json` → `revision`.
