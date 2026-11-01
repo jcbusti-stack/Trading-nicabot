@@ -47,5 +47,10 @@
   },
   "en_posicion": false,
   "precio_entrada": null,
-  "fecha_entrada": null
+  "fecha_entrada": null,
+  "revision": {
+    "desactivados": {},
+    "reactivados": {},
+    "ultima": "2026-11-01T19:53:19.190860+00:00"
+  }
 }
